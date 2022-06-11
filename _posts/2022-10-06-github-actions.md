@@ -59,7 +59,7 @@ _Estructura de archivos_
 
 * index.html
 
-``` html
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
