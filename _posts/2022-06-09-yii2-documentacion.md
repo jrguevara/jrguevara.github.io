@@ -1,7 +1,7 @@
 ---
 title: Documentación en Yii2
 date: 2022-06-09 03:00:00 -500
-categories: [documentacion, yii2]
+categories: [yii2]
 tags: [documentacion, yii2, calidad de software, programacion]
 ---
 

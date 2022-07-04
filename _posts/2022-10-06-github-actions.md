@@ -1,7 +1,7 @@
 ---
 title: GitHub Actions
 date: 2022-06-10 20:00:00 -500
-categories: [despliegue, github, CI/CD]
+categories: [CI/CD]
 tags: [github, CI/CD, calidad de software, programacion]
 ---
 
