@@ -14,7 +14,7 @@ Al definir y separar los conceptos involucrados en la administración del estado
 
 Esta es la idea básica detrás de Vuex, inspirada en Flux, Redux y The Elm Architecture. A diferencia de los otros patrones, Vuex también es una implementación de biblioteca diseñada específicamente para Vue.js para aprovechar su sistema de reactividad granular para actualizaciones eficientes.
 
- ![VUEX](/assets/images/vuex-02.png)
+ ![VUEX](https://vuex.vuejs.org/vuex.png)
 _Arquitectura de VUEX_
 
 ## ¿Cuándo debo usarlo?
