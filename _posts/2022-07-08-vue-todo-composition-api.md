@@ -18,6 +18,11 @@ hidden: false
 
 ## Creacion de Proyecto
 * Crear Proyecto con Vue CLI o UI
+ ![VUE CLI](/assets/images/vue-todo-7.png)
+_CLI de Vue_
+
+ ![VUE CLI](/assets/images/vue-todo-8.png)
+_CLI de Vue_
 
 * Limpiar App.vue y borrar componente HelloWorld.vue
 
