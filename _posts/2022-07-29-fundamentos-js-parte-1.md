@@ -23,7 +23,7 @@ JavaScript fue desarrollado originalmente por Brendan Eich de Netscape  con el
 
 ## Agregando JavaScript
 
-1 - En el head o cabecera de un archivo html con las etiquetas _**<script>**_  
+1 - En el head o cabecera de un archivo html con las etiquetas `<script>  </script>`
 
 ``` html
 <!DOCTYPE html>
@@ -118,7 +118,7 @@ alert("Alerta con JavaScript 🎉 🎆 🎊")
 - [`const`](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Statements/const)
 - [`continue`](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Statements/continue)
 - [`debugger`](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Statements/debugger)
-- [`default`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch "Currently only available in English (US)")
+- [`default`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch)
 - [`delete`](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/delete)
 - [`do`](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Statements/do...while)
 - [`else`](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Statements/if...else)
@@ -142,7 +142,7 @@ alert("Alerta con JavaScript 🎉 🎆 🎊")
 - [`var`](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Statements/var)
 - [`void`](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/void)
 - [`while`](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Statements/while)
-- [`with`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/with "Currently only available in English (US)")
+- [`with`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/with)
 - [`yield`](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/yield)
 
 ### Futuras palabras clave reservadas
