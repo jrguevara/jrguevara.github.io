@@ -139,3 +139,172 @@ console.log(estado)
 ```
 
 Algunos desarrolladores prefieren asignar todas sus variables usando `const` de forma predeterminada, a menos que sepan que necesitarán reasignar el valor. Solo en ese caso, usan `let`.
+
+## Array vs const
+
+Es importante comprender que los objetos **(incluidos los arreglos y las funciones)** asignados a una variable mediante el uso `const` **siguen siendo mutables**. El uso de `const` solo evita la reasignación del identificador de variable.
+  
+Error:
+
+```javascript
+const miArray = []
+miArray = ["nuevoElemento"]
+```
+
+Válido:
+
+``` javascript
+const miArray = []
+miArray[0] = ["nuevoElemento"]
+console.log(miArray)
+```
+
+## Métodos basicos Array (push, pop, shift, unshift)
+
+El método `push()` añade uno o más elementos al final de un array y devuelve la nueva longitud del array.
+
+```javascript
+const frutas = ["Banana"]
+frutas.push("Sandía")
+console.log(frutas)
+```
+
+El método `unshift()` agrega uno o más elementos al inicio del array, y devuelve la nueva longitud del array.
+
+```javascript
+const frutas = ["Banana"]
+frutas.unshift("Sandía")
+console.log(frutas)
+```
+
+El método `pop()` elimina el último elemento de un array y lo devuelve. Este método cambia la longitud del array.
+
+```javascript
+const frutas = ["manzana", "pera"]
+
+frutas.unshift("uva")
+
+const frutaEliminada = frutas.pop()
+
+console.log(frutas)
+console.log(frutaEliminada)
+```
+
+El método shift() elimina el primer elemento del array y lo retorna. Este método modifica la longitud del array.
+
+```javascript
+const frutas = ["manzana", "pera"]
+
+frutas.unshift("uva")
+
+const frutaEliminada = frutas.shift()
+
+console.log(frutas)
+console.log(frutaEliminada)
+```
+
+## Funciones anónimas
+
+En JavaScript, usualmente no necesitas nombrar tus funciones, especialmente cuando se pasa una función como argumento a otra función. En su lugar, creamos funciones inline (en línea). No necesitamos nombrar estas funciones porque no las reutilizamos en otro lugar.
+
+- Función declarativa:
+
+```javascript
+// declaro la función
+function numAleatorioRango(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min
+}
+
+// invoco la función
+console.log(numAleatorioRango(1, 11))
+```
+
+- Función expresada:
+
+Anónima (expresada en una variable):
+
+```javascript
+const miNumero = function (min, max) {
+    return Math.floor(Math.random() * (max - min)) + min
+}
+console.log(miNumero(1, 11))
+```
+
+Diferencia declarativa vs Expresada:
+
+```javascript
+console.log(miNumero(1, 11))
+const miNumero = function (min, max) {
+    return Math.floor(Math.random() * (max - min)) + min
+}
+```
+> La forma correcta de definir una función varía según el comportamiento que esperemos de la misma: **con las funciones declaradas, tenemos la seguridad de que siempre estarán disponibles en tiempo de ejecución**. Con las funciones expresadas, tendremos que éstas no son evaluadas hasta que el intérprete no alcance su posición en el código, lo cual puede generar errores en arquitecturas muy anidadas.  
+> El hecho de que las funciones declarativas se evalúen antes que las expresiones, pueden producir comportamientos no deseados cuando forman parte de condicionales. Para estos casos, **el uso de las funciones expresadas garantiza que éstas formarán parte del flujo general del programa**, lo cual puede evitarnos sorpresa en determinados entornos.
+
+## Arrow functions
+
+- [Arrow functions](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Functions/Arrow_functions): Una expresión de función flecha es una alternativa compacta a una expresión de función tradicional
+
+```javascript
+const miNumeroFlecha = (max) => {
+    return Math.floor(Math.random() * (max - 1)) + 1
+}
+
+console.log(miNumeroFlecha(11))
+```
+
+Reducción:
+
+```javascript
+const miNumeroFlecha = max => Math.floor(Math.random() * (max - 1)) + 1
+        
+console.log(miNumeroFlecha(11))
+```
+
+Reducción con paréntesis:
+
+```javascript
+const miNumeroFlecha = max => (Math.floor(Math.random() * (max - 1)) + 1)
+        
+console.log(miNumeroFlecha(11))
+```
+
+Más parámetros:
+
+```javascript
+const miNumeroFlecha = (min, max) => Math.floor(Math.random() * (max - min)) + min
+
+console.log(miNumeroFlecha(1, 11))
+```
+
+Parámetros opcionales (también se puede hacer con function):
+
+```javascript
+const miNumeroFlecha = (min = 1, max = 10) => Math.floor(Math.random() * (max - min)) + min
+
+console.log(miNumeroFlecha())
+```
+
+> Limitantes:
+> - No tiene sus propios enlaces a this o super y no se debe usar como métodos.
+> - No tiene argumentos o palabras clave new.target.
+> - No apta para los métodos call, apply y bind, que generalmente se basan en establecer un ámbito o alcance
+> - No se puede utilizar como constructor.
+
+## Arrow & forEach()
+
+- [forEach()](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach): El método `forEach()` ejecuta la función indicada una vez por cada elemento del array.
+
+```javascript
+let frutas = ["manzana", "sandía", "pera"]
+frutas.forEach(fruta => console.log(fruta))
+```
+
+```javascript
+let frutas = ["manzana", "sandía", "pera"]
+frutas.forEach((fruta, index, array) => {
+    console.log(index)
+    console.log(fruta)
+    console.log(array)
+})
+```
