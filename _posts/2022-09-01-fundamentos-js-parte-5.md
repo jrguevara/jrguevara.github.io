@@ -240,3 +240,380 @@ boton.addEventListener("click", () => {
     parrafo.style.backgroundColor = "red"
 });
 ```
+## createElement
+
+- [createElement](https://developer.mozilla.org/es/docs/Web/API/Document/createElement): El método `document.createElement()` crea un elemento HTML especificado por su tagName.
+
+  
+
+Crear un `<li>` 
+
+```javascript
+const li = document.createElement("li")
+li.textContent = "item desde javascript"
+console.log(li)
+```
+
+  
+
+## appendChild
+
+- [appendChild](https://developer.mozilla.org/es/docs/Web/API/Node/appendChild): Agrega un nuevo nodo al final de la lista de un elemento hijo de un elemento padre especificado.
+
+  
+
+```html
+<ul id="listaDinamica">
+    <li>Elemento estático</li>
+</ul>
+```
+
+  
+
+```javascript
+// elemento donde vamos a incorporar los <li>
+const listaDinamica = document.querySelector("#listaDinamica")
+
+// Creamos el <li>
+const li = document.createElement("li")
+
+// Agregamos texto al <li>
+li.textContent = "item desde javascript"
+
+// Finalmente incorporamos al <ul>
+listaDinamica.appendChild(li)
+listaDinamica.appendChild(li)
+```
+
+  
+
+CONSIDERACIONES:
+
+- Si el **child hace una referencia a un nodo existente en el documento**, el método appendChild se mueve de su posición actual a su nueva posición.
+- Ésto significa que el nodo no puede estar en dos puntos del documento de manera simultánea.
+- Así que si el nodo ya contiene un padre, primero es eliminado, y después se añade a la nueva posición.
+- Se puede usar [Node.cloneNode](https://developer.mozilla.org/es/docs/Web/API/Node/cloneNode) para hacer una copia del nodo antes de añadirlo debajo de su nuevo elemento padre.
+
+  
+
+No recomendado:
+
+```javascript
+const listaDinamica = document.querySelector("#listaDinamica")
+
+const arrayHeroes = ["Spiderman", "IronMan", "BlackWidow"]
+
+arrayHeroes.forEach((heroe) => {
+    const li = document.createElement("li")
+    li.textContent = heroe
+    listaDinamica.appendChild(li)
+})
+```
+
+  
+
+Reflow  
+
+Aquí se genera [Reflow:](https://developer.mozilla.org/en-US/docs/Glossary/reflow) Ocurre cuando un navegador debe procesar y renderizar parte o la totalidad de una página web nuevamente, como después de una actualización en un sitio interactivo.
+
+  
+
+## Fragment
+
+- [new DocumentFragment()](https://developer.mozilla.org/es/docs/Web/API/DocumentFragment)
+- [createDocumentFragment()](https://developer.mozilla.org/es/docs/Web/API/Document/createDocumentFragment)
+- La interfaz DocumentFragment representa un objeto de documento mínimo que no tiene padre.
+- Se utiliza como una versión ligera de Document que almacena un segmento de una estructura de documento compuesta de nodos como un documento estándar.
+- La gran diferencia se debe al hecho de que **el fragmento de documento no forma parte de la estructura de árbol del documento activo.**
+- Los cambios realizados en el fragmento no afectan el documento (incluso en reflow) ni inciden en el rendimiento cuando se realizan cambios.
+
+  
+
+```javascript
+const listaDinamica = document.querySelector("#listaDinamica")
+
+const arrayHeroes = ["Spiderman", "IronMan", "BlackWidow"]
+
+const fragment = document.createDocumentFragment()
+
+arrayHeroes.forEach((heroe) => {
+    const li = document.createElement("li")
+    li.textContent = heroe
+    fragment.appendChild(li)
+})
+
+listaDinamica.appendChild(fragment)
+```
+
+  
+
+##  insertBefore
+
+- [firstChild](https://developer.mozilla.org/en-US/docs/Web/API/Node/firstChild)
+- [insertBefore](https://developer.mozilla.org/es/docs/Web/API/Node/insertBefore)
+
+  
+
+```
+parentNode.insertBefore(newNode, referenceNode);
+```
+
+  
+
+```javascript
+arrayHeroes.forEach((heroe) => {
+    const newNode = document.createElement("li")
+    newNode.textContent = heroe
+
+    // Nos devuelve el primer elemento
+    const referenceNode = fragment.firstChild
+
+    // En caso de que no exista un nodo hijo mostrara null
+    console.log("primer newNode", referenceNode)
+
+    // Si "referenceNode" es null, el newNode se insertará al final de la lista.
+    fragment.insertBefore(newNode, referenceNode)
+})
+```
+
+  
+
+## Ejemplo createElement
+
+Supongamos que necesitamos incorporar de forma dinámica este elemento:
+
+  
+
+```html
+<li class="list">
+  <b>Heroe: </b> <span class="text-primary">aquí va el heroe</span>
+</li>
+```
+
+  
+
+```javascript
+const listaDinamica = document.querySelector("#listaDinamica")
+
+const arrayHeroes = ["Spiderman", "IronMan", "BlackWidow"]
+
+const fragment = new DocumentFragment()
+
+arrayEHeroes.forEach((heroe) => {
+    const li = document.createElement("li")
+    li.className = "list"
+
+    const bold = document.createElement("b")
+    bold.textContent = "Heroe: "
+
+    const span = document.createElement("span")
+    span.className = "text-primary"
+    span.textContent = heroe
+
+    li.appendChild(bold)
+    li.appendChild(span)
+    fragment.appendChild(li)
+})
+
+listaDinamica.appendChild(fragment)
+```
+
+  
+
+## template
+
+- [template](https://developer.mozilla.org/es/docs/Web/HTML/Element/template): es un mecanismo para mantener el contenido HTML del lado del cliente que no se renderiza cuando se carga una página, pero que posteriormente puede ser instanciado durante el tiempo de ejecución empleando JavaScript.
+- Piensa en la plantilla como un fragmento de contenido que está siendo almacenado para un uso posterior en el documento.
+- El analizador procesa el contenido del elemento `<template>` durante la carga de la página, pero sólo lo hace para asegurar que esos contenidos son válidos; sin embargo, estos contenidos del elemento no se renderizan.
+- los elementos `<template>` contienen un **DocumentFragment** en su propiedad **HTMLTemplateElement.content**.
+    
+
+```html
+<ul id="listaDinamica"></ul>
+
+    <template id="template">
+        <li class="list">
+            <b>Heroe: </b> <span class="text-primary">aquí va el heroe</span>
+        </li>
+    </template>
+
+<script src="app.js"></script>
+```
+
+  
+
+```javascript
+const listaDinamica = document.querySelector("#listaDinamica")
+
+const template = document.querySelector("#template")
+// es aconsejable clonar
+const clone = template.content.cloneNode(true)
+
+//console.log(clone)
+
+clone.querySelector("span").textContent = "Spiderman"
+
+listaDinamica.appendChild(clone)
+```
+
+  
+
+### Fragment + Template
+
+```javascript
+const listaDinamica = document.querySelector("#listaDinamica")
+const fragment = document.createDocumentFragment()
+const template = document.querySelector("#template")
+
+const arrayHeroes = ["Spiderman", "IronMan", "BlackWidow"]
+
+arrayHeroes.forEach((heroe) => {
+    const clone = template.content.cloneNode(true)
+    clone.querySelector("span").textContent = heroe
+    fragment.appendChild(clone)
+});
+
+listaDinamica.appendChild(fragment)
+```
+
+  
+
+> **OJO**  
+> HTMLTemplateElement tiene una propiedad **content**, que es de **solo lectura** y DocumentFragment contiene el subárbol DOM que representa la plantilla. **Tener en cuenta que el uso directo del valor de content** podría provocar un comportamiento inesperado; consulte la sección [Evitar el error de DocumentFragment](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#avoiding_documentfragment_pitfall).
+
+  
+
+```javascript
+const listaDinamica = document.querySelector("#listaDinamica")
+const arrayHeroes = ["Spiderman", "IronMan", "BlackWidow"]
+const fragment = document.createDocumentFragment()
+const template = document.querySelector("#template")
+
+const clickHeroe = (e) => console.log("Evento click: ", e.target)
+
+arrayHeroes.forEach((heroe) => {
+    const clone = template.content.firstElementChild.cloneNode(true) // se añade firstElementChild
+    clone.querySelector("span").textContent = heroe
+    clone.addEventListener("click", clickHeroe)
+    fragment.appendChild(clone)
+});
+
+listaDinamica.appendChild(fragment)
+```
+
+
+## Carrito con objeto
+
+  
+```html
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito con Objetos</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-lg-12">
+            <img src="assets/img/logo.png" style="max-width:20%;" class="img-responsive center-block d-block mx-auto" alt="Sample Image">
+        </div>
+    </div>
+
+    <main class="container mt-5">
+        <div class="row text-center">
+            <article class="col-sm-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Cóctel 🍸</h5>
+                        <button class="btn btn-primary" data-bebida="Cóctel 🍸">Agregar</button>
+                    </div>
+                </div>
+            </article>
+            <article class="col-sm-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Cerveza 🍺</h5>
+                        <button class="btn btn-primary" data-bebida="Cerveza 🍺">Agregar</button>
+                    </div>
+                </div>
+            </article>
+            <article class="col-sm-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Vino 🍷</h5>
+                        <button class="btn btn-primary" data-bebida="Vino 🍷">Agregar</button>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <section class="container mt-3">
+        <ul class="list-group" id="carrito">
+            <!--li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="lead">items</span>
+                <span class="badge bg-primary rounded-pill">14</span>
+            </li-->
+        </ul>
+    </section>
+
+    <template id="template">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span class="lead">items</span>
+            <span class="badge bg-primary rounded-pill">0</span>
+        </li>
+    </template>
+
+    <script src="src/script.js"></script>
+</body>
+
+</html>
+```
+
+
+```javascript
+const carrito = document.querySelector("#carrito")
+const template = document.querySelector("#template")
+const fragment = document.createDocumentFragment()
+const agregar = document.querySelectorAll(".card button")
+
+const carritoObjeto = {}
+
+const agregarCarrito = (e) => {
+
+    const producto = {
+        titulo: e.target.dataset.bebida,
+        id: e.target.dataset.bebida,
+        cantidad: 1,
+    }
+
+    if (carritoObjeto.hasOwnProperty(producto.id)) {
+        producto.cantidad = carritoObjeto[producto.id].cantidad + 1
+    }
+
+    carritoObjeto[producto.id] = producto
+
+    mostrarCarrito()
+}
+
+agregar.forEach((boton) => boton.addEventListener("click", agregarCarrito))
+
+const mostrarCarrito = () => {
+    carrito.textContent = ""
+
+    Object.values(carritoObjeto).forEach((item) => {
+        const clone = template.content.cloneNode(true)
+        clone.querySelector(".lead").textContent = item.titulo
+        clone.querySelector(".rounded-pill").textContent = item.cantidad
+        fragment.appendChild(clone)
+    });
+    carrito.appendChild(fragment)
+}
+```
