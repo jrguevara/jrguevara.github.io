@@ -532,7 +532,7 @@ listaDinamica.appendChild(fragment)
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Cóctel 🍸</h5>
-                        <button class="btn btn-primary" data-bebida="Cóctel 🍸">Agregar</button>
+                        <button class="btn btn-primary" data-id="1" data-bebida="Cóctel 🍸">Agregar</button>
                     </div>
                 </div>
             </article>
@@ -540,7 +540,7 @@ listaDinamica.appendChild(fragment)
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Cerveza 🍺</h5>
-                        <button class="btn btn-primary" data-bebida="Cerveza 🍺">Agregar</button>
+                        <button class="btn btn-primary" data-id="2" data-bebida="Cerveza 🍺">Agregar</button>
                     </div>
                 </div>
             </article>
@@ -548,7 +548,7 @@ listaDinamica.appendChild(fragment)
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Vino 🍷</h5>
-                        <button class="btn btn-primary" data-bebida="Vino 🍷">Agregar</button>
+                        <button class="btn btn-primary" data-id="3" data-bebida="Vino 🍷">Agregar</button>
                     </div>
                 </div>
             </article>
@@ -590,7 +590,7 @@ const agregarCarrito = (e) => {
 
     const producto = {
         titulo: e.target.dataset.bebida,
-        id: e.target.dataset.bebida,
+        id: e.target.dataset.id,
         cantidad: 1,
     }
 
