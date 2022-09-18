@@ -502,7 +502,7 @@ listaDinamica.appendChild(fragment)
 ```
 
 
-## Carrito con objeto
+## Bar con objetos
 
   
 ```html
@@ -615,5 +615,452 @@ const mostrarCarrito = () => {
         fragment.appendChild(clone)
     });
     carrito.appendChild(fragment)
+}
+```
+## Bar con Arrays
+
+```javascript
+const carrito = document.querySelector('#carrito')
+const template = document.querySelector('#template')
+const botones = document.querySelectorAll('.card button')
+const fragment = document.createDocumentFragment()
+const footer = document.querySelector("#footer")
+const templateFooter = document.querySelector("#templateFooter")
+
+const carritoArray = []
+
+const agregarCarrito = (e) => {
+    const producto = {
+        id: e.target.dataset.id,
+        titulo: e.target.dataset.bebida,
+        cantidad: 1,
+    }
+
+    // buscamos el indice
+    const index = carritoArray.findIndex((item) => item.id === producto.id);
+
+    // si no existe empujamos el nuevo elemento
+    if (index === -1) {
+        carritoArray.push(producto);
+    } else {
+        // en caso contrario aumentamos su cantidad
+        carritoArray[index].cantidad++;
+    }
+
+    mostrarCarrito()
+}
+
+botones.forEach((boton) => boton.addEventListener("click", agregarCarrito))
+
+const mostrarCarrito = () => {
+    carrito.textContent = ''
+
+    carritoArray.forEach((item) => {
+        const clone = template.content.cloneNode(true);
+        clone.querySelector(".lead").textContent = item.titulo;
+        clone.querySelector(".rounded-pill").textContent = item.cantidad;
+        fragment.appendChild(clone);
+    });
+
+    carrito.appendChild(fragment)
+}
+```
+
+## El burbujeo y la captura
+
+El **burbujeo y la captura** de eventos son dos mecanismos que describen lo que sucede cuando dos controladores del mismo tipo de evento se activan en un elemento.
+
+  
+
+```html
+<div class="container">
+    <div class="border border-success border-5 py-5 m-3">
+        Elemento Padre
+        <div class="border border-warning border-5 py-5 m-3">
+            Elemento Hijo
+            <div class="border border-danger border-5 py-5 m-3">
+                Elemento Nieto
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+  
+
+Fase de burbuja (bubbling): Se propaga desde el elemento hijo hasta el padre. (comportamiento por defecto)
+
+```javascript
+const padre = document.querySelector(".border-success")
+const hijo = document.querySelector(".border-warning")
+const nieto = document.querySelector(".border-danger")
+
+padre.addEventListener("click", (e) => console.log("padre"))
+hijo.addEventListener("click", (e) => console.log("hijo"))
+nieto.addEventListener("click", (e) => console.log("nieto"))
+```
+
+  
+
+Fase de captura: Se propaga desde el elemento padre hasta el hijo.
+
+```javascript
+primary.addEventListener("click", (e) => console.log("primary"), true)
+secondary.addEventListener("click", (e) => console.log("secondary"), true)
+danger.addEventListener("click", (e) => console.log("danger"), true)
+```
+
+  
+
+## stopPropagation
+
+- [stopPropagation](https://developer.mozilla.org/es/docs/Web/API/Event/stopPropagation): evita la propagación adicional del evento actual en las fases de captura y bubbling.
+
+  
+
+```javascript
+const padre = document.querySelector(".border-success")
+const hijo = document.querySelector(".border-warning")
+const nieto = document.querySelector(".border-danger")
+
+padre.addEventListener("click", (e) => {
+    e.stopPropagation()
+    console.log("padre")
+})
+
+hijo.addEventListener("click", (e) => {
+    e.stopPropagation()
+    console.log("hijo")
+})
+
+nieto.addEventListener("click", (e) => {
+    e.stopPropagation()
+    console.log("nieto")
+})
+```
+
+  
+
+  
+
+```javascript
+const cajas = document.querySelectorAll(".border");
+cajas.forEach((item) => {
+    item.addEventListener("click", (e) => {
+        e.stopPropagation()
+        console.log("click")
+    });
+})
+```
+
+  
+
+## preventDefault
+
+- [preventDefault](https://developer.mozilla.org/es/docs/Web/API/Event/preventDefault): Cancela el evento si este es cancelable, sin detener el resto del funcionamiento del evento, es decir, puede ser llamado de nuevo.
+
+```html
+<form>
+    <input type="text" name="nombre">
+    <button type="submit">Enviar</button>
+</form>
+```
+
+  
+
+```javascript
+const formulario = document.querySelector("form")
+formulario.addEventListener("submit", (e) => {
+    e.preventDefault()
+    console.log("click")
+})
+```
+
+  
+
+Sirve para cualquier comportamiento por defecto del navegador:  
+
+```html
+<a href="#">ancla</a>
+```
+
+  
+
+```javascript
+const ancla = document.querySelector("a")
+ancla.addEventListener("click", (e) => e.preventDefault())
+```
+
+  
+
+## Delegación de Eventos
+
+La delegación de eventos es básicamente un patrón para manejar eventos de manera eficiente.
+
+En lugar de agregar un detector de eventos a todos y cada uno de los elementos similares, podemos agregar un detector de eventos a un elemento principal y llamar a un evento en un objetivo en particular utilizando la propiedad .target del objeto de evento. Así evitamos la propagación
+
+  
+
+```html
+<div class="container">
+    <div id="padre" class="border border-success border-5 py-5 m-3" data-div="divPadre">
+        Elemento Padre
+        <div id="hijo" class="border border-warning border-5 py-5 m-3" data-div="divHijo">
+            Elemento Hijo
+            <div id="nieto" class="border border-danger border-5 py-5 m-3" data-div="divNieto">
+                Elemento Nieto
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+  
+
+```javascript
+const container = document.querySelector(".container")
+container.addEventListener("click", (e) => {
+    console.log(e.target);
+})
+```
+
+  
+
+¿Como activo un evento para un elemento en específico?
+
+- [matches](https://developer.mozilla.org/es/docs/Web/API/Element/matches): El método matches() comprueba si el Element sería seleccionable por el selector CSS especificado en la cadena; en caso contrario, retorna false.
+
+- [dataset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset)
+
+```javascript
+const container = document.querySelector(".container")
+
+container.addEventListener("click", (e) => {
+
+    // console.log(e.target.id);
+    if (e.target.id === "nieto") {
+        console.log("diste click en el nieto")
+    }
+
+    // console.log(e.target.matches(".border-warning"));
+    if (e.target.matches(".border-warning")) {
+        console.log("diste click en el hijo")
+    }
+
+    // data-set
+    // console.log(e.target.dataset["div"]);
+    // console.log(e.target.dataset.div);
+    if (e.target.dataset["div"] === "divPadre") {
+        console.log("diste click en padre")
+    }
+})
+```
+
+## Bar con delegación de eventos
+  
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito con objetos</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-lg-12">
+            <img src="assets/img/logo.png" class="img-responsive center-block d-block mx-auto">
+        </div>
+    </div>
+
+    <main class="container mt-5">
+        <div class="row text-center">
+            <article class="col-sm-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Cóctel 🍸</h3>
+                        <p class="lead">$100</p>
+                        <button class="btn btn-primary" data-id="1" data-bebida="Cóctel 🍸" data-precio="100">Agregar</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="col-sm-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Cerveza 🍺</h3>
+                        <p class="lead">$200</p>
+                        <button class="btn btn-primary" data-id="2" data-bebida="Cerveza 🍺" data-precio="200">Agregar</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="col-sm-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Vino 🍷</h3>
+                        <p class="lead">$300</p>
+                        <button class="btn btn-primary" data-id="3" data-bebida="Vino 🍷" data-precio="300">Agregar</button>
+                    </div>
+                </div>
+            </article>
+
+            <section class="container mt-3">
+                <table class="table table-striped" id="header">
+                    <tbody id="carrito">
+                    </tbody>
+                </table>
+            </section>
+
+            <template id="templateHeader">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Total</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+            </template>
+
+            <template id="template">
+                <tr>
+                    <td id="producto"></td>
+                    <td id="cantidad"></td>
+                    <td id="total">$<span></span></td>
+                    <td>
+                        <button id="btnAumentar" class="btn btn-sm btn-success">+</button>
+                        <button id="btnDisminuir" class="btn btn-sm btn-danger">-</button>
+                    </td>
+                </tr>
+            </template>
+
+            <footer id="footer" class="container mt-3">
+                <template id="templateFooter">
+                    <div class="card">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <p class="lead mb-0">TOTAL: $<span>0</span></p>
+                            <button id="btnFinalizar" class="btn btn-outline-primary">Finalizar Compra</button>
+                        </div>
+                    </div>
+                </template>
+            </footer>
+
+        </div>
+    </main>
+    <script src="src/script.js"></script>
+</body>
+
+</html>
+```
+
+```javascript
+const carrito = document.querySelector('#carrito')
+const template = document.querySelector('#template')
+const botones = document.querySelectorAll('.card button')
+const fragment = document.createDocumentFragment()
+const footer = document.querySelector("#footer")
+const templateFooter = document.querySelector("#templateFooter")
+const header = document.querySelector("#header")
+const templateHeader = document.querySelector("#templateHeader")
+
+let carritoArray = []
+
+document.addEventListener("click", (e) => {
+    if (e.target.matches(".card button")) {
+        agregarCarrito(e)
+    }
+
+    if (e.target.matches("#btnAumentar")) {
+        btnAumentar(e)
+    }
+
+    if (e.target.matches("#btnDisminuir")) {
+        btnDisminuir(e)
+    }
+})
+
+const agregarCarrito = (e) => {
+    const producto = {
+        id: e.target.dataset.id,
+        titulo: e.target.dataset.bebida,
+        cantidad: 1,
+        precio: parseInt(e.target.dataset.precio),
+    }
+
+    const index = carritoArray.findIndex((item) => item.id === producto.id)
+
+    if (index === -1) {
+        carritoArray.push(producto)
+    } else {
+        carritoArray[index].cantidad++
+    }
+
+    mostrarCarrito()
+}
+
+const mostrarCarrito = (
+) => {
+    carrito.textContent = ''
+
+    carritoArray.forEach((item) => {
+        const clone = template.content.cloneNode(true)
+        clone.querySelector("#producto").textContent = item.titulo
+        clone.querySelector("#cantidad").textContent = item.cantidad
+        clone.querySelector("#total span").textContent = item.precio * item.cantidad
+        clone.querySelector(".btn-success").dataset.id = item.id
+        clone.querySelector(".btn-danger").dataset.id = item.id
+
+        fragment.appendChild(clone)
+    });
+
+    carrito.appendChild(fragment)
+
+    mostrarHeaderFooter()
+}
+
+const btnAumentar = (e) => {
+    carritoArray = carritoArray.map((item) => {
+        if (item.id === e.target.dataset.id) {
+            item.cantidad++
+        }
+        return item
+    })
+    mostrarCarrito()
+};
+
+const btnDisminuir = (e) => {
+    carritoArray = carritoArray.filter((item) => {
+        if (item.id === e.target.dataset.id) {
+            if (item.cantidad > 0) {
+                item.cantidad--
+                if (item.cantidad === 0) return
+                return item
+            }
+        } else {
+            return item
+        }
+    })
+    mostrarCarrito()
+};
+
+const mostrarHeaderFooter = (
+) => {
+    header.deleteTHead()
+    footer.textContent = ""
+
+    const total = carritoArray.reduce((acc, current) => acc + current.precio * current.cantidad, 0)
+
+    const cloneHeader = templateHeader.content.cloneNode(true)
+    const cloneFooter = templateFooter.content.cloneNode(true)
+    cloneFooter.querySelector("p span").textContent = total
+
+    header.appendChild(cloneHeader)
+    footer.appendChild(cloneFooter)
 }
 ```
