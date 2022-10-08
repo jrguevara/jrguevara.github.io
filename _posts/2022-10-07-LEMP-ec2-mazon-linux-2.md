@@ -7,6 +7,31 @@ published: true
 hidden: false
 ---
 
+## ¿Qué es LEMP?
+
+LEMP es una variación de la omnipresente pila LAMP utilizada para desarrollar e implementar aplicaciones web.  Tradicionalmente, LAMP consta de Linux, Apache, MySQL y PHP.  Debido a su naturaleza modular, los componentes se pueden intercambiar fácilmente.  Con LEMP, Apache se reemplaza con el Nginx ligero pero potente.
+
+### ¿Por qué LEMP en lugar de LNMP?
+
+Elegimos LEMP debido a la pronunciación de Nginx: Engine-X (en-juhn-ecks).  Piense en cómo en inglés, el artículo an se usa en lugar de a por hora a pesar de que comienza con una consonante.  La importancia es el sonido de la primera letra más que su representación escrita.  Además, LEMP es en realidad pronunciable y no suena como recitar el alfabeto.
+
+![LEMP](https://lemp.io/wp-content/uploads/2021/03/lemp-stack-components-300x177-1.png)
+
+### LINUX
+
+Un sistema operativo similar a Unix de código abierto proporciona la base para los componentes de la pila.  Muchas distribuciones incluyen sistemas de gestión de paquetes que facilitan la instalación de las aplicaciones deseadas.  Sin embargo, estas versiones del repositorio generalmente no serán las más actuales.  Dos de las distribuciones de Linux más utilizadas en pilas LEMP son Debian y Ubuntu.
+
+### Nginx
+
+Nginx es un servidor proxy inverso de código abierto para los protocolos HTTP, HTTPS, SMTP, POP3 e IMAP.  También funciona como equilibrador de carga, caché HTTP y servidor web (servidor de origen).  Tiene un fuerte enfoque en alta concurrencia, alto rendimiento y bajo uso de memoria.  El proyecto HTML5 Boilerplate tiene archivos de configuración de servidor de muestra para mejorar el rendimiento y la seguridad.
+
+### MYSQL
+
+MySQL es el segundo sistema de gestión de bases de datos relacionales de código abierto más utilizado.  Una bifurcación desarrollada por la comunidad, MariaDB, está dirigida por los desarrolladores originales.  Su objetivo es ser un reemplazo directo.
+
+### PHP
+
+PHP es un lenguaje de secuencias de comandos del lado del servidor diseñado para el desarrollo web.  La función de secuencias de comandos también se puede cumplir con Python o Perl.  Los servidores como Gunicorn o uWSGI se pueden usar junto con Nginx para servir estas aplicaciones.
 
 ## Actualizar el servidor Amazon Linux AMI 2
 
