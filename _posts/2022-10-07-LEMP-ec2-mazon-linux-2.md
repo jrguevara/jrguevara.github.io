@@ -239,3 +239,74 @@ nano config.inc.php
 mkdir tmp
 chmod 777 tmp
 ```
+
+- Configuración de PHP-FPM
+
+  
+
+```powershell
+sudo nano /etc/php-fpm.d/www.conf
+```
+
+  
+
+```bash
+user = nginx
+group = nginx
+listen = /var/run/php-fpm/www.sock
+listen.owner = nginx
+listen.group = nginx
+listen.mode = 0660
+;listen.acl_users = apache,nginx
+
+```
+
+  
+
+```powershell
+ sudo nano /etc/nginx/nginx.conf
+
+```
+
+  
+
+```bash
+location ~ \.php$ {
+        try_files $uri =404;
+
+        include fastcgi_params;
+        fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_index index.php;
+        # fastcgi_intercept_errors on;
+        # fastcgi_keep_conn on;
+        # fastcgi_read_timeout 300;
+
+        # fastcgi_pass   127.0.0.1:9000;
+        fastcgi_pass  unix:/var/run/php-fpm/www.sock;
+        #for ubuntu unix:/var/run/php/php8.0-fpm.sock;
+
+        ##
+        # FastCGI cache config
+        ##
+
+        # fastcgi_cache_path /var/cache/nginx levels=1:2 keys_zone=WORDPRESS:10m max_size=1000m inactive=60m;
+        # fastcgi_cache_key $scheme$host$request_uri$request_method;
+        # fastcgi_cache_use_stale updating error timeout invalid_header http_500;        
+        
+        fastcgi_cache_valid any 30m;
+    }
+
+```
+
+  
+
+```powershell
+sudo service nginx restart
+sudo service php-fpm restart
+sudo service nginx restart
+sudo service php-fpm status
+
+ls -al /var/run/php-fpm/www.sock
+netstat -al --protocol=unix |egrep "Proto|fpm"
+```
