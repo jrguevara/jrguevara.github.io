@@ -271,31 +271,45 @@ listen.mode = 0660
   
 
 ```bash
-location ~ \.php$ {
-        try_files $uri =404;
+server {
+        listen       80;
+        listen       [::]:80;
+        server_name  localhost;
+        root         /usr/share/nginx/html;
+	  index	index.html index.htm index.php;
 
-        include fastcgi_params;
-        fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
-        fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        fastcgi_index index.php;
-        # fastcgi_intercept_errors on;
-        # fastcgi_keep_conn on;
-        # fastcgi_read_timeout 300;
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
 
-        # fastcgi_pass   127.0.0.1:9000;
-        fastcgi_pass  unix:/var/run/php-fpm/www.sock;
-        #for ubuntu unix:/var/run/php/php8.0-fpm.sock;
+        error_page 404 /404.html;
+        location = /404.html {
+        }
 
-        ##
-        # FastCGI cache config
-        ##
+        error_page 500 502 503 504 /50x.html;
+        location = /50x.html {
+        }
 
-        # fastcgi_cache_path /var/cache/nginx levels=1:2 keys_zone=WORDPRESS:10m max_size=1000m inactive=60m;
-        # fastcgi_cache_key $scheme$host$request_uri$request_method;
-        # fastcgi_cache_use_stale updating error timeout invalid_header http_500;        
-        
-        fastcgi_cache_valid any 30m;
-    }
+	location ~ \.php$ {
+		try_files $uri =404;
+		include fastcgi_params;
+		fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
+		fastcgi_split_path_info ^(.+\.php)(/.+)$;
+		fastcgi_index index.php;
+		# fastcgi_intercept_errors on;
+		# fastcgi_keep_conn on;
+		# fastcgi_read_timeout 300;
+	
+	        # fastcgi_pass   127.0.0.1:9000;
+		fastcgi_pass  unix:/var/run/php-fpm/www.sock;
+		#for ubuntu unix:/var/run/php/php8.0-fpm.sock;
+
+                # FastCGI cache config
+	        # fastcgi_cache_path /var/cache/nginx levels=1:2 keys_zone=WORDPRESS:10m max_size=1000m inactive=60m;
+		# fastcgi_cache_key $scheme$host$request_uri$request_method;
+		# fastcgi_cache_use_stale updating error timeout invalid_header http_500;        
+                fastcgi_cache_valid any 30m;
+	}
+}
 
 ```
 
