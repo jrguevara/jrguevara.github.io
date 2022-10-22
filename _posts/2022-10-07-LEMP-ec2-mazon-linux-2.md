@@ -323,4 +323,5 @@ sudo service php-fpm status
 
 ls -al /var/run/php-fpm/www.sock
 netstat -al --protocol=unix |egrep "Proto|fpm"
+chmod -R 777 /var/lib/php/session
 ```
