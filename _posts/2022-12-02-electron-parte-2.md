@@ -1199,3 +1199,726 @@ function esImagen(file) {
 img.addEventListener('change', cargarImagen)
 
 ```
+
+## Alertas
+
+- Modiicar `preload.js`
+
+```javascript
+const { contextBridge } = require('electron')
+const os = require('os');
+const path = require('path');
+const Toastify = require('toastify-js')
+
+//Modulo OS
+contextBridge.exposeInMainWorld('os', {
+    homedir: () => os.homedir(),
+})
+
+//Modulo Ruta
+contextBridge.exposeInMainWorld('path', {
+    join: (...args) => path.join(...args),
+})
+
+//Toastify
+contextBridge.exposeInMainWorld('Toastify', {
+    toast: (options) => Toastify(options).showToast(),
+})
+
+```
+
+  
+
+- Modificar `script.js`
+
+```javascript
+// const os = require('os');
+const form = document.querySelector('#img-form')
+const widthInput = document.querySelector('#width')
+const heightInput = document.querySelector('#height')
+const filename = document.querySelector('#filename')
+const img = document.querySelector('#img')
+const outputPath = document.querySelector('#output-path')
+
+//console.log(versions.node())
+
+function cargarImagen(e) {
+    const file = e.target.files[0]
+
+    if (!esImagen(file)) {
+        //console.log('archivo no valido')
+        alertError('Por favor seleccionar una imagen!')
+        return;
+    }
+
+    //console.log('Exito')
+
+    //Obtener dimensiones
+    const image = new Image();
+    image.src = URL.createObjectURL(file)
+    image.onload = function (
+) {
+        widthInput.value = this.width
+        heightInput.value = this.height
+    }
+
+    form.style.display = 'block';
+    filename.innerHTML = file.name
+    outputPath.innerHTML = path.join(os.homedir(), 'imagen_univo')
+}
+
+function esImagen(file) {
+    const formatosAceptados = ['image/gif', 'image/jpeg', 'image/jpg', 'image/png']
+    return file && formatosAceptados.includes(file['type'])
+}
+
+function alertSuccess(message) {
+    Toastify.toast({
+        text: message,
+        duration: 5000,
+        close: false,
+        style: {
+            background: 'green',
+            color: 'white',
+            textAlign: 'center',
+        },
+    });
+}
+
+function alertError(message) {
+    Toastify.toast({
+        text: message,
+        duration: 5000,
+        close: false,
+        style: {
+            background: 'red',
+            color: 'white',
+            textAlign: 'center',
+        },
+    });
+}
+
+img.addEventListener('change', cargarImagen)
+
+```
+
+  
+
+## Enviando la data de imagen
+
+- Modiicar `preload.js`
+
+```javascript
+const { contextBridge, ipcRenderer } = require('electron')
+const os = require('os');
+const path = require('path');
+const Toastify = require('toastify-js')
+
+//Modulo OS
+contextBridge.exposeInMainWorld('os', {
+    homedir: () => os.homedir(),
+})
+
+//Modulo Ruta
+contextBridge.exposeInMainWorld('path', {
+    join: (...args) => path.join(...args),
+})
+
+//Toastify
+contextBridge.exposeInMainWorld('Toastify', {
+    toast: (options) => Toastify(options).showToast(),
+})
+
+//IPC
+contextBridge.exposeInMainWorld('ipcRenderer', {
+    send: (channel, data) => ipcRenderer.send(channel, data),
+    on: (channel, func) =>
+        ipcRenderer.on(channel, (event, ...args) => func(...args)),
+})
+
+```
+
+  
+
+- Modificar `script.js`
+
+```javascript
+// const os = require('os');
+const form = document.querySelector('#img-form')
+const widthInput = document.querySelector('#width')
+const heightInput = document.querySelector('#height')
+const filename = document.querySelector('#filename')
+const img = document.querySelector('#img')
+const outputPath = document.querySelector('#output-path')
+
+//console.log(versions.node())
+
+function cargarImagen(e) {
+    const file = e.target.files[0]
+
+    if (!esImagen(file)) {
+        //console.log('archivo no valido')
+        alertError('Por favor seleccionar una imagen!')
+        return;
+    }
+
+    //console.log('Exito')
+
+    //Obtener dimensiones
+    const image = new Image();
+    image.src = URL.createObjectURL(file)
+    image.onload = function (
+) {
+        widthInput.value = this.width
+        heightInput.value = this.height
+    }
+
+    form.style.display = 'block';
+    filename.innerHTML = file.name
+    outputPath.innerHTML = path.join(os.homedir(), 'imagen_univo')
+}
+
+// envio de  image
+function enviarImagen(e) {
+    e.preventDefault();
+
+    if (!img.files[0]) {
+        alertError('Por favor subir una imagen');
+        return;
+    }
+
+    if (widthInput.value === '' || heightInput.value === '') {
+        alertError('Por favor introduzaca Ancho y Alto');
+        return;
+    }
+
+    const imgPath = img.files[0].path;
+    const width = widthInput.value;
+    const height = heightInput.value;
+
+    ipcRenderer.send('image:resize', {
+        imgPath,
+        height,
+        width,
+    });
+}
+
+function esImagen(file) {
+    const formatosAceptados = ['image/gif', 'image/jpeg', 'image/jpg', 'image/png']
+    return file && formatosAceptados.includes(file['type'])
+}
+
+function alertSuccess(message) {
+    Toastify.toast({
+        text: message,
+        duration: 5000,
+        close: false,
+        style: {
+            background: 'green',
+            color: 'white',
+            textAlign: 'center',
+        },
+    });
+}
+
+function alertError(message) {
+    Toastify.toast({
+        text: message,
+        duration: 5000,
+        close: false,
+        style: {
+            background: 'red',
+            color: 'white',
+            textAlign: 'center',
+        },
+    });
+}
+// Seleccionar archivo listener
+img.addEventListener('change', cargarImagen)
+
+// Formulario listener
+form.addEventListener('submit', enviarImagen);
+
+```
+
+  
+
+- Modificar `main.js`
+
+```javascript
+const { app, BrowserWindow, Menu, ipcMain } = require('electron')
+const path = require('path')
+const os = require('os')
+const fs = require('fs')
+
+process.env.NODE_ENV = 'dev'
+
+const isMac = process.platform === 'darwin'
+const isDev = process.env.NODE_ENV !== 'prod'
+
+// Crear ventana Principal
+function createMainWindow() {
+    const mainWindow = new BrowserWindow({
+        title: 'Redimensionar Imagen',
+        width: isDev ? 1200 : 600,
+        height: 800,
+        icon: `${__dirname}/assets/icons/icon_100x100.png`,
+        resizable: isDev,
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: true,
+            preload: path.join(__dirname, 'preload.js'),
+        },
+    })
+
+    //Abre DevTools si esta en env dev
+    if (isDev) {
+        mainWindow.webContents.openDevTools()
+    }
+
+    mainWindow.loadFile(path.join(__dirname, './renderer/index.html'))
+}
+
+// Ventana About
+function createAboutWindow() {
+    aboutWindow = new BrowserWindow({
+        width: 300,
+        height: 300,
+        title: 'Acerca',
+        icon: `${__dirname}/assets/icons/icon_100x100.png`,
+    });
+
+    aboutWindow.loadFile(path.join(__dirname, './renderer/about.html'))
+    aboutWindow.setMenuBarVisibility(false)
+}
+
+// Cuando la app esta lista cre la ventana
+app.whenReady().then(() => {
+    createMainWindow()
+    //Implementacion del menu
+    const mainMenu = Menu.buildFromTemplate(menu)
+    Menu.setApplicationMenu(mainMenu)
+
+    app.on('activate', () => {
+        if (BrowserWindow.getAllWindows().length === 0) {
+            createMainWindow()
+        }
+    })
+})
+
+// Plantilla de menu
+const menu = [
+    /*{
+        role: 'fileMenu',
+    },*/
+    {
+        label: 'Archivo',
+        submenu: [
+            {
+                label: 'Salir',
+                click: () => app.quit(),
+                accelerator: 'CmdOrCtrl+W',
+            },
+        ],
+    },
+    ...(isMac
+        ? [
+            {
+                label: app.name,
+                submenu: [
+                    {
+                        label: 'Acerca',
+                        click: createAboutWindow,
+                    },
+                ],
+            },
+        ]
+        : []),
+    ...(!isMac
+        ? [
+            {
+                label: 'Ayuda',
+                submenu: [
+                    {
+                        label: 'Acerca',
+                        click: createAboutWindow,
+                    },
+                ],
+            },
+        ]
+        : []),
+    ...(isDev
+        ? [
+            {
+                label: 'Developer',
+                submenu: [
+                    { role: 'reload' },
+                    { role: 'forcereload' },
+                    { type: 'separator' },
+                    { role: 'toggledevtools' },
+                ],
+            },
+        ]
+        : []),
+]
+
+//Respuesta a IPC
+ipcMain.on('image:resize', (e, options) => {
+    //console.log(options);
+    options.dest = path.join(os.homedir(), 'imagen_univo');
+    resizeImage(options);
+})
+
+app.on('window-all-closed', () => {
+    if (!isMac) app.quit()
+})
+
+```
+
+  
+
+## Modificar y guardar imagen
+
+- Modificar `main.js`
+
+```javascript
+const { app, BrowserWindow, Menu, ipcMain, shell } = require('electron')
+const path = require('path')
+const os = require('os')
+const fs = require('fs')
+const resizeImg = require('resize-img')
+
+process.env.NODE_ENV = 'dev'
+
+const isMac = process.platform === 'darwin'
+const isDev = process.env.NODE_ENV !== 'prod'
+
+let mainWindow
+let aboutWindow
+
+// Crear ventana Principal
+function createMainWindow() {
+    mainWindow = new BrowserWindow({
+        title: 'Redimensionar Imagen',
+        width: isDev ? 1200 : 600,
+        height: 800,
+        icon: `${__dirname}/assets/icons/icon_100x100.png`,
+        resizable: isDev,
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: true,
+            preload: path.join(__dirname, 'preload.js'),
+        },
+    })
+
+    //Abre DevTools si esta en env dev
+    if (isDev) {
+        mainWindow.webContents.openDevTools()
+    }
+
+    mainWindow.loadFile(path.join(__dirname, './renderer/index.html'))
+}
+
+// Ventana About
+function createAboutWindow() {
+    aboutWindow = new BrowserWindow({
+        width: 300,
+        height: 300,
+        title: 'Acerca',
+        icon: `${__dirname}/assets/icons/icon_100x100.png`,
+    });
+
+    aboutWindow.loadFile(path.join(__dirname, './renderer/about.html'))
+    aboutWindow.setMenuBarVisibility(false)
+}
+
+// Cuando la app esta lista cre la ventana
+app.whenReady().then(() => {
+    createMainWindow()
+    //Implementacion del menu
+    const mainMenu = Menu.buildFromTemplate(menu)
+    Menu.setApplicationMenu(mainMenu)
+
+    // Remover variable de memoria
+    mainWindow.on('closed', () => (mainWindow = null));
+
+    app.on('activate', () => {
+        if (BrowserWindow.getAllWindows().length === 0) {
+            createMainWindow()
+        }
+    })
+})
+
+// Plantilla de menu
+const menu = [
+    /*{
+        role: 'fileMenu',
+    },*/
+    {
+        label: 'Archivo',
+        submenu: [
+            {
+                label: 'Salir',
+                click: () => app.quit(),
+                accelerator: 'CmdOrCtrl+W',
+            },
+        ],
+    },
+    ...(isMac
+        ? [
+            {
+                label: app.name,
+                submenu: [
+                    {
+                        label: 'Acerca',
+                        click: createAboutWindow,
+                    },
+                ],
+            },
+        ]
+        : []),
+    ...(!isMac
+        ? [
+            {
+                label: 'Ayuda',
+                submenu: [
+                    {
+                        label: 'Acerca',
+                        click: createAboutWindow,
+                    },
+                ],
+            },
+        ]
+        : []),
+    ...(isDev
+        ? [
+            {
+                label: 'Developer',
+                submenu: [
+                    { role: 'reload' },
+                    { role: 'forcereload' },
+                    { type: 'separator' },
+                    { role: 'toggledevtools' },
+                ],
+            },
+        ]
+        : []),
+]
+
+//Respuesta a IPC
+ipcMain.on('image:resize', (e, options) => {
+    //console.log(options);
+    options.dest = path.join(os.homedir(), 'imagen_univo');
+    resizeImage(options);
+})
+
+// Modificar y guardar imagen
+async function resizeImage({ imgPath, height, width, dest }) {
+    try {
+        // console.log(imgPath, height, width, dest);
+
+        // Resize image
+        const newPath = await resizeImg(fs.readFileSync(imgPath), {
+            width: +width,
+            height: +height,
+        });
+
+        // Get filename
+        const filename = path.basename(imgPath);
+
+        // Create destination folder if it doesn't exist
+        if (!fs.existsSync(dest)) {
+            fs.mkdirSync(dest);
+        }
+
+        // Write the file to the destination folder
+        fs.writeFileSync(path.join(dest, filename), newPath);
+
+        // Send success to renderer
+        mainWindow.webContents.send('image:done');
+
+        // Open the folder in the file explorer
+        shell.openPath(dest);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+app.on('window-all-closed', () => {
+    if (!isMac) app.quit()
+})
+
+```
+
+  
+
+- Modificar `script.js`
+
+```javascript
+const { app, BrowserWindow, Menu, ipcMain, shell } = require('electron')
+const path = require('path')
+const os = require('os')
+const fs = require('fs')
+const resizeImg = require('resize-img')
+
+process.env.NODE_ENV = 'dev'
+
+const isMac = process.platform === 'darwin'
+const isDev = process.env.NODE_ENV !== 'prod'
+
+let mainWindow
+let aboutWindow
+
+// Crear ventana Principal
+function createMainWindow() {
+    mainWindow = new BrowserWindow({
+        title: 'Redimensionar Imagen',
+        width: isDev ? 1200 : 600,
+        height: 800,
+        icon: `${__dirname}/assets/icons/icon_100x100.png`,
+        resizable: isDev,
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: true,
+            preload: path.join(__dirname, 'preload.js'),
+        },
+    })
+
+    //Abre DevTools si esta en env dev
+    if (isDev) {
+        mainWindow.webContents.openDevTools()
+    }
+
+    mainWindow.loadFile(path.join(__dirname, './renderer/index.html'))
+}
+
+// Ventana About
+function createAboutWindow() {
+    aboutWindow = new BrowserWindow({
+        width: 300,
+        height: 300,
+        title: 'Acerca',
+        icon: `${__dirname}/assets/icons/icon_100x100.png`,
+    });
+
+    aboutWindow.loadFile(path.join(__dirname, './renderer/about.html'))
+    aboutWindow.setMenuBarVisibility(false)
+}
+
+// Cuando la app esta lista cre la ventana
+app.whenReady().then(() => {
+    createMainWindow()
+    //Implementacion del menu
+    const mainMenu = Menu.buildFromTemplate(menu)
+    Menu.setApplicationMenu(mainMenu)
+
+    // Remover variable de memoria
+    mainWindow.on('closed', () => (mainWindow = null));
+
+    app.on('activate', () => {
+        if (BrowserWindow.getAllWindows().length === 0) {
+            createMainWindow()
+        }
+    })
+})
+
+// Plantilla de menu
+const menu = [
+    /*{
+        role: 'fileMenu',
+    },*/
+    {
+        label: 'Archivo',
+        submenu: [
+            {
+                label: 'Salir',
+                click: () => app.quit(),
+                accelerator: 'CmdOrCtrl+W',
+            },
+        ],
+    },
+    ...(isMac
+        ? [
+            {
+                label: app.name,
+                submenu: [
+                    {
+                        label: 'Acerca',
+                        click: createAboutWindow,
+                    },
+                ],
+            },
+        ]
+        : []),
+    ...(!isMac
+        ? [
+            {
+                label: 'Ayuda',
+                submenu: [
+                    {
+                        label: 'Acerca',
+                        click: createAboutWindow,
+                    },
+                ],
+            },
+        ]
+        : []),
+    ...(isDev
+        ? [
+            {
+                label: 'Developer',
+                submenu: [
+                    { role: 'reload' },
+                    { role: 'forcereload' },
+                    { type: 'separator' },
+                    { role: 'toggledevtools' },
+                ],
+            },
+        ]
+        : []),
+]
+
+//Respuesta a IPC
+ipcMain.on('image:resize', (e, options) => {
+    //console.log(options);
+    options.dest = path.join(os.homedir(), 'imagen_univo');
+    resizeImage(options);
+})
+
+// Modificar y guardar imagen
+async function resizeImage({ imgPath, height, width, dest }) {
+    try {
+        // console.log(imgPath, height, width, dest);
+
+        // Resize image
+        const newPath = await resizeImg(fs.readFileSync(imgPath), {
+            width: +width,
+            height: +height,
+        });
+
+        // Get filename
+        const filename = path.basename(imgPath);
+
+        // Create destination folder if it doesn't exist
+        if (!fs.existsSync(dest)) {
+            fs.mkdirSync(dest);
+        }
+
+        // Write the file to the destination folder
+        fs.writeFileSync(path.join(dest, filename), newPath);
+
+        // Send success to renderer
+        mainWindow.webContents.send('image:done');
+
+        // Open the folder in the file explorer
+        shell.openPath(dest);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+app.on('window-all-closed', () => {
+    if (!isMac) app.quit()
+})
+
+```
