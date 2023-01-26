@@ -193,7 +193,7 @@ winfetch
 
 ## Resultado Final
 
-![Terminal](/assets/images/terminal-04.png)_Terminal_ 
+![Terminal](/assets/images/Terminal-04.png)_Terminal_ 
 
  
 
