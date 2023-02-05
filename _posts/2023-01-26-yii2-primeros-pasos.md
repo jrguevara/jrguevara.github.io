@@ -11,7 +11,7 @@ tags: [yii2, frameworks, programacion, php]
 
 [https://www.yiiframework.com/](https://www.yiiframework.com/)  
 
-# ¿Qué es Yii?
+## ¿Qué es Yii?
 
 Yii es un framework de PHP de alto rendimiento, basado en componentes para desarrollar aplicaciones web modernas en poco tiempo. El nombre Yii significa "simple y evolutivo" en chino. También se puede considerar como el acrónimo de _**Yes It Is**_ (que en inglés significa _**Sí, lo es**_)!
 
