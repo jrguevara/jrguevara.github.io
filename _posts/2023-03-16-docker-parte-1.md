@@ -75,7 +75,6 @@ app.get("/", (req, res) => {
 const port = process.env.PORT || 3000
 
 app.listen(port, () => console.log(`Escuchando en el puerto ${port} 😎`))
-
 ```
 
   
@@ -97,7 +96,6 @@ RUN npm install
 COPY . ./
 EXPOSE 3000
 CMD [ "node", "index.js" ]
-
 ```
 
   
@@ -175,7 +173,6 @@ Un montaje de enlace (**_mount bind_**) es otro tipo de montaje, que le permite 
     "nodemon": "^2.0.21"
   }
 }
-
 ```
 
   
@@ -190,15 +187,157 @@ RUN npm install
 COPY . .
 EXPOSE 3000 
 CMD [ "npm", "run", "dev" ]
-
 ```
-
-  
-
 ## Logs de contenedores
 
 - Borrar carpeta `node_modules` 
 - Utilizar `docker ps -a` para mostrar los contendores ejecutados
 - Usar `docker logs NOMBRE_CONTENEDOR` para ver logs del contenedor
 - Evitar que el bind mount sobreescriba la carpeta `node_modules` del contenedor con `docker run -v ${pwd}:/app -v /app/node_modules -p 3000:3000 -d --name node-app docker-node-image` 
-- Para que el directorio del contenedor sea solo de lectura `do`
+- Entrar al contenedor con `docker exec -it node-app bash`
+- Crear archivo dentro dl contenedor con `touch nombre_archivo`
+- Para que el directorio del contenedor sea solo de lectura `docker run -v ${pwd}:/app:ro -v /app/node_modules -p 3000:3000 -d --name node-app docker-node-image`
+
+## Variables de entorno
+
+- Modificar Dockerfile
+
+```javascript
+FROM node:18
+WORKDIR /app
+COPY package.json .
+RUN npm install
+COPY . .
+ENV PORT 3000
+EXPOSE $PORT
+CMD [ "npm", "run", "dev" ]
+```
+
+  
+
+- Reconstruir imagen `docker build -t docker-node-image .` 
+- Ejecutar contenedor con `docker run -v ${pwd}:/app:ro -v /app/node_modules --env PORT=4000 -p 3000:4000 -d --name node-app docker-node-image` 
+- Entrar al contenedor con `docker exec -it node-app bash`
+- Imprimir variables de entorno con `printenv` 
+- Crear archivo `.env` 
+
+```bash
+PORT=4000
+```
+
+- Eliminar contenedor con `docker rm node-app -f` 
+- Eliminar imagen `docker image rm docker-node-image` 
+- Reconstruir imagen `docker build -t docker-node-image .` 
+- Ejecutar contenedor con `docker run -v ${pwd}:/app:ro -v /app/node_modules --env-file ./.env PORT=4000 -p 3000:4000 -d --name node-app docker-node-image` 
+
+  
+
+## Borrar Volúmenes
+
+- Verificar volúmenes con `docker volumen ls` 
+- Eliminar con `docker volume ID_VOLUMEN` o `docker volume prune` 
+- Eliminar contenedor y volumen con `docker rm node-app -fv` 
+
+  
+
+## Docker compose
+
+- Crear archivo `docker-compose.yml` 
+
+```yaml
+version: '3.8'
+services:
+  node-app:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app:ro
+      - /app/node_modules
+    environment:
+      - PORT=3000
+    #env_file:
+      #- ./.env
+```
+
+- Ejecutar `docker-compose up -d`
+- Para detener `docker-compose down -v`
+- Comando para forzar la reconstrucción de imagen al usar compose  `docker-compose up -d --build` 
+
+  
+
+## Multiple Compose
+
+- Modificar `Dockerfile`
+
+```javascript
+FROM node:18
+WORKDIR /app
+COPY package.json .
+RUN npm install
+COPY . .
+ENV PORT 3000
+EXPOSE $PORT 
+CMD [ "node", "index.js" ]
+```
+
+  
+
+- Modificar `docker-compose.yml` 
+
+```yaml
+version: '3.8'
+services:
+  node-app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+```
+
+  
+
+- Crear `docker-compose-dev.yml` 
+
+```yaml
+version: '3.8'
+services:
+  node-app:
+    build: .
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+```
+
+  
+
+- Crear `docker-compose-prod.yml` 
+
+```yaml
+version: '3.8'
+services:
+  node-app:
+    environment:
+      - NODE_ENV=production
+    command: node index.js
+```
+
+  
+
+- Ejecutar dev mode con `docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build` 
+- Para detener `docker-compose down -v` 
+- Ejecutar prod mode con `docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build` 
+- Para detener `docker-compose -f docker-compose.yml -f docker-compose.prod.yml down -v` 
+- Actualizar `.dockerignore` 
+
+```
+node_modules
+Dockerfile
+.git
+.gitignore
+docker-compose*
+```
