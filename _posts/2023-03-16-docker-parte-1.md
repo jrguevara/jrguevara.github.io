@@ -1,5 +1,5 @@
 ---
-title: Docker - parte 1
+title: Docker
 date: 2023-03-15 00:00:00 -500
 categories: [docker]
 tags: [docker, contenedores, imagenes]
