@@ -6,10 +6,6 @@ order: 4
 
 <h3 align="center">Desarrollador fullstack en El Salvador</h3>
 
-<p align="left"> <img src="https://komarev.com/ghpvc/?username=jrguevara&label=Profile%20views&color=0e75b6&style=flat" alt="jrguevara" /> </p>
-
-<p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=jrguevara" alt="jrguevara" /></a> </p>
-
 <h3 align="left">Connect with me:</h3>
 <p align="left"> <a href="mailto:jr.guevara@outlook.com">jr.guevara@outlook.com</a>
 </p>
