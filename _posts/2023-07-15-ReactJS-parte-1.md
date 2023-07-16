@@ -11,4 +11,4 @@ hidden: false
 
 ![ReactJS](/assets/images/react.png)_ReactJS_  
 
-test 2
+test
