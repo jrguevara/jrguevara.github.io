@@ -8,7 +8,7 @@ hidden: false
 ---
 
 
- ## ¿Qué es una extensión de VS Code?
+# ¿Qué es una extensión de VS Code?
 
 Las extensiones nos permiten agregar funcionalidad a Visual Studio Code de forma [modular y aislada](https://github.com/Microsoft/vscode-docs/blob/master/docs/extensions/our-approach.md), son una excelente manera de personalizar nuestra experiencia con la herramienta.
 
@@ -17,7 +17,7 @@ Las extensiones nos permiten agregar funcionalidad a Visual Studio Code de forma
 Visual Studio Code es un editor **multiplataforma**, por lo que, las herramientas que necesitamos para la creación de extensiones pueden conseguirse en Mac, Linux y obviamente, Windows.
 
 - Visual Studio Code ([instalador multiplataforma](http://code.visualstudio.com/))
-- NodeJS (en Windows podemos usar [Chocolatey](https://chocolatey.org/packages/nodejs.install))
+- NodeJS ([sitio oficial](https://nodejs.org/es))
 - [Yeoman](http://yeoman.io/) (instalable desde NodeJS/NPM)
 - Cuenta de [Visual Studio Team Services](https://www.visualstudio.com/en-us/products/visual-studio-team-services-vs.aspx) (gratuita) si queremos publicar nuestra extensión en el Marketplace.
 
