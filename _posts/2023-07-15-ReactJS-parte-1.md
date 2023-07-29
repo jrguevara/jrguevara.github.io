@@ -1,5 +1,5 @@
 ---
-title: ReactJS
+title: ReactJS - parte 1
 date: 2023-07-15 00:00:00 -500
 categories: [react]
 tags: [javascript, reactjs, programacion]
@@ -107,7 +107,6 @@ npm start
 - La principal diferencia que notará es cómo se sirve el código en el desarrollo y qué módulos son compatibles.
 - Vite no necesita agrupar la aplicación completa o transpilar los módulos y el código antes de iniciar un servidor de desarrollo; la transpilación se realiza bajo demanda, lo que la hace significativamente más rápida que CRA.
 
-  
 
 ## Creación de componente principal
 
@@ -176,11 +175,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
 Las expresiones de JavaScript también se pueden incrustar dentro de JSX usando llaves, incluidas variables, funciones y propiedades.
 
-  
-
+> Carpeta public:  
 > La carpeta pública contiene archivos estáticos como index. html, archivos de biblioteca de javascript, imágenes y otros activos, etc. que no desea que webpack procese. Los archivos de esta carpeta se copian y pegan tal como están directamente en la carpeta de compilación.
-
-  
+{: .prompt-info }
 
 ```jsx
 const App = () => {
@@ -197,19 +194,26 @@ const App = () => {
 export default App;
 ```
 
-  
-
 ```jsx
 const App = () => {
   const titulo = "Mi primer proyecto con React.js";
-  const classColors = {
-    primary: "text-primary",
-    info: "text-info",
+  const imagen = "https://picsum.photos/600/400";
+  const clases = {
+    titulo: "text-info text-center",
+    subtitulo: "text-center",
+    imagenCenter: "rounded mx-auto d-block",
   };
   return (
     <div className="container">
-      <h1 className={classColors.primary}>{titulo}</h1>
-      <p className={classColors.info}>Lorem ipsum dolor sit.</p>
+      <h1 className={clases.titulo}>{titulo}</h1>
+      <p className={clases.subtitulo}>Lorem ipsum dolor sit.</p>
+      <img className={clases.imagenCenter} src="./src/assets/react.svg" />
+      <hr></hr>
+      <img
+        className={clases.imagenCenter}
+        src={imagen}
+        alt={`Imagen de ${titulo}`}
+      />
     </div>
   );
 };
@@ -217,8 +221,6 @@ const App = () => {
 export default App;
 
 ```
-
-  
 
 ## Componentes
 
@@ -230,22 +232,37 @@ export default App;
   
 
 ```jsx
-const MyButton = () => {
-  return <button>Boton</button>;
-};
+const MiBoton = () => {
+  return <button className="btn btn-light">Boton</button>
+}
 
 const App = () => {
-  const titulo = "Mi primer proyecto con React.js";
+  const titulo = "Mi primer proyecto con React.js"
+  const imagen = "https://picsum.photos/600/400"
+  const clases = {
+    titulo: "text-info text-center",
+    subtitulo: "text-center",
+    imagenCenter: "rounded mx-auto d-block",
+  }
+
   return (
     <div className="container">
-      <h1 className="text-primary">{titulo}</h1>
-      <MyButton />
+      <h1 className={clases.titulo}>{titulo}</h1>
+      <p className={clases.subtitulo}>Lorem ipsum dolor sit.</p>
+      <img className={clases.imagenCenter} src="./src/assets/react.svg" />
+      <hr></hr>
+      <img
+        className={clases.imagenCenter}
+        src={imagen}
+        alt={`Imagen de ${titulo}`}
+      />
+      <hr></hr>
+      <MiBoton />
     </div>
   );
 };
 
 export default App;
-
 ```
 
 > Componentes siempre en Mayúsculas  
@@ -259,24 +276,384 @@ export default App;
   
 
 ```jsx
-const MyButton = () => {
-    return <button>Boton</button>;
+const MiBoton = () => {
+  return <button className="btn btn-light">Boton</button>
+}
+
+const MensajeOnline = () => {
+  return <h3>Bienvenido usuario</h3>;
+}
+
+const MensajeOffline = () => {
+  return <h3>Usuario desconectado</h3>;
+}
+
+const App = () => {
+  const titulo = "Mi primer proyecto con React.js"
+  const imagen = "https://picsum.photos/600/400"
+  const clases = {
+    titulo: "text-info text-center",
+    subtitulo: "text-center",
+    imagenCenter: "rounded mx-auto d-block",
+  }
+  const user = true
+
+  return (
+    <div className="container">
+      <h1 className={clases.titulo}>{titulo}</h1>
+      <p className={clases.subtitulo}>Lorem ipsum dolor sit.</p>
+      <img className={clases.imagenCenter} src="./src/assets/react.svg" />
+      <hr></hr>
+      <img
+        className={clases.imagenCenter}
+        src={imagen}
+        alt={`Imagen de ${titulo}`}
+      />
+      <hr></hr>
+      {user ? <MensajeOnline /> : <MensajeOffline />}
+      <MiBoton />
+    </div>
+  );
 };
 
-const UserMessage = () => {
-    return <h2>Bienvenido usuario</h2>;
+export default App;
+```
+
+  
+
+## Listas y keys
+
+```jsx
+const MiBoton = () => {
+  return <button className="btn btn-light">Boton</button>
+}
+
+const MensajeOnline = () => {
+  return <h3>Bienvenido usuario</h3>;
+}
+
+const MensajeOffline = () => {
+  return <h3>Usuario desconectado</h3>;
+}
+
+const App = () => {
+  const titulo = "Mi primer proyecto con React.js"
+  const imagen = "https://picsum.photos/600/400"
+  const clases = {
+    titulo: "text-info text-center",
+    subtitulo: "text-center",
+    imagenCenter: "rounded mx-auto d-block",
+  }
+  const user = true
+  const frutas = ["🍉", "🍌", "🍎"];
+
+  return (
+    <div className="container">
+      <h1 className={clases.titulo}>{titulo}</h1>
+      <p className={clases.subtitulo}>Lorem ipsum dolor sit.</p>
+      <img className={clases.imagenCenter} src="./src/assets/react.svg" />
+      <hr></hr>
+      <img
+        className={clases.imagenCenter}
+        src={imagen}
+        alt={`Imagen de ${titulo}`}
+      />
+      <hr></hr>
+      {user ? <MensajeOnline /> : <MensajeOffline />}
+      <MiBoton />
+      <hr></hr>
+      <ul>
+        {frutas.map((fruta, index) => {
+          return <li key={index}>{index} - {fruta}</li>;
+        })}
+      </ul>
+    </div>
+  );
+};
+
+export default App;
+```
+
+
+- Cuando ejecutes este código, serás advertido que una key debería ser proporcionada para ítems de lista. Una “key” es un atributo especial string que debes incluir al crear listas de elementos.
+- Las keys ayudan a React a identificar que ítems han cambiado, son agregados, o son eliminados. Las keys deben ser dadas a los elementos dentro del array para darle a los elementos una identidad estable.
+
+- React usa el key prop para crear una relación entre el componente y el elemento DOM.
+
+- La biblioteca utiliza esta relación para determinar si el componente debe volver a renderizarse o no.
+
+- No se recomienda utilizar el índice de la matriz como key si sabe que la matriz no será estática.
+
+- Si key es un índice, reordenar un elemento en la matriz lo cambia. Entonces React se confundirá y volverá a renderizar el elemento incorrecto.
+
+  
+
+## props
+
+- Se utiliza para enviar información al componente anidado.
+- La información que transmites de esta manera se llama props.
+
+  
+
+```jsx
+const MiBoton = (props) => {
+  console.log(props);
+  return (
+    <button onClick={props.handleClick} className={props.className}>
+      {props.text}
+    </button>
+  );
+};
+
+// Con desestructuracion
+/*const MiBoton = ({text, className, handleClick}) => {
+  return <button onClick={handleClick} className={className}>{text}</button>
+}*/
+
+const MensajeOnline = () => {
+  return <h3>Bienvenido usuario</h3>;
+};
+
+const MensajeOffline = () => {
+  return <h3>Usuario desconectado</h3>;
 };
 
 const App = () => {
-    const titulo = "Mi primer proyecto con React.js";
-    const user = true;
-    return (
-        <div className="container">
-            <h1 className="text-primary">{titulo}</h1>
-            <MyButton />
-            {user ? <UserMessage /> : "Offline"}
-        </div>
-    );
+  const titulo = "Mi primer proyecto con React.js";
+  const imagen = "https://picsum.photos/600/400";
+  const clases = {
+    titulo: "text-info text-center",
+    subtitulo: "text-center",
+    imagenCenter: "rounded mx-auto d-block",
+  };
+  const user = true;
+  const frutas = ["🍉", "🍌", "🍎"];
+
+  const handleClick = () => {
+    console.log("clicked");
+  };
+
+  return (
+    <div className="container">
+      <h1 className={clases.titulo}>{titulo}</h1>
+      <p className={clases.subtitulo}>Lorem ipsum dolor sit.</p>
+      <img className={clases.imagenCenter} src="./src/assets/react.svg" />
+      <hr></hr>
+      <img
+        className={clases.imagenCenter}
+        src={imagen}
+        alt={`Imagen de ${titulo}`}
+      />
+      <hr></hr>
+      {user ? <MensajeOnline /> : <MensajeOffline />}
+      <MiBoton
+        text="Boton 1"
+        className="btn btn-light m-3"
+        handleClick={handleClick}
+      />
+      <MiBoton
+        text="Boton 2"
+        className="btn btn-warning m-3"
+        handleClick={handleClick}
+      />
+      <MiBoton
+        text="Boton 3"
+        className="btn btn-success m-3"
+        handleClick={handleClick}
+      />
+      <MiBoton
+        text="Boton 4"
+        className="btn btn-danger m-3"
+        handleClick={handleClick}
+      />
+      <hr></hr>
+      <ul>
+        {frutas.map((fruta, index) => {
+          return (
+            <li key={index}>
+              {index} - {fruta}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+};
+
+export default App;
+```
+
+  
+
+## EsLint
+
+- ESLint es una herramienta de linting para JavaScript. El linting es un proceso mediante el cual se analiza el código fuente de un programa en busca de posibles errores, problemas de estilo o prácticas desaconsejadas.
+- **ESLint permite detectar errores comunes en el código, como variables no utilizadas**, funciones no definidas, declaraciones duplicadas, entre otros.
+
+### .eslintrc.cjs [#](https://bluuweb.dev/05-react/#eslintrc-cjs)
+
+El archivo .eslintrc.cjs es un archivo de configuración de ESLint en formato CommonJS (CJS).
+
+### env [#](https://bluuweb.dev/05-react/#env)
+
+La propiedad **node: true** en la sección env de un archivo de configuración de ESLint indica que el código que está siendo analizado por ESLint se ejecutará en un entorno de Node.js. Esto le permite a ESLint reconocer y aplicar las reglas y configuraciones específicas de Node.js durante el proceso de linting.
+
+  
+
+```javascript
+env: { browser: true, es2020: true, node: true },
+```
+
+  
+
+### react/props-types off
+
+  
+
+```javascript
+module.exports = {
+  // ...otras configuraciones...
+
+  rules: {
+    // ...otras reglas...
+    "react/prop-types": "off", // Desactivar validación de PropTypes
+  },
+};
+```
+
+  
+
+## PropTypes
+
+- En React, PropTypes es una característica que permite especificar el tipo de las props (propiedades) que se pasan a los componentes.
+- PropTypes proporciona una forma de documentar y validar las props que se esperan en un componente, lo que ayuda a evitar errores y facilita el desarrollo y mantenimiento del código.
+
+Tipos comunes de PropTypes:
+
+- number: Valida que la prop sea un número.
+- bool: Valida que la prop sea un valor booleano (true o false).
+- array: Valida que la prop sea un array.
+- object: Valida que la prop sea un objeto.
+- symbol: Valida que la prop sea un símbolo.
+- node: Valida que la prop pueda ser cualquier cosa que se pueda renderizar en React (elemento React, cadena de texto, número, fragmento, etc.).
+- element: Valida que la prop sea un único elemento React (es decir, no un fragmento ni una cadena de texto).
+- instanceOf(Constructor): Valida que la prop sea una instancia de una clase específica.
+- oneOf(\[val1, val2, ...\]): Valida que la prop sea uno de los valores proporcionados en un array.
+- oneOfType(\[type1, type2, ...\]): Valida que la prop cumpla con al menos uno de los tipos de datos especificados en un array.
+- arrayOf(type): Valida que la prop sea un array que contenga elementos del tipo especificado.
+- objectOf(type): Valida que la prop sea un objeto cuyos valores sean del tipo especificado.
+
+Con PropsTypes podemos validar los props que recibe un componente:
+
+  
+
+```jsx
+import PropTypes from "prop-types";
+
+const MiBoton = ({text, className, handleClick}) => {
+  return <button onClick={handleClick} className={className}>{text}</button>
+}
+
+MiBoton.propTypes = {
+  text: PropTypes.string.isRequired,
+  className: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
+}
+```
+
+  
+
+```jsx
+import PropTypes from "prop-types";
+
+const MiBoton = ({text, className, handleClick}) => {
+  return <button onClick={handleClick} className={className}>{text}</button>
+}
+
+MiBoton.propTypes = {
+  text: PropTypes.string.isRequired,
+  className: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
+}
+
+const MensajeOnline = () => {
+  return <h3>Bienvenido usuario</h3>;
+};
+
+const MensajeOffline = () => {
+  return <h3>Usuario desconectado</h3>;
+};
+
+const UserMensaje = ({ usuario }) => {
+  return usuario ? <MensajeOnline /> : <MensajeOffline />;
+  //return <h3> { usuario ? ( "Bienvenido usuario" ) : ( "Usuario desconectado" ) } </h3>
+};
+
+UserMensaje.propTypes = {
+  usuario: PropTypes.bool.isRequired,
+}
+
+const App = () => {
+  const titulo = "Mi primer proyecto con React.js";
+  const imagen = "https://picsum.photos/600/400";
+  const clases = {
+    titulo: "text-info text-center",
+    subtitulo: "text-center",
+    imagenCenter: "rounded mx-auto d-block",
+  };
+  const user = true;
+  const frutas = ["🍉", "🍌", "🍎"];
+
+  const handleClick = () => {
+    console.log("clicked");
+  };
+
+  return (
+    <div className="container">
+      <h1 className={clases.titulo}>{titulo}</h1>
+      <p className={clases.subtitulo}>Lorem ipsum dolor sit.</p>
+      <img className={clases.imagenCenter} src="./src/assets/react.svg" />
+      <hr></hr>
+      <img
+        className={clases.imagenCenter}
+        src={imagen}
+        alt={`Imagen de ${titulo}`}
+      />
+      <hr></hr>
+      {/* {user ? <MensajeOnline /> : <MensajeOffline />} */}
+      <UserMensaje usuario={user} />
+      <MiBoton
+        text="Boton 1"
+        className="btn btn-light m-3"
+        handleClick={handleClick}
+      />
+      <MiBoton
+        text="Boton 2"
+        className="btn btn-warning m-3"
+        handleClick={handleClick}
+      />
+      <MiBoton
+        text="Boton 3"
+        className="btn btn-success m-3"
+        handleClick={handleClick}
+      />
+      <MiBoton
+        text="Boton 4"
+        className="btn btn-danger m-3"
+        handleClick={handleClick}
+      />
+      <hr></hr>
+      <ul>
+        {frutas.map((fruta, index) => {
+          return (
+            <li key={index}>
+              {index} - {fruta}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
 };
 
 export default App;
