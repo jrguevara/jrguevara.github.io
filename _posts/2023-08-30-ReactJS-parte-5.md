@@ -518,7 +518,7 @@ const Tag = () => {
             <h2 className="text-info">Random Gif v2</h2>
             <img width="500" src={gif} alt="Random Gif" />
             <br /><br />
-            <button className='btn btn-info' onClick={fetchGif}>Vargar nuevo Gif</button>
+            <button className='btn btn-info' onClick={fetchGif}>Cargar nuevo Gif</button>
         </div>
     );
 }
