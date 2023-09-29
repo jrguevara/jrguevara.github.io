@@ -4,7 +4,7 @@ date: 2023-09-27 00:00:00 -500
 categories: [react]
 tags: [javascript, reactjs, nextjs, ecommerce, programacion]
 published: false
-hidden: true
+hidden: false
 ---
 
 ## LMS - NextJS
