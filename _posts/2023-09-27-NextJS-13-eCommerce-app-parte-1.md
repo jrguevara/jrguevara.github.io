@@ -3,8 +3,8 @@ title: NextJS 13 - eCommerce App - parte 1
 date: 2023-09-27 00:00:00 -500
 categories: [react]
 tags: [javascript, reactjs, nextjs, ecommerce, programacion]
-published: true
-hidden: false
+published: false
+hidden: true
 ---
 
 ## LMS - NextJS
