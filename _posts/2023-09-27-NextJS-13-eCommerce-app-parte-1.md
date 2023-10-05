@@ -7,16 +7,8 @@ published: true
 hidden: false
 ---
 
-## LMS - NextJS
-
-  
-
 ## Configuración inicial
-
-Sep 28, 2023, 6:37 PM
-
   
-
 [https://ui.shadcn.com/](https://ui.shadcn.com/)  
 
 [https://ui.shadcn.com/docs/installation/next](https://ui.shadcn.com/docs/installation/next)  

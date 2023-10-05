@@ -445,3 +445,213 @@ export const SidebarItem = ({
 }
 
 ```
+
+- Crear `app/(dashboard)/(routes)/search/page.tsx`
+
+```tsx
+const SearchPage = () => {
+    return (
+        <div>
+            <h1>Search Page</h1>
+        </div>
+    );
+}
+
+export default SearchPage;
+
+```
+
+  
+
+- Modificar `app/(dashboard)/layout.tsx` para mover el contenido a la derecha de la sidebar y agregar la div para la NavBar
+
+```tsx
+import Navbar from "./_components/Navbar";
+import Sidebar from "./_components/Sidebar";
+
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
+    return (
+        <div className="h-full">
+            <div className="h-[80px] md:pl-56 fixed inset-y-0 w-full z-50">
+                <Navbar />
+            </div>
+            <div className="hidden md:flex h-full w-56 flex-col fixed inset-y-0 z-50">
+                <Sidebar />
+            d</div>
+            <main className="md:pl-56 h-full">
+                {children}
+            </main>
+        </div>
+    );
+}
+
+export default DashboardLayout;
+
+```
+
+  
+
+- Crear `app/(dashboard)/_components/Navbar.tsx`
+
+```tsx
+export const Navbar = () => { 
+    return (
+        <div className="p-4 border-b h-full flex items-center bg-[#ededed] dark:bg-[#1f1f1f] shadow-sm">
+
+        </div>
+    ); 
+}
+
+export default Navbar;
+
+```
+
+  
+
+- Agregaremos un botón drawer para mostrar o esconder la sidebar en dispositivos mobiles. Crear `app/(dashboard)/_components/MobileSidebar.tsx`
+
+```tsx
+import { Menu } from "lucide-react";
+
+export const MobileSidebar = () => {
+    return (
+            <Menu />
+    );
+}
+
+export default MobileSidebar;
+
+```
+
+  
+
+- Modificar `app/(dashboard)/_components/Navbar.tsx` para mostrar el nuevo componentes
+
+```tsx
+import MobileSidebar from "./MobileSidebar";
+
+export const Navbar = () => { 
+    return (
+        <div className="p-4 border-b h-full flex items-center bg-[#ededed] dark:bg-[#1f1f1f] shadow-sm">
+            <MobileSidebar />
+        </div>
+    ); 
+}
+
+export default Navbar;
+
+```
+
+  
+
+- `npx shadcn-ui@latest add sheet` 
+- Modificar `app/(dashboard)/_components/MobileSidebar.tsx`
+
+```tsx
+import { Menu } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import Sidebar from "./Sidebar";
+
+export const MobileSidebar = () => {
+    return (
+    <div>
+        <Sheet>
+            <SheetTrigger className="md:hidden pr-4 hover:opacity-75 transition">
+                <Menu />
+            </SheetTrigger>
+            <SheetContent side="left" className="p-0  bg-[#ededed] dark:bg-[#1f1f1f] ">
+                <Sidebar />
+            </SheetContent>
+        </Sheet>
+    </div>
+    );
+}
+
+export default MobileSidebar;
+
+```
+
+- Agregar variante de botón `customghost` a `components/ui/button.tsx`
+
+```tsx
+const buttonVariants = cva(
+  "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        destructive:
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        outline:
+          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        secondary:
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        link: "text-primary underline-offset-4 hover:underline",
+        customghost: "hover:bg-teal-600 hover:text-white hover:dark:bg-yellow-500 hover:dark:text-black",
+      },
+      size: {
+        default: "h-10 px-4 py-2",
+        sm: "h-9 rounded-md px-3",
+        lg: "h-11 rounded-md px-8",
+        icon: "h-10 w-10",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+)
+
+```
+
+  
+
+- Crear `app/components/NavbarRoutes.tsx`
+
+```tsx
+"use cñient";
+
+import { UserButton } from "@clerk/nextjs";
+import { ModeToggle } from "@/components/mode-toggle";
+import { Button } from "@/components/ui/button";
+import { LogOut } from "lucide-react";
+
+export const NavbarRoutes = () => {
+    return (
+        <div className="flex gap-x-8 ml-auto">
+            <Button size="sm" variant='customghost'>
+                <LogOut className="h-4 w-4 mr-2"/>
+                Salir
+            </Button>
+            <UserButton 
+                afterSignOutUrl="/"
+            />
+            <ModeToggle />
+        </div>
+    );
+}
+
+```
+
+  
+
+- Modificar `app/(dashboard)/_components/Navbar.tsx` para mostrar el nuevo componente
+
+```tsx
+import { NavbarRoutes } from "@/components/NavbarRoutes";
+import MobileSidebar from "./MobileSidebar";
+
+export const Navbar = () => { 
+    return (
+        <div className="p-4 border-b h-full flex items-center bg-[#ededed] dark:bg-[#1f1f1f] shadow-sm">
+            <MobileSidebar />
+            <NavbarRoutes />
+        </div>
+    ); 
+}
+
+export default Navbar;
+
+```
