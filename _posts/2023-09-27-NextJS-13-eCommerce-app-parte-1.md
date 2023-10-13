@@ -212,7 +212,8 @@ export default GroupLayout;
 - [https://clerk.com/docs/quickstarts/nextjs](https://clerk.com/docs/quickstarts/nextjs)
 - instalar el paquete de clerk `npm install @clerk/nextjs`
 - Editar `app/layout.tsx`
-```tsx
+
+```javascript
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -238,7 +239,9 @@ export default function RootLayout({
     </ClerkProvider>
   )
 }
+
 ```
+
 - Crear en raíz del proyecto `middleware.ts`
 
 ```typescript
