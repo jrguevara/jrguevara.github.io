@@ -310,3 +310,253 @@ const CourseUuidPage = ({
 export default CourseUuidPage;
 
 ```
+
+## Edición de curso
+
+- Editar `app/(dashboard)/(routes)/teacher/courses/[uuid]/page.tsx`
+
+```tsx
+import { auth } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
+import { db } from "@/lib/db";
+import { IconBadge } from "@/components/IconBadge";
+import { LayoutDashboard } from "lucide-react";
+import { TitleForm } from "@/app/(dashboard)/_components/TitleForm";
+
+const CourseUuidPage = async ({
+    params
+}: {
+    params: { uuid: string }
+}) => {
+
+    const { userId } = auth();
+
+    if (!userId) {
+        return redirect("/");
+    }
+
+    const course = await db.tbl_cursos.findFirst({
+        where: {
+            uuid: params.uuid,
+        }
+    });
+
+    if (!course) {
+        return redirect("/");
+    }
+
+    const requiredFields = [
+        course?.titulo,
+        course?.descripcion,
+        course?.imagen_url,
+        course?.precio,
+        course?.id_categoria];
+
+    const totalFields = requiredFields.length;
+    const completedFields = requiredFields.filter(Boolean).length;
+
+    const completionText = `(${completedFields}/${totalFields})`;
+
+    return (
+        <div className="p-6">
+            <div className="flex items-center justify-between">
+                <div className="flex flex-col gap-y-2">
+                    <h1 className="text-2xl font-medium">
+                        Configuracion del curso
+                    </h1>
+                    <span className="text-sm text-slate-700 dark:text-white">
+                        Completar todos los campos {completionText}
+                    </span>
+                </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
+                <div>
+                    <div className="flex items-center gap-x-2">
+                        <div className="rounded-full flex items-center justify-center bg-sky-100 dark:bg-[#1f1f1f] p-2">
+                            <LayoutDashboard className="h-8 w-8 text-teal-700 dark:text-yellow-500" />
+                        </div>
+                        <h2 className="text-xl">
+                            Personaliza tu curso
+                        </h2>
+                    </div>
+                    <TitleForm
+                        initialData={course}
+                        id_curso={course.id_curso}
+                    />
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default CourseUuidPage;
+
+```
+
+  
+
+- Crear app/(dashboard)/\_components/TitleForm.tsx
+
+```tsx
+"use client";
+
+import * as z from "zod";
+import axios from "axios";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Pencil } from "lucide-react";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+
+interface TitleFormProps {
+    initialData: {
+        titulo: string;
+    };
+    id_curso: number;
+};
+
+const formSchema = z.object({
+    titulo: z.string().min(5, {
+        message: "El titulo es requerido",
+    }),
+});
+
+export const TitleForm = ({
+    initialData,
+    id_curso
+}: TitleFormProps) => {
+    const [isEditing, setIsEditing] = useState(false);
+
+    const toggleEdit = () => setIsEditing((current) => !current);
+
+    const router = useRouter();
+
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: initialData,
+    });
+
+    const { isSubmitting, isValid } = form.formState;
+
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        try {
+            await axios.patch(`/api/courses/${id_curso}`, values);
+            toast.success("Curso Actualizado");
+            toggleEdit();
+            router.refresh();
+        } catch {
+            toast.error("Sucedio un error");
+        }
+    }
+
+    return (
+        <div className="mt-6 border bg-[#cfcfcf] dark:bg-[#1f1f1f] rounded-md p-4">
+            <div className="font-medium flex items-center justify-between">
+                Titulo del curso
+                <Button onClick={toggleEdit} variant="customghost">
+                    {isEditing ? (
+                        <>Cancelar</>
+                    ) : (
+                        <>
+                            <Pencil className="h-4 w-4 mr-2" />
+                            Editar titulo
+                        </>
+                    )}
+                </Button>
+            </div>
+            {!isEditing && (
+                <p className="text-xl mt-2">
+                    {initialData.titulo}
+                </p>
+            )}
+            {isEditing && (
+                <Form {...form}>
+                    <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className="space-y-4 mt-4"
+                    >
+                        <FormField
+                            control={form.control}
+                            name="titulo"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormControl>
+                                        <Input
+                                            disabled={isSubmitting}
+                                            placeholder="ej. 'Desarrollo web con NextJS'"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <div className="flex items-center gap-x-2">
+                            <Button
+                                disabled={!isValid || isSubmitting}
+                                type="submit"
+                                variant="success"
+                            >
+                                Guardar
+                            </Button>
+                        </div>
+                    </form>
+                </Form>
+            )}
+        </div>
+    )
+}
+
+```
+
+## Actualizar Curso API
+
+- Crear app/courses/\[id\_curso\]/route.ts
+
+```ts
+import { auth } from "@clerk/nextjs";
+import { NextResponse } from "next/server";
+import { db } from "@/lib/db";
+
+export async function PATCH(
+    req: Request,
+    { params }: { params: { id_curso: string } }
+) {
+    try {
+        const { userId } = auth();
+        const { id_curso } = params;
+        const values = await req.json();
+
+        if (!userId) {
+            return new NextResponse("No autorizado", { status: 401 });
+        }
+
+        const course = await db.tbl_cursos.update({
+            where: {
+                id_curso: parseInt(id_curso),
+                id_usuario: userId
+            },
+            data: {
+                ...values,
+            }
+        });
+
+        return NextResponse.json(course);
+    } catch (error) {
+        console.log("[COURSE_ID]", error);
+        return new NextResponse("Internal Error", { status: 500 });
+    }
+}
+
+```
