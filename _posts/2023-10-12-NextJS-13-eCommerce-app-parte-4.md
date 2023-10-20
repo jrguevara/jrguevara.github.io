@@ -395,7 +395,7 @@ export default CourseUuidPage;
 
   
 
-- Crear app/(dashboard)/\_components/TitleForm.tsx
+- Crear `app/(dashboard)/(routes)/teacher/courses/[uuid]/_components/TitleForm.tsx`
 
 ```tsx
 "use client";
@@ -438,7 +438,12 @@ export const TitleForm = ({
 }: TitleFormProps) => {
     const [isEditing, setIsEditing] = useState(false);
 
-    const toggleEdit = () => setIsEditing((current) => !current);
+    const toggleEdit = () => { 
+        setIsEditing((current) => !current);
+        if (!isEditing) {
+            form.setValue("titulo", initialData.titulo);
+        }
+    };
 
     const router = useRouter();
 
@@ -522,7 +527,7 @@ export const TitleForm = ({
 
 ## Actualizar Curso API
 
-- Crear app/courses/\[id\_curso\]/route.ts
+- Crear `app/courses/\[id\_curso\]/route.ts`
 
 ```ts
 import { auth } from "@clerk/nextjs";
