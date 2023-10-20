@@ -9,8 +9,6 @@ hidden: false
 
 ## Formulario descripción
 
-Oct 19, 2023, 4:57 PM
-
 - Instalar `npx shadcn-ui@latest add textarea`
 - Crear `app/(dashboard)/(routes)/teacher/courses/[uuid]/_components/DescriptionForm.tsx`
 
@@ -729,5 +727,17 @@ body,
 }
 
 @import "~@uploadthing/react/styles.css"
+```
 
+- Editar `next.config.js`
+
+```javascript
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+    images: {
+        domains: ['utfs.io'],
+    },
+}
+
+module.exports = nextConfig
 ```
