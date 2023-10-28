@@ -403,7 +403,9 @@ interface PriceFormProps {
 };
 
 const formSchema = z.object({
-    precio: z.coerce.number(),
+    precio: z.coerce.number().positive().min(0.00, {
+        message: "El precio es requerido",
+    })
 });
 
 export const PriceForm = ({
@@ -412,7 +414,13 @@ export const PriceForm = ({
 }: PriceFormProps) => {
     const [isEditing, setIsEditing] = useState(false);
 
-    const toggleEdit = () => setIsEditing((current) => !current);
+    const toggleEdit = () => { 
+        setIsEditing((current) => !current);
+        if (!isEditing) {
+            //form.reset();
+            form.setValue("precio", initialData?.precio || 0.00);
+        }
+    };
 
     const router = useRouter();
 
@@ -475,9 +483,10 @@ export const PriceForm = ({
                                     <FormControl>
                                         <Input
                                             type="number"
+                                            min="0"
                                             step="0.01"
                                             disabled={isSubmitting}
-                                            placeholder="ej. 100.00"
+                                            placeholder="ej. $99.99"
                                             {...field}
                                         />
                                     </FormControl>
