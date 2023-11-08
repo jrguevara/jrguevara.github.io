@@ -95,8 +95,6 @@ export const Combobox = ({
 
 ```
 
-  
-
 - Crear `app/(dashboard)/(routes)/teacher/courses/[uuid]/_components/CategoriesForm.tsx`
 
 ```tsx
@@ -110,7 +108,7 @@ import { Pencil } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { tbl_cursos } from "@prisma/client";
+import { tbl_categorias, tbl_cursos } from "@prisma/client";
 
 import {
     Form,
@@ -122,13 +120,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Combobox } from "@/components/ui/combobox";
-import { db } from "@/lib/db";
-
 interface CategoryFormProps {
-    initialData: tbl_cursos;
+    initialData: tbl_cursos & { categoria: tbl_categorias | null} ;
     id_curso: number;
     options: { label: string; value: number }[];
-    category: any;
 };
 
 const formSchema = z.object({
@@ -139,7 +134,6 @@ export const CategoriesForm = ({
     initialData,
     id_curso,
     options,
-    category,
 }: CategoryFormProps) => {
     const [isEditing, setIsEditing] = useState(false);
 
@@ -149,6 +143,8 @@ export const CategoriesForm = ({
             form.setValue("id_categoria", initialData?.id_categoria || null);
         }
     };
+
+    console.log(initialData)
 
     const router = useRouter();
 
@@ -194,7 +190,7 @@ export const CategoriesForm = ({
                     "mt-2",
                     !initialData.id_categoria && "italic"
                 )}>
-                    {category || "* Sin categoria *"}
+                    {initialData.categoria?.nombre || "* Sin categoria *"}
                 </p>
             )}
             {isEditing && (
@@ -244,11 +240,12 @@ export const CategoriesForm = ({
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
-import { LayoutDashboard } from "lucide-react";
+import { CircleDollarSign, LayoutDashboard } from "lucide-react";
 import { TitleForm } from "./_components/TitleForm";
 import { DescriptionForm } from "./_components/DescriptionForm";
 import { ImageForm } from "./_components/ImageForm";
 import { CategoriesForm } from "./_components/CategoriesForm";
+import { Prisma } from "@prisma/client";
 
 const CourseUuidPage = async ({
     params
@@ -266,23 +263,19 @@ const CourseUuidPage = async ({
         where: {
             uuid: params.uuid,
             id_usuario: userId
-        }
+        },
+        include: {
+            categoria: true
+        },
     });
+
+    console.log(course);
 
     const categories = await db.tbl_categorias.findMany({
         orderBy: {
             nombre: "asc"
         }
     });
-
-    if (course?.id_categoria !== null) {
-        let category = await db.tbl_categorias.findUnique({
-            where: {
-                id_categoria: course?.id_categoria
-            }
-        });
-        var categoryName = category?.nombre;
-    }
 
     if (!course) {
         return redirect("/");
@@ -330,7 +323,6 @@ const CourseUuidPage = async ({
                         initialData={course}
                         id_curso={course.id_curso}
                     />
-
                     <CategoriesForm
                         initialData={course}
                         id_curso={course.id_curso}
@@ -338,7 +330,6 @@ const CourseUuidPage = async ({
                             label: category.nombre,
                             value: category.id_categoria,
                         }))}
-                        category={categoryName}
                     />
                     <ImageForm
                         initialData={course}
@@ -351,7 +342,6 @@ const CourseUuidPage = async ({
 }
 
 export default CourseUuidPage;
-
 ```
 
 ## Formulario de Precio
