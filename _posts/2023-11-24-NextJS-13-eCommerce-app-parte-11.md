@@ -9,7 +9,7 @@ hidden: false
 
 ## Landing Page
 
-- Ejecutar `npm i react-type-animation`
+- Ejecutar `npm i react-type-animation` y `npm i framer-motion`
 - Modificar archivo `.env`
 
 ```bash
@@ -247,7 +247,7 @@ export default HomeLayout;
 
   
 
-- Crear `public/fonts` descargar en carpeta archivo `font.woff2` desde [https://github.com/jrguevara/lms-jrcoding-dev/blob/main/public/fonts/font.woff2](https://github.com/jrguevara/lms-jrcoding-dev/blob/main/public/fonts/font.woff2) 
+- Crear `public/fonts` descargar en carpeta archivo `font.woff2` desde [https://github.com/jrguevara/ecommerce-nextjs/tree/main/public/fonts](https://github.com/jrguevara/ecommerce-nextjs/tree/main/public/fonts) 
 - Crear `app/(landing)/page.tsx`
 
 ```tsx
@@ -314,9 +314,9 @@ const HomePage = () => {
                     Hoy quiero aprender a...
                 </h1>
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5 }}
+                    initial={ { opacity: 0, scale: 0.5 } }
+                    animate={ { opacity: 1, scale: 1 } }
+                    transition={ { duration: 0.5 } }
                     className="col-span-8 place-self-center text-center sm:text-left justify-self-start"
                 >
                     <h1 className="text-teal-800 dark:text-yellow-500 mb-4 text-4xl sm:text-5xl lg:text-8xl lg:leading-normal font-extrabold">
