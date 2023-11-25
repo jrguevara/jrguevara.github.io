@@ -7,7 +7,7 @@ published: true
 hidden: false
 ---
 
-## Listado de Categorías
+## Filtro de Categorías
 
   
 
