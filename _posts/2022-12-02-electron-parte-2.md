@@ -9,13 +9,16 @@ hidden: false
 
 ## App redimensionador de imagenes
 
+  
 
 - Crear un nuevo boilerplate de electron e instalar las dependencias
 
 ```powershell
 npm init
-npm i resize-img toastify-js npx electronmon
-npm install --save-dev electron
+npm install resize-img toastify-js 
+npm install --save-dev npx 
+npm install --save-dev npx electron electronmon electron-builder @electron-forge/cli 
+npx electron-forge import
 
 ```
 
@@ -25,13 +28,16 @@ npm install --save-dev electron
 
 ```json
 {
-  "name": "imagen-redi",
-  "productName": "imagen-redi",
-  "version": "1.0.0",
+  "name": "imagen-univo-v2",
+  "productName": "ImagenUNIVO",
+  "version": "2.0.0",
   "description": "Redimensionador de imagenes",
   "main": "main.js",
   "scripts": {
-    "start": "npx electronmon ."
+    "test": "npx electronmon .",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "keywords": [
     "UNIVO",
@@ -40,15 +46,24 @@ npm install --save-dev electron
   "author": "Jaime Guevara",
   "license": "MIT",
   "dependencies": {
-    "electronmon": "^2.0.2",
-    "npx": "^3.0.0",
-    "resize-img": "^1.1.2",
+    "electron-squirrel-startup": "^1.0.0",
+    "resize-img": "^2.0.0",
     "toastify-js": "^1.12.0"
   },
   "devDependencies": {
-    "electron": "^22.0.0"
+    "@electron-forge/cli": "^7.1.0",
+    "@electron-forge/maker-deb": "^7.1.0",
+    "@electron-forge/maker-rpm": "^7.1.0",
+    "@electron-forge/maker-squirrel": "^7.1.0",
+    "@electron-forge/maker-zip": "^7.1.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.1.0",
+    "electron": "^27.1.2",
+    "electron-builder": "^24.9.1",
+    "electronmon": "^2.0.2",
+    "npx": "^10.2.2"
   }
 }
+
 
 ```
 
@@ -62,8 +77,8 @@ const path = require('path')
 
 process.env.NODE_ENV = 'dev'
 
-const isMac = process.platform === 'darwin'
-const isDev = process.env.NODE_ENV !== 'prod'
+const isMac = process.platform !== 'darwin'
+const isDev = process.env.NODE_ENV === 'dev'
 
 // Crear ventana Principal
 function createMainWindow(
@@ -121,14 +136,13 @@ app.on('window-all-closed', () => {
 
   
 
-- Probar app con `npm run start` 
+- Probar app con `npm run test` 
 
   
 
 ## Personalizar UI
 
-- Modificar `index.html`   
-    
+- Modificar `index.html` 
 
 ```html
 <!DOCTYPE html>
@@ -147,7 +161,7 @@ app.on('window-all-closed', () => {
     <title>Redimensionar imagen</title>
 </head>
 
-<body class="bg-purple-700">
+<body class="bg-dark">
     <div class="max-w-xl m-auto h-screen flex flex-col align-center justify-center">
         <div class="flex flex-col w-full items-center justify-center bg-grey-lighter">
             <label class="w-64 flex flex-col items-center px-4 py-7 bg-white text-gray-500 rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer">
@@ -680,9 +694,9 @@ video {
   border-color: transparent;
 }
 
-.bg-purple-700 {
+.bg-dark {
   --tw-bg-opacity: 1;
-  background-color: rgb(138 98 193 / var(--tw-bg-opacity));
+  background-color: rgb(50 47 47 / var(--tw-bg-opacity));
 }
 
 .bg-white {
@@ -820,7 +834,7 @@ video {
 
 ## Ventana Acerca de
 
-- modificar `index.js`
+- modificar `main.js`
 
 ```javascript
 const { app, BrowserWindow } = require('electron')
@@ -828,8 +842,8 @@ const path = require('path')
 
 process.env.NODE_ENV = 'dev'
 
-const isMac = process.platform === 'darwin'
-const isDev = process.env.NODE_ENV !== 'prod'
+const isMac = process.platform !== 'darwin'
+const isDev = process.env.NODE_ENV === 'dev'
 
 // Crear ventana Principal
 function createMainWindow(
@@ -855,7 +869,7 @@ function createAboutWindow(
       width: 300,
       height: 300,
       title: 'Acerca',
-      icon: `${__dirname}/assets/icons/icon_100x100.png`,
+      icon: `${__dirname}/assets/icons/icon_256x256.png`,
     });
   
      aboutWindow.loadFile(path.join(__dirname, './renderer/about.html'))
@@ -900,7 +914,7 @@ app.on('window-all-closed', () => {
     <title>ImagenUNIVO</title>
 </head>
 
-<body class="bg-purple-700">
+<body class="bg-dark">
     <div
       class="max-w-xl m-auto h-screen flex flex-col align-center justify-center text-center"
     >
@@ -911,7 +925,7 @@ app.on('window-all-closed', () => {
         class="mx-auto mb-5"
       />
       <h2 class="text-xl text-teal-100 text-center">ImagenUNIVO App</h2>
-      <p class="text-xl text-teal-100 mt-2">Version 1.0.0</p>
+      <p class="text-xl text-teal-100 mt-2">Version 2.0.0</p>
       <p class="text-xl text-teal-100 mt-2">MIT License</p>
     </div>
 </body>
@@ -924,7 +938,7 @@ app.on('window-all-closed', () => {
 
 ## Menu en electron
 
-- Modificar main.js
+- Modificar `main.js`
 
 ```javascript
 const { app, BrowserWindow, Menu } = require('electron')
@@ -932,8 +946,8 @@ const path = require('path')
 
 process.env.NODE_ENV = 'dev'
 
-const isMAc = process.platform === 'darwin'
-const isDev = process.env.NODE_ENV !== 'prod'
+const isMAc = process.platform !== 'darwin'
+const isDev = process.env.NODE_ENV === 'dev'
 
 // Crear ventana Principal
 function createMainWindow(
@@ -951,6 +965,20 @@ function createMainWindow(
 
     mainWindow.loadFile(path.join(__dirname, './renderer/index.html'))
 }
+
+// Ventana About
+function createAboutWindow(
+) {
+    aboutWindow = new BrowserWindow({
+      width: 300,
+      height: 300,
+      title: 'Acerca',
+      icon: `${__dirname}/assets/icons/icon_256x256.png`,
+    });
+  
+     aboutWindow.loadFile(path.join(__dirname, './renderer/about.html'))
+     aboutWindow.setMenuBarVisibility(false)
+  }
 
 // Cuando la app esta lista cre la ventana
 app.whenReady().then(() => {
@@ -997,58 +1025,45 @@ app.on('window-all-closed', () => {
 ```javascript
 // Plantilla de menu
 const menu = [
-    /*{
-        role: 'fileMenu',
-    },*/
-    {
-        label: 'Archivo',
+  ...(isMac
+    ? [
+      {
+        label: app.name,
         submenu: [
-            {
-                label: 'Salir',
-                click: () => app.quit(),
-                accelerator: 'CmdOrCtrl+W',
-            },
+          {
+            label: 'Acerca',
+            click: createAboutWindow,
+          },
         ],
-    },
-    ...(isMac
-        ? [
-            {
-                label: app.name,
-                submenu: [
-                    {
-                        label: 'Acerca',
-                        click: createAboutWindow,
-                    },
-                ],
-            },
-        ]
-        : []),
-    ...(!isMac
-        ? [
-            {
-                label: 'Ayuda',
-                submenu: [
-                    {
-                        label: 'Acerca',
-                        click: createAboutWindow,
-                    },
-                ],
-            },
-        ]
-        : []),
-    ...(isDev
-        ? [
-            {
-                label: 'Developer',
-                submenu: [
-                    { role: 'reload' },
-                    { role: 'forcereload' },
-                    { type: 'separator' },
-                    { role: 'toggledevtools' },
-                ],
-            },
-        ]
-        : []),
+      },
+    ]
+    : []),
+  ...(!isMac
+    ? [
+      {
+        label: 'Ayuda',
+        submenu: [
+          {
+            label: 'Acerca',
+            click: createAboutWindow,
+          },
+        ],
+      },
+    ]
+    : []),
+  ...(isDev
+    ? [
+      {
+        label: 'Developer',
+        submenu: [
+          { role: 'reload' },
+          { role: 'forcereload' },
+          { type: 'separator' },
+          { role: 'toggledevtools' },
+        ],
+      },
+    ]
+    : []),
 ]
 
 ```
@@ -1056,8 +1071,6 @@ const menu = [
   
 
 ## Abrir imagen
-
-  
 
 - Crear `js/script.js`
 
@@ -1104,7 +1117,7 @@ img.addEventListener('change', cargarImagen)
 
   
 
-- Crear archivo [preload](https://www.electronjs.org/docs/latest/tutorial/tutorial-preload "https://www.electronjs.org/docs/latest/tutorial/tutorial-preload") en raiz del proyecto
+- Crear archivo `preload.js` en raiz del proyecto
 
 ```javascript
 const { contextBridge } = require('electron')
@@ -1135,7 +1148,7 @@ function createMainWindow(
         title: 'Redimensionar Imagen',
         width: isDev ? 1200 : 600,
         height: 800,
-        icon: `${__dirname}/assets/icons/icon_100x100.png`,
+        icon: `${__dirname}/assets/icons/icon_256x256.png`,
         resizable: isDev,
         webPreferences: {
           nodeIntegration: true,
@@ -1156,7 +1169,7 @@ function createMainWindow(
 
   
 
-- Modificar script.js
+- Modificar `script.js`
 
 ```javascript
 const form = document.querySelector('#img-form')
@@ -1199,6 +1212,8 @@ function esImagen(file) {
 img.addEventListener('change', cargarImagen)
 
 ```
+
+  
 
 ## Alertas
 
@@ -1453,8 +1468,8 @@ const fs = require('fs')
 
 process.env.NODE_ENV = 'dev'
 
-const isMac = process.platform === 'darwin'
-const isDev = process.env.NODE_ENV !== 'prod'
+const isMac = process.platform !== 'darwin'
+const isDev = process.env.NODE_ENV === 'dev'
 
 // Crear ventana Principal
 function createMainWindow() {
@@ -1462,7 +1477,7 @@ function createMainWindow() {
         title: 'Redimensionar Imagen',
         width: isDev ? 1200 : 600,
         height: 800,
-        icon: `${__dirname}/assets/icons/icon_100x100.png`,
+        icon: `${__dirname}/assets/icons/icon_256x256.png`,
         resizable: isDev,
         webPreferences: {
             nodeIntegration: true,
@@ -1508,58 +1523,45 @@ app.whenReady().then(() => {
 
 // Plantilla de menu
 const menu = [
-    /*{
-        role: 'fileMenu',
-    },*/
-    {
-        label: 'Archivo',
+  ...(isMac
+    ? [
+      {
+        label: app.name,
         submenu: [
-            {
-                label: 'Salir',
-                click: () => app.quit(),
-                accelerator: 'CmdOrCtrl+W',
-            },
+          {
+            label: 'Acerca',
+            click: createAboutWindow,
+          },
         ],
-    },
-    ...(isMac
-        ? [
-            {
-                label: app.name,
-                submenu: [
-                    {
-                        label: 'Acerca',
-                        click: createAboutWindow,
-                    },
-                ],
-            },
-        ]
-        : []),
-    ...(!isMac
-        ? [
-            {
-                label: 'Ayuda',
-                submenu: [
-                    {
-                        label: 'Acerca',
-                        click: createAboutWindow,
-                    },
-                ],
-            },
-        ]
-        : []),
-    ...(isDev
-        ? [
-            {
-                label: 'Developer',
-                submenu: [
-                    { role: 'reload' },
-                    { role: 'forcereload' },
-                    { type: 'separator' },
-                    { role: 'toggledevtools' },
-                ],
-            },
-        ]
-        : []),
+      },
+    ]
+    : []),
+  ...(!isMac
+    ? [
+      {
+        label: 'Ayuda',
+        submenu: [
+          {
+            label: 'Acerca',
+            click: createAboutWindow,
+          },
+        ],
+      },
+    ]
+    : []),
+  ...(isDev
+    ? [
+      {
+        label: 'Developer',
+        submenu: [
+          { role: 'reload' },
+          { role: 'forcereload' },
+          { type: 'separator' },
+          { role: 'toggledevtools' },
+        ],
+      },
+    ]
+    : []),
 ]
 
 //Respuesta a IPC
@@ -1590,163 +1592,153 @@ const resizeImg = require('resize-img')
 
 process.env.NODE_ENV = 'dev'
 
-const isMac = process.platform === 'darwin'
-const isDev = process.env.NODE_ENV !== 'prod'
+const isMac = process.platform !== 'darwin'
+const isDev = process.env.NODE_ENV === 'dev'
 
 let mainWindow
 let aboutWindow
 
 // Crear ventana Principal
 function createMainWindow() {
-    mainWindow = new BrowserWindow({
-        title: 'Redimensionar Imagen',
-        width: isDev ? 1200 : 600,
-        height: 800,
-        icon: `${__dirname}/assets/icons/icon_100x100.png`,
-        resizable: isDev,
-        webPreferences: {
-            nodeIntegration: true,
-            contextIsolation: true,
-            preload: path.join(__dirname, 'preload.js'),
-        },
-    })
+  mainWindow = new BrowserWindow({
+    title: 'Redimensionar Imagen',
+    width: isDev ? 1200 : 600,
+    height: 800,
+    icon: `${__dirname}/assets/icons/icon_512x512.png`,
+    resizable: isDev,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: true,
+      preload: path.join(__dirname, 'preload.js'),
+    },
+  })
 
-    //Abre DevTools si esta en env dev
-    if (isDev) {
-        mainWindow.webContents.openDevTools()
-    }
+  //console.log (icon);
 
-    mainWindow.loadFile(path.join(__dirname, './renderer/index.html'))
+  //Abre DevTools si esta en env dev
+  if (isDev) {
+    mainWindow.webContents.openDevTools()
+  }
+
+  mainWindow.loadFile(path.join(__dirname, './renderer/index.html'))
 }
 
 // Ventana About
 function createAboutWindow() {
-    aboutWindow = new BrowserWindow({
-        width: 300,
-        height: 300,
-        title: 'Acerca',
-        icon: `${__dirname}/assets/icons/icon_100x100.png`,
-    });
+  aboutWindow = new BrowserWindow({
+    width: 300,
+    height: 300,
+    title: 'Acerca',
+    icon: `${__dirname}/assets/icons/icon_100x100.png`,
+  });
 
-    aboutWindow.loadFile(path.join(__dirname, './renderer/about.html'))
-    aboutWindow.setMenuBarVisibility(false)
+  aboutWindow.loadFile(path.join(__dirname, './renderer/about.html'))
+  aboutWindow.setMenuBarVisibility(false)
 }
 
-// Cuando la app esta lista cre la ventana
+// Cuando la app esta lista crea la ventana
 app.whenReady().then(() => {
-    createMainWindow()
-    //Implementacion del menu
-    const mainMenu = Menu.buildFromTemplate(menu)
-    Menu.setApplicationMenu(mainMenu)
+  createMainWindow()
+  //Implementacion del menu
+  const mainMenu = Menu.buildFromTemplate(menu)
+  Menu.setApplicationMenu(mainMenu)
 
-    // Remover variable de memoria
-    mainWindow.on('closed', () => (mainWindow = null));
+  // Remover variable de memoria
+  mainWindow.on('closed', () => (mainWindow = null));
 
-    app.on('activate', () => {
-        if (BrowserWindow.getAllWindows().length === 0) {
-            createMainWindow()
-        }
-    })
+  app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createMainWindow()
+    }
+  })
 })
 
 // Plantilla de menu
 const menu = [
-    /*{
-        role: 'fileMenu',
-    },*/
-    {
-        label: 'Archivo',
+  ...(isMac
+    ? [
+      {
+        label: app.name,
         submenu: [
-            {
-                label: 'Salir',
-                click: () => app.quit(),
-                accelerator: 'CmdOrCtrl+W',
-            },
+          {
+            label: 'Acerca',
+            click: createAboutWindow,
+          },
         ],
-    },
-    ...(isMac
-        ? [
-            {
-                label: app.name,
-                submenu: [
-                    {
-                        label: 'Acerca',
-                        click: createAboutWindow,
-                    },
-                ],
-            },
-        ]
-        : []),
-    ...(!isMac
-        ? [
-            {
-                label: 'Ayuda',
-                submenu: [
-                    {
-                        label: 'Acerca',
-                        click: createAboutWindow,
-                    },
-                ],
-            },
-        ]
-        : []),
-    ...(isDev
-        ? [
-            {
-                label: 'Developer',
-                submenu: [
-                    { role: 'reload' },
-                    { role: 'forcereload' },
-                    { type: 'separator' },
-                    { role: 'toggledevtools' },
-                ],
-            },
-        ]
-        : []),
+      },
+    ]
+    : []),
+  ...(!isMac
+    ? [
+      {
+        label: 'Ayuda',
+        submenu: [
+          {
+            label: 'Acerca',
+            click: createAboutWindow,
+          },
+        ],
+      },
+    ]
+    : []),
+  ...(isDev
+    ? [
+      {
+        label: 'Developer',
+        submenu: [
+          { role: 'reload' },
+          { role: 'forcereload' },
+          { type: 'separator' },
+          { role: 'toggledevtools' },
+        ],
+      },
+    ]
+    : []),
 ]
-
 //Respuesta a IPC
 ipcMain.on('image:resize', (e, options) => {
-    //console.log(options);
-    options.dest = path.join(os.homedir(), 'imagen_univo');
-    resizeImage(options);
+  //console.log(options);
+  options.dest = path.join(os.homedir(), 'imagen_univo');
+  resizeImage(options);
 })
 
 // Modificar y guardar imagen
 async function resizeImage({ imgPath, height, width, dest }) {
-    try {
-        // console.log(imgPath, height, width, dest);
+  try {
+    // console.log(imgPath, height, width, dest);
 
-        // Resize image
-        const newPath = await resizeImg(fs.readFileSync(imgPath), {
-            width: +width,
-            height: +height,
-        });
+    // Resize image
+    const newPath = await resizeImg(fs.readFileSync(imgPath), {
+      width: +width,
+      height: +height,
+    });
 
-        // Get filename
-        const filename = path.basename(imgPath);
+    // Get filename
+    const filename = path.basename(imgPath);
 
-        // Create destination folder if it doesn't exist
-        if (!fs.existsSync(dest)) {
-            fs.mkdirSync(dest);
-        }
-
-        // Write the file to the destination folder
-        fs.writeFileSync(path.join(dest, filename), newPath);
-
-        // Send success to renderer
-        mainWindow.webContents.send('image:done');
-
-        // Open the folder in the file explorer
-        shell.openPath(dest);
-    } catch (err) {
-        console.log(err);
+    // Create destination folder if it doesn't exist
+    if (!fs.existsSync(dest)) {
+      fs.mkdirSync(dest);
     }
+
+    // Write the file to the destination folder
+    fs.writeFileSync(path.join(dest, filename), newPath);
+
+    // Send success to renderer
+    mainWindow.webContents.send('image:done');
+
+    // Open the folder in the file explorer
+    shell.openPath(dest);
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 app.on('window-all-closed', () => {
-    if (!isMac) app.quit()
+  if (!isMac) { app.quit() }
 })
+
+
 
 ```
 
