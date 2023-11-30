@@ -16,7 +16,6 @@ hidden: false
 ```powershell
 npm init
 npm install resize-img toastify-js 
-npm install --save-dev npx 
 npm install --save-dev npx electron electronmon electron-builder @electron-forge/cli 
 npx electron-forge import
 
@@ -1847,4 +1846,42 @@ img.addEventListener('change', cargarImagen)
 // Formulario listener
 form.addEventListener('submit', enviarImagen);
 
+```
+
+- Modificar `forge.config.js`
+
+```javascript
+const path = require('path')
+
+module.exports = {
+  packagerConfig: {
+    asar: true,
+    icon: path.join(__dirname, 'assets/icons/mac/icon.icns'),
+  },
+  rebuildConfig: {},
+  makers: [
+    {
+      name: '@electron-forge/maker-squirrel',
+      config: {},
+    },
+    {
+      name: '@electron-forge/maker-zip',
+      platforms: ['darwin'],
+    },
+    {
+      name: '@electron-forge/maker-deb',
+      config: {},
+    },
+    {
+      name: '@electron-forge/maker-rpm',
+      config: {},
+    },
+  ],
+  plugins: [
+    {
+      name: '@electron-forge/plugin-auto-unpack-natives',
+      config: {},
+    },
+  ],
+};
 ```
