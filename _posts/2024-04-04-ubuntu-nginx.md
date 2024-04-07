@@ -338,3 +338,4 @@ Durante el proceso de instalación, se le pedirá que elija un servidor web (ya 
   
 
 - Acceder a phpmyadmin desde: [https://site1.dev/phpmyadmin](https://server_domain_or_IP/phpmyadmin)
+
