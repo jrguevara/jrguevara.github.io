@@ -287,3 +287,54 @@ sudo apt-get install php7.4-cli php7.4-json php7.4-common php7.4-mysql php7.4-zi
 sudo apt-get install python3-certbot-nginx
 sudo certbot --nginx -d site1.dev -d www.site1.dev
 ```
+
+## Habilitar SSH
+
+```powershell
+sudo apt-get install python3-certbot-nginx
+sudo certbot --nginx -d site1.dev -d www.site1.dev
+```
+
+  
+
+## Instalar phpmyadmin
+
+- Actualizar de ser necesario `sudo apt update`
+- Instalar libreria
+
+```
+sudo apt-get install php8.1-mbstring
+```
+
+  
+
+- Desabilitar componente de validacion de password
+
+```powershell
+mysql -u root -p
+mysql> UNINSTALL COMPONENT "file://component_validate_password";
+mysql> exit
+```
+
+  
+
+- instalar phpmyadmin `sudo apt install phpmyadmin` 
+- 
+
+Durante el proceso de instalación, se le pedirá que elija un servidor web (ya sea Apache o Lighttpd) para configurar. phpMyAdmin puede realizar automáticamente una serie de cambios de configuración para garantizar que funcione correctamente con cualquiera de estos servidores web durante la instalación. Sin embargo, debido a que está utilizando Nginx como servidor web, no debe elegir ninguna de estas opciones. En su lugar, presione TAB para resaltar <Ok> y luego presione ENTER para continuar con el proceso de instalación. A continuación, se le preguntará si desea utilizar dbconfig-common para configurar la base de datos de la aplicación. Seleccione <Sí>. Esto configurará la base de datos interna y el usuario administrativo de phpMyAdmin. Se le pedirá que defina una nueva contraseña para el usuario MySQL de phpmyadmin, pero como no es una contraseña que necesita recordar, puede dejarla en blanco y dejar que phpMyAdmin cree una contraseña aleatoriamente.
+
+  
+
+- Una vez que se complete el comando apt install, phpMyAdmin estará completamente instalado. Sin embargo, para que el servidor web Nginx encuentre y proporcione los archivos phpMyAdmin correctamente, deberá crear un enlace simbólico desde los archivos de instalación al directorio raíz de documentos de Nginx. 
+
+`sudo ln -s /usr/share/phpmyadmin /var/www/site1.dev/phpmyadmin` 
+
+  
+
+- Para restaurar la verificacion de password en mysql utilizar:
+
+ `INSTALL COMPONENT "file://component_validate_password";` [](file://component_validate_password";)
+
+  
+
+- Acceder a phpmyadmin desde: [https://site1.dev/phpmyadmin](https://server_domain_or_IP/phpmyadmin)
