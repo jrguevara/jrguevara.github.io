@@ -1,6 +1,6 @@
 ---
 title: Ubuntu LEMP Stack
-date: 2023-02-05 00:00:00 -500
+date: 2024-04-04 00:00:00 -500
 categories: [aws]
 tags: [LEMP, nube, AWS, Ubuntu]
 published: true
@@ -265,7 +265,7 @@ sudo apt-get update
 Instalar las extenciones que se necesite de PHP
 
 ```powershell
-sudo apt-get install php7.4-cli php7.4-json php7.4-common php7.4-mysql php7.4-zip php7.4-gd php7.4-mbstring php7.4-curl php7.4-xml php7.4-bcmath php7.4-pspell  php7.4-intl  php7.4-xmlrpc php7.4-ldap php7.4-soap
+sudo apt-get install php7.4-cli php7.4-json php7.4-common php7.4-mysql php7.4-zip php7.4-gd php7.4-mbstring php7.4-curl php7.4-xml php7.4-bcmath php7.4-pspell  php7.4-intl  php7.4-xmlrpc php7.4-ldap php7.4-soap php7.4-fpm
 ``` 
 
 - `php7.4-cli` \- command interpreter, useful for testing PHP scripts from a shell or performing general shell scripting tasks
@@ -281,7 +281,7 @@ sudo apt-get install php7.4-cli php7.4-json php7.4-common php7.4-mysql php7.4-zi
 
 
 
-## Habilitar SSH
+## Habilitar e instalar certificado SSL
 
 ```powershell
 sudo apt-get install python3-certbot-nginx
