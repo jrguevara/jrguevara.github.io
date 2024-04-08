@@ -333,9 +333,9 @@ Durante el proceso de instalación, se le pedirá que elija un servidor web (ya 
 
 - Para restaurar la verificacion de password en mysql utilizar:
 
- `INSTALL COMPONENT "file://component_validate_password";` [](file://component_validate_password";)
-
-  
-
+```powershell
+mysql -u root -p
+mysql> INSTALL COMPONENT "file://component_validate_password";
+mysql> exit
+```
 - Acceder a phpmyadmin desde: [https://site1.dev/phpmyadmin](https://server_domain_or_IP/phpmyadmin)
-
