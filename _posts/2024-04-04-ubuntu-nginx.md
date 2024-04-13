@@ -367,3 +367,116 @@ nvm install node
 node -v
 npm -v
 ```
+
+## Instalar PM2
+
+- Instalar PM2 globalmente
+
+```powershell
+npm install pm2 -g
+```
+
+- Iniciar PM2
+
+```powershell
+pm2 start app.js
+```
+
+-- Iniciar aplicacion con nombre
+
+```powershell
+pm2 start app.js --name="app_name"
+```
+
+- Listar aplicaciones en PM2
+
+```powershell
+pm2 list
+pm2 status
+```
+
+- Detener aplicacion en PM2
+
+```powershell 
+pm2 stop app_name_or_id
+```
+
+- Eliminar aplicacion de PM2
+
+```powershell
+pm2 delete app_name_or_id
+```
+
+- Reiniciar aplicacion en PM2
+
+```powershell
+pm2 restart app_name_or_id
+```
+
+
+- Habilitar PM2 para iniciar en el arranque
+
+```powershell
+pm2 startup
+pm2 save
+```
+
+## Configurar Nginx para proxy con PM2
+
+- Crear archivo de configuracion en `/etc/nginx/sites-available/app_name`
+
+```powershell
+sudo nano /etc/nginx/sites-available/app_name
+```
+
+- Contenido del archivo
+
+```plaintext
+server {
+        listen 80;
+        server_name app_name.dev www.app_name.dev;
+        location / {
+            proxy_pass http://localhost:3000;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection 'upgrade';
+            proxy_set_header Host $host;
+            proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+
+- Habilitar el virtual host
+
+```powershell
+sudo ln -s /etc/nginx/sites-available/app_name /etc/nginx/sites-enabled/
+``` 
+
+- Comprobar que la configuración de nginx esta correcta y recargar nginx
+
+```powershell
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+## Configurar PhpMyAdmin para conectarse a servidor AWS RDS
+
+- Editar archivo de configuracion de phpmyadmin
+
+```powershell
+sudo nano /etc/phpmyadmin/config.inc.php
+```
+
+- Agregar las siguientes lineas al archivo
+
+```php
+$i++;
+$cfg['Servers'][$i]['host'] = 'RDS Hostname';
+$cfg['Servers'][$i]['port'] = '3306';
+$cfg['Servers'][$i]['user'] = 'RDS Username';
+$cfg['Servers'][$i]['password'] = 'RDS Password';
+$cfg['Servers'][$i]['socket'] = '';
+$cfg['Servers'][$i]['connect_type'] = 'tcp';
+$cfg['Servers'][$i]['extension'] = 'mysqli';
+$cfg['Servers'][$i]['auth_type'] = 'cookie';
+```
