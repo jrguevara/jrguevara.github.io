@@ -329,7 +329,15 @@ Durante el proceso de instalación, se le pedirá que elija un servidor web (ya 
 
 `sudo ln -s /usr/share/phpmyadmin /var/www/site1.dev/phpmyadmin` 
 
-  
+- Crear usuario admin con todos los privilegios
+    
+```powershell
+mysql -u root -p
+mysql> CREATE USER 'admin'@'localhost' IDENTIFIED BY 'JR_d4t4b453';
+mysql> GRANT ALL PRIVILEGES ON * . * TO 'admin'@'localhost';
+mysql> FLUSH PRIVILEGES;
+mysql> exit
+```  
 
 - Para restaurar la verificacion de password en mysql utilizar:
 
@@ -339,3 +347,23 @@ mysql> INSTALL COMPONENT "file://component_validate_password";
 mysql> exit
 ```
 - Acceder a phpmyadmin desde: [https://site1.dev/phpmyadmin](https://server_domain_or_IP/phpmyadmin)
+
+
+
+## Instalar Node Version Manager
+
+- Instalar NVM siguiendo instrucciones de la pagina oficial
+[https://github.com/nvm-sh/nvm](https://github.com/nvm-sh/nvm)
+
+```powershell
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+
+source ~/.zshrc
+```
+- Instalaa la version de node que se necesite, en este caso la mas reciente
+
+```powershell
+nvm install node
+node -v
+npm -v
+```
