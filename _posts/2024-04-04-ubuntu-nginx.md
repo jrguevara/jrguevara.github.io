@@ -2,7 +2,7 @@
 title: Ubuntu LEMP Stack
 date: 2024-04-04 00:00:00 -500
 categories: [aws]
-tags: [LEMP, nube, AWS, Ubuntu]
+tags: [LEMP, nube, aws, Ubuntu]
 published: true
 hidden: false
 ---

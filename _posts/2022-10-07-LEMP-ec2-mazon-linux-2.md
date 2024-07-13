@@ -2,7 +2,7 @@
 title: LEMP Stack en EC2 Amazon Linux 2
 date: 2022-10-07 00:00:00 -500
 categories: [aws]
-tags: [LEMP, nube, AWS]
+tags: [LEMP, nube, aws]
 published: true
 hidden: false
 ---
