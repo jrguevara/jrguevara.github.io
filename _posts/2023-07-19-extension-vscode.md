@@ -104,7 +104,7 @@ function activate(context) {
 	let disposable = vscode.commands.registerCommand('buscar-google.buscarGoogle', async function () {
 		const busqueda = await vscode.window.showInputBox({
 			value: '',
-			title: 'Google Search',
+			title: 'Buscar en Google',
 			placeHolder: 'Que necesitas buscar?',
 			validateInput: (value) => {
 				if (value === '') return 'Busqueda vacia'
