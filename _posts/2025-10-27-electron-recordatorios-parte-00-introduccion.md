@@ -1,7 +1,7 @@
 ---
 title: Electron - Recordatorios | Parte 0 - Introducción al Tutorial
 date: 2025-10-27 00:00:00 -500
-categories: [electron]
+categories: [Electron]
 tags: [javascript, electron, desktop-app, tutorial]
 published: true
 hidden: false
