@@ -371,7 +371,7 @@ npm install electron --save-dev
 ```
 
 ### Paso 3: Seguir el Tutorial
-Ve a [Parte 1: Configuración Inicial](./2025-10-27-electron-recordatorios-parte-01-configuracion-inicial.md) para comenzar con la configuración de tu aplicación Electron.
+Ve a [Parte 1: Configuración Inicial](https://jrguevara.github.io/2025-10-27-electron-recordatorios-parte-01-configuracion-inicial.html) para comenzar con la configuración de tu aplicación Electron.
 
 ## 💡 Consejos para el Éxito
 
