@@ -357,7 +357,7 @@ npm install electron --save-dev
 ```
 
 ### Paso 3: Seguir el Tutorial
-Ve a [Parte 1: Configuración Inicial](https://jrguevara.github.io/2025-10-27-electron-recordatorios-app-parte-01-configuracion-inicial/) para comenzar con la configuración de tu aplicación Electron.
+Ve a [Parte 1: Configuración Inicial](https://jrguevara.github.io/posts/electron-recordatorios-app-parte-01-configuracion-inicial/) para comenzar con la configuración de tu aplicación Electron.
 
 ## 💡 Consejos para el Éxito
 
@@ -409,7 +409,7 @@ Al finalizar el tutorial tendrás:
 
 Ahora que conoces el panorama completo, estás listo para comenzar tu viaje en el desarrollo con Electron.
 
-Sigue a la [Parte 1: Configuración Inicial](https://jrguevara.github.io/2025-10-27-electron-recordatorios-app-parte-01-configuracion-inicial/ para dar el primer paso hacia la creación de tu aplicación de recordatorios.
+Sigue a la [Parte 1: Configuración Inicial](https://jrguevara.github.io/posts/electron-recordatorios-app-parte-01-configuracion-inicial/) para dar el primer paso hacia la creación de tu aplicación de recordatorios.
 
 **¡Mucho éxito en tu aprendizaje!** 🎉
 
