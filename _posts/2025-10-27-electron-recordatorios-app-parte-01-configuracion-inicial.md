@@ -1,5 +1,5 @@
 ---
-title: Electron - Recordatorios | Parte 1 - Configuración Inicial del Proyecto
+title: Electron - Recordatorios App | Parte 1 - Configuración Inicial del Proyecto
 date: 2025-10-27 00:00:00 -500
 categories: [Electron]
 tags: [javascript, electron, desktop-app, tutorial]

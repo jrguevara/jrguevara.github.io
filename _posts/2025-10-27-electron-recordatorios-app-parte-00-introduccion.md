@@ -1,5 +1,5 @@
 ---
-title: Electron - Recordatorios | Parte 0 - Introducción al Tutorial
+title: Electron - RecordatoriosApp| Parte 0 - Introducción al Tutorial
 date: 2025-10-27 00:00:00 -500
 categories: [Electron]
 tags: [javascript, electron, desktop-app, tutorial]
@@ -312,42 +312,28 @@ reminders-app/
 ├── README.md                  # Documentación
 ├── .gitignore                 # Archivos ignorados por git
 │
-├── renderer/                  # Frontend (proceso renderizador)
-│   ├── views/
-│   │   └── index.html         # Interfaz principal
-│   │
-│   ├── js/                    # Scripts modulares
-│   │   ├── variables.js       # Variables globales
-│   │   ├── storage.js         # Persistencia de datos
-│   │   ├── core.js            # Lógica principal
-│   │   ├── calendar.js        # Sistema de calendario
-│   │   ├── formHandlers.js    # Manejo de formularios
-│   │   ├── eventListeners.js  # Event listeners
-│   │   └── init.js            # Inicialización
-│   │
-│   ├── assets/
-│   │   ├── css/
-│   │   │   └── styles.css     # Estilos (modo claro/oscuro)
-│   │   └── images/            # Iconos y recursos
-│   │       └── icon.png
-│   │
-│   └── data/                  # Datos persistentes
-│       ├── reminders.json     # Recordatorios guardados
-│       └── preferences.json   # Preferencias de usuario
-│
-└── tutorial/                  # Este tutorial
-    ├── README.md              # Índice del tutorial
-    ├── parte-00-introduccion.md
-    ├── parte-01-configuracion-inicial.md
-    ├── parte-02-datos-almacenamiento.md
-    ├── parte-03-interfaz-formulario.md
-    ├── parte-04-crud-recordatorios.md
-    ├── parte-05-busqueda-filtros.md
-    ├── parte-06-calendario.md
-    ├── parte-07-sistema-temas.md
-    ├── parte-08-sidebar-responsive.md
-    ├── parte-09-notificaciones-ux.md
-    └── parte-10-empaquetado.md
+└── renderer/                  # Frontend (proceso renderizador)
+    ├── views/
+    │   └── index.html         # Interfaz principal
+    │
+    ├── js/                    # Scripts modulares
+    │   ├── variables.js       # Variables globales
+    │   ├── storage.js         # Persistencia de datos
+    │   ├── core.js            # Lógica principal
+    │   ├── calendar.js        # Sistema de calendario
+    │   ├── formHandlers.js    # Manejo de formularios
+    │   ├── eventListeners.js  # Event listeners
+    │   └── init.js            # Inicialización
+    │
+    ├── assets/
+    │   ├── css/
+    │   │   └── styles.css     # Estilos (modo claro/oscuro)
+    │   └── images/            # Iconos y recursos
+    │       └── icon.png
+    │
+    └── data/                  # Datos persistentes
+        ├── reminders.json     # Recordatorios guardados
+        └── preferences.json   # Preferencias de usuario
 ```
 
 ## 🚀 Comenzar
@@ -371,7 +357,7 @@ npm install electron --save-dev
 ```
 
 ### Paso 3: Seguir el Tutorial
-Ve a [Parte 1: Configuración Inicial](https://jrguevara.github.io/2025-10-27-electron-recordatorios-parte-01-configuracion-inicial.html) para comenzar con la configuración de tu aplicación Electron.
+Ve a [Parte 1: Configuración Inicial](https://jrguevara.github.io/2025-10-27-electron-recordatorios-app-parte-01-configuracion-inicial.html) para comenzar con la configuración de tu aplicación Electron.
 
 ## 💡 Consejos para el Éxito
 
@@ -423,6 +409,7 @@ Al finalizar el tutorial tendrás:
 
 Ahora que conoces el panorama completo, estás listo para comenzar tu viaje en el desarrollo con Electron.
 
+Sigue a la [Parte 1: Configuración Inicial](https://jrguevara.github.io/2025-10-27-electron-recordatorios-app-parte-01-configuracion-inicial.html) para dar el primer paso hacia la creación de tu aplicación de recordatorios.
 
 **¡Mucho éxito en tu aprendizaje!** 🎉
 
