@@ -306,35 +306,76 @@ Empaquetar la aplicación para distribución.
 
 ```
 reminders-app/
-├── main.js                    # Proceso principal de Electron
-├── preload.js                 # Script de preload (seguridad)
-├── package.json               # Configuración y dependencias
-├── README.md                  # Documentación
-├── .gitignore                 # Archivos ignorados por git
+├── main.js                         # Proceso principal de Electron
+├── preload.js                      # Script de preload (seguridad)
+├── package.json                    # Configuración y dependencias
+├── package-lock.json               # Dependencias bloqueadas
+├── README.md                       # Documentación del proyecto
+├── .gitignore                      # Archivos ignorados por git
 │
-└── renderer/                  # Frontend (proceso renderizador)
-    ├── views/
-    │   └── index.html         # Interfaz principal
-    │
-    ├── js/                    # Scripts modulares
-    │   ├── variables.js       # Variables globales
-    │   ├── storage.js         # Persistencia de datos
-    │   ├── core.js            # Lógica principal
-    │   ├── calendar.js        # Sistema de calendario
-    │   ├── formHandlers.js    # Manejo de formularios
-    │   ├── eventListeners.js  # Event listeners
-    │   └── init.js            # Inicialización
-    │
-    ├── assets/
-    │   ├── css/
-    │   │   └── styles.css     # Estilos (modo claro/oscuro)
-    │   └── images/            # Iconos y recursos
-    │       └── icon.png
-    │
-    └── data/                  # Datos persistentes
-        ├── reminders.json     # Recordatorios guardados
-        └── preferences.json   # Preferencias de usuario
+├── renderer/                       # Frontend (proceso renderizador)
+│   ├── views/
+│   │   ├── index.html              # HTML principal
+│   │   └── components/             # Componentes HTML modulares
+│   │       ├── navbar.html         # Barra de navegación superior
+│   │       ├── sidebar.html        # Formulario de recordatorios
+│   │       ├── stats-filters.html  # Estadísticas y filtros
+│   │       ├── reminders-list.html # Lista de recordatorios
+│   │       ├── floating-button.html# Botón flotante
+│   │       ├── delete-modal.html   # Modal de confirmación
+│   │       ├── about-modal.html    # Modal acerca de
+│   │       └── footer.html         # Pie de página
+│   │
+│   ├── js/                         # Scripts JavaScript modulares
+│   │   ├── component-loader.js     # Cargador de componentes HTML
+│   │   ├── variables.js            # Variables globales
+│   │   ├── storage.js              # Persistencia de datos
+│   │   ├── core.js                 # Funciones principales
+│   │   ├── calendar.js             # Sistema de calendario
+│   │   ├── formHandlers.js         # Manejo de formularios
+│   │   ├── eventListeners.js       # Event listeners
+│   │   ├── init.js                 # Inicialización de la app
+│   │   └── script.js               # Coordinador principal
+│   │
+│   ├── assets/
+│   │   ├── css/
+│   │   │   └── styles.css          # Estilos (modo claro/oscuro)
+│   │   └── images/
+│   │       └── icon.png            # Icono de la aplicación
+│   │
+│   └── data/                       # Datos persistentes (auto-generado)
+│       ├── reminders.json          # Recordatorios guardados
+│       └── preferences.json        # Preferencias de usuario
+│
+└── node_modules/                  # Dependencias de npm
 ```
+
+### Descripción de Archivos Clave
+
+**Proceso Principal**
+- `main.js` - Gestiona ventanas, IPC handlers, menús del sistema
+- `preload.js` - Expone APIs seguras al renderer mediante contextBridge
+
+**Componentes HTML** (Arquitectura modular)
+- `navbar.html` - Barra superior con búsqueda y toggle de tema
+- `sidebar.html` - Formulario para crear/editar con calendario integrado
+- `stats-filters.html` - Tarjetas de estadísticas y controles de filtrado
+- `reminders-list.html` - Área principal para mostrar recordatorios
+
+**Scripts JavaScript** (Separación de responsabilidades)
+- `component-loader.js` - Carga dinámica de componentes HTML
+- `variables.js` - Estado global de la aplicación
+- `storage.js` - Funciones de persistencia (IPC)
+- `core.js` - Lógica de recordatorios, filtros, renderizado
+- `calendar.js` - Selector de fechas personalizado
+- `formHandlers.js` - Validación y envío de formularios
+- `eventListeners.js` - Todos los event listeners
+- `init.js` - Inicialización y carga inicial
+- `script.js` - Verificación de módulos y coordinación
+
+**Datos**
+- `reminders.json` - Array de objetos de recordatorios
+- `preferences.json` - Configuración de usuario (tema, sidebar)
 
 ## 🚀 Comenzar
 
