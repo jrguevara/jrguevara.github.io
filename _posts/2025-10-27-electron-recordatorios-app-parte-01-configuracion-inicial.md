@@ -183,9 +183,9 @@ npm start
 Deberías ver una ventana de Electron con el título "Recordatorios App" y un fondo degradado.
 
 ## Resultado esperado
-✅ Proyecto Electron configurado y ejecutándose
-✅ Estructura de carpetas creada
-✅ Ventana principal mostrándose correctamente
+- ✅ Proyecto Electron configurado y ejecutándose
+- ✅ Estructura de carpetas creada
+- ✅ Ventana principal mostrándose correctamente
 
 ## Siguiente paso
 En la Parte 2, crearemos el sistema de almacenamiento de datos y las variables globales.

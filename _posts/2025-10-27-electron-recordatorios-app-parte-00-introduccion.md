@@ -122,12 +122,12 @@ Esto protege tu aplicación al:
 
 ### ¿Por qué Electron para este Tutorial?
 
-✅ **Curva de aprendizaje suave** - Si sabes web, ya sabes Electron
-✅ **Desarrollo rápido** - Prototipa e itera rápidamente
-✅ **Ecosistema rico** - Miles de paquetes npm disponibles
-✅ **Multiplataforma real** - Un código, tres sistemas operativos
-✅ **Comunidad activa** - Amplia documentación y soporte
-✅ **Herramientas familiares** - Usa las mismas que en desarrollo web
+- ✅ **Curva de aprendizaje suave** - Si sabes web, ya sabes Electron
+- ✅ **Desarrollo rápido** - Prototipa e itera rápidamente
+- ✅ **Ecosistema rico** - Miles de paquetes npm disponibles
+- ✅ **Multiplataforma real** - Un código, tres sistemas operativos
+-✅ **Comunidad activa** - Amplia documentación y soporte
+- ✅ **Herramientas familiares** - Usa las mismas que en desarrollo web
 
 ## 🎯 Objetivo del Tutorial
 

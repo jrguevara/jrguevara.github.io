@@ -728,10 +728,10 @@ Deberías ver:
 - ✅ Botón de tema claro/oscuro
 
 ## Resultado esperado
-✅ Interfaz completa renderizada
-✅ Formulario funcional visualmente
-✅ Modal de confirmación creado
-✅ Sistema de temas funcionando
+- ✅ Interfaz completa renderizada
+- ✅ Formulario funcional visualmente
+- ✅ Modal de confirmación creado
+- ✅ Sistema de temas funcionando
 
 ## Siguiente paso
 En la Parte 4, implementaremos la lógica para crear, editar y eliminar recordatorios.

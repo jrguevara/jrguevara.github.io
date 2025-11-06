@@ -310,10 +310,10 @@ await loadReminders();
 ```
 
 ## Resultado esperado
-✅ Sistema de almacenamiento IPC funcionando
-✅ Datos persistentes en JSON
-✅ Sistema de preferencias operativo
-✅ Carga y guardado de recordatorios
+- ✅ Sistema de almacenamiento IPC funcionando
+- ✅ Datos persistentes en JSON
+- ✅ Sistema de preferencias operativo
+- ✅ Carga y guardado de recordatorios
 
 ## Siguiente paso
 En la Parte 3, crearemos la interfaz de usuario principal con el formulario de recordatorios.
