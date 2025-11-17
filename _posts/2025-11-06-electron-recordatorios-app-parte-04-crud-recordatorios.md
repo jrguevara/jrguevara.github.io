@@ -14,46 +14,84 @@ Implementar las operaciones de Crear, Leer, Actualizar y Eliminar recordatorios.
 
 ## Paso 1: Actualizar handlers IPC en main.js
 
-Agrega los handlers después del handler 'set-preference':
+Agrega los handlers después del handler 'set-preference' en el archivo `main.js`:
 
 ```javascript
-// IPC Handlers para recordatorios
+
+// Función para asegurar que el directorio de datos exista
+async function ensureDataDirectory() {
+    try {
+        const dataDir = path.join(__dirname, 'renderer', 'data');
+        await fs.mkdir(dataDir, { recursive: true });
+    } catch (error) {
+        console.error('Error creating data directory:', error);
+    }
+}
+
+// Funciones para manejar los recordatorios
+async function loadReminders() {
+    try {
+        await ensureDataDirectory();
+        const data = await fs.readFile(DATA_FILE, 'utf8');
+        return JSON.parse(data);
+    } catch (error) {
+        // Si no existe el archivo, crear uno vacío
+        return [];
+    }
+}
+
+async function saveReminders(reminders) {
+    try {
+        await ensureDataDirectory();
+        await fs.writeFile(DATA_FILE, JSON.stringify(reminders, null, 2));
+        return true;
+    } catch (error) {
+        console.error('Error guardando recordatorios:', error);
+        return false;
+    }
+}
+
+// IPC Handlers
+ipcMain.handle('get-reminders', async () => {
+    return await loadReminders();
+});
+
 ipcMain.handle('save-reminder', async (event, reminder) => {
-  const reminders = await loadReminders();
-  reminder.id = Date.now().toString();
-  reminder.createdAt = new Date().toISOString();
-  reminder.completed = false;
-  reminders.push(reminder);
-  const success = await saveReminders(reminders);
-  return success ? reminder : null;
+    const reminders = await loadReminders();
+    reminder.id = Date.now().toString();
+    reminder.createdAt = new Date().toISOString();
+    reminder.completed = false;
+    reminders.push(reminder);
+    const success = await saveReminders(reminders);
+    return success ? reminder : null;
 });
 
 ipcMain.handle('update-reminder', async (event, updatedReminder) => {
-  const reminders = await loadReminders();
-  const index = reminders.findIndex(r => r.id === updatedReminder.id);
-  if (index !== -1) {
-    reminders[index] = { ...reminders[index], ...updatedReminder };
-    const success = await saveReminders(reminders);
-    return success ? reminders[index] : null;
-  }
-  return null;
+    const reminders = await loadReminders();
+    const index = reminders.findIndex(r => r.id === updatedReminder.id);
+    if (index !== -1) {
+        reminders[index] = { ...reminders[index], ...updatedReminder };
+        const success = await saveReminders(reminders);
+        return success ? reminders[index] : null;
+    }
+    return null;
 });
 
 ipcMain.handle('delete-reminder', async (event, id) => {
-  const reminders = await loadReminders();
-  const filtered = reminders.filter(r => r.id !== id);
-  return await saveReminders(filtered);
+    const reminders = await loadReminders();
+    const filteredReminders = reminders.filter(r => r.id !== id);
+    return await saveReminders(filteredReminders);
 });
 
 ipcMain.handle('toggle-reminder', async (event, id) => {
-  const reminders = await loadReminders();
-  const index = reminders.findIndex(r => r.id === id);
-  if (index !== -1) {
-    reminders[index].completed = !reminders[index].completed;
-    const success = await saveReminders(reminders);
-    return success ? reminders[index] : null;
-  }
-  return null;
+    const reminders = await loadReminders();
+    const reminder = reminders.find(r => r.id === id);
+    if (reminder) {
+        reminder.completed = !reminder.completed;
+        const success = await saveReminders(reminders);
+        return success ? reminder : null;
+    }
+    return null;
 });
 ```
 
