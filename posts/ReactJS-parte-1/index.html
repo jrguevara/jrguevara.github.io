@@ -1,0 +1,769 @@
+<!DOCTYPE html><html lang="es" data-mode="dark" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="viewport" content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover" ><meta name="generator" content="Jekyll v4.3.2" /><meta property="og:title" content="ReactJS - parte 1" /><meta property="og:locale" content="es" /><meta name="description" content="¿Qué es ReactJS?" /><meta property="og:description" content="¿Qué es ReactJS?" /><link rel="canonical" href="https://jrguevara.github.io/posts/ReactJS-parte-1/" /><meta property="og:url" content="https://jrguevara.github.io/posts/ReactJS-parte-1/" /><meta property="og:site_name" content="jrCoding Docs" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2023-07-14T23:00:00-06:00" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="ReactJS - parte 1" /><meta name="twitter:site" content="@twitter_username" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-07-28T18:43:15-06:00","datePublished":"2023-07-14T23:00:00-06:00","description":"¿Qué es ReactJS?","headline":"ReactJS - parte 1","mainEntityOfPage":{"@type":"WebPage","@id":"https://jrguevara.github.io/posts/ReactJS-parte-1/"},"url":"https://jrguevara.github.io/posts/ReactJS-parte-1/"}</script><title>ReactJS - parte 1 | jrCoding Docs</title><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="jrCoding Docs"><meta name="application-name" content="jrCoding Docs"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css"><link rel="stylesheet" href="/assets/css/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.20.1/dist/tocbot.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1/dist/magnific-popup.min.css"> <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script><body data-topbar-visible="true"><div id="sidebar" class="d-flex flex-column align-items-end"><div class="profile-wrapper text-center"><div id="avatar"> <a href="/" class="mx-auto"> <img src="/assets/images/me.png" alt="avatar" onerror="this.style.display='none'"> </a></div><div class="site-title"> <a href="/">jrCoding Docs</a></div><div class="site-subtitle font-italic">A Doc site for my projects</div></div><ul class="w-100"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i> <span>INICIO</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream ml-xl-3 mr-xl-3 unloaded"></i> <span>CATEGORIAS</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tag ml-xl-3 mr-xl-3 unloaded"></i> <span>TAGS</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive ml-xl-3 mr-xl-3 unloaded"></i> <span>ARCHIVOS</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle ml-xl-3 mr-xl-3 unloaded"></i> <span>ABOUT</span> </a></ul><div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center align-items-center"> <a href="https://github.com/jrguevara" aria-label="github" target="_blank" rel="noopener noreferrer"> <i class="fab fa-github"></i> </a> <a href="javascript:location.href = 'mailto:' + ['jr.guevara','outlook.com'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></div><div id="topbar-wrapper"><div id="topbar" class="container d-flex align-items-center justify-content-between h-100 pl-3 pr-3 pl-md-4 pr-md-4"> <span id="breadcrumb"> <span> <a href="/"> Inicio </a> </span> <span>ReactJS - parte 1</span> </span> <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i><div id="topbar-title"> Post</div><i id="search-trigger" class="fas fa-search fa-fw"></i> <span id="search-wrapper" class="align-items-center"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..."> </span> <span id="search-cancel" >Cancel</span></div></div><div id="main-wrapper" class="d-flex justify-content-center"><div id="main" class="container pl-xl-4 pr-xl-4"><div class="row"><div id="core-wrapper" class="col-12 col-lg-11 col-xl-9 pr-xl-4"><div class="post pl-1 pr-1 pl-md-2 pr-md-2"><h1 data-toc-skip>ReactJS - parte 1</h1><div class="post-meta text-muted"> <span> Posted <em class="" data-ts="1689397200" data-df="DD/MM/YYYY" data-toggle="tooltip" data-placement="bottom"> 14/07/2023 </em> </span> <span> Updated <em class="" data-ts="1690591395" data-df="DD/MM/YYYY" data-toggle="tooltip" data-placement="bottom"> 28/07/2023 </em> </span><div class="d-flex justify-content-between"> <span> By <em> <a href="https://github.com/jr.guevara">Jaime Guevara</a> </em> </span><div> <span class="readtime" data-toggle="tooltip" data-placement="bottom" title="2808 words"> <em>15 min</em> read</span></div></div></div><div class="post-content"><h2 id="qué-es-reactjs"><span class="mr-2">¿Qué es ReactJS?</span><a href="#qué-es-reactjs" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p><a href="/assets/images/react.png" class="popup img-link "><img data-src="/assets/images/react.png" alt="ReactJS" class="lazyload" data-proofer-ignore></a><em>ReactJS</em></p><h2 id="recursos"><span class="mr-2">Recursos</span><a href="#recursos" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li><a href="https://es.reactjs.org/">es.reactjs.org</a><li><a href="https://beta.reactjs.org/learn">beta.reactjs</a><li><a href="https://vitejs.dev/">vitejs</a><li><a href="https://es.reactjs.org/docs/getting-started.html">getting-started</a><li><a href="https://es.reactjs.org/tutorial/tutorial.html">tutorial</a><li><a href="https://create-react-app.dev/">create-react-app</a><li><a href="https://www.taniarascia.com/getting-started-with-react/">getting-started-with-react</a><li><a href="https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets">es7 react js snippets</a></ul><h2 id="qué-es-react"><span class="mr-2">¿Qué es React?</span><a href="#qué-es-react" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li>React es una biblioteca Javascript para crear interfaces de usuario.<li>React no es un framework (a diferencia de Angular o Vue, que tienen más opiniones).<li>React es un proyecto de código abierto creado por Facebook.<li>Está basado en componentes.</ul><h3 id="componentes"><span class="mr-2">Componentes</span><a href="#componentes" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>Uno de los aspectos más importantes de React es el hecho de que puede crear componentes, que son como elementos HTML personalizados y reutilizables, para construir interfaces de usuario de manera rápida y eficiente. React también agiliza la forma en que se almacenan y manejan los datos, utilizando el estado y los accesorios.</p><h2 id="requisitos"><span class="mr-2">Requisitos</span><a href="#requisitos" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li><a href="https://nodejs.org/es/">node js</a>: es un entorno en tiempo de ejecución multiplataforma, de código abierto, para la capa del servidor (pero no limitándose a ello) basado en el lenguaje de programación JavaScript.<li><a href="https://www.npmjs.com/">npm</a>: NPM (Node Package Manager) es un gestor de paquetes desarrollado en su totalidad bajo el lenguaje JavaScript por Isaac Schlueter, a través del cual podemos obtener cualquier librería con tan solo una sencilla línea de código, lo cual nos permitirá agregar dependencias de forma simple, distribuir paquetes y administrar eficazmente tanto los módulos como el proyecto a desarrollar en general.</ul><h2 id="qué-es-un-módulo"><span class="mr-2">¿Qué es un módulo?</span><a href="#qué-es-un-módulo" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li>Un módulo no es nada más que una unidad de código organizado en archivos o directorios, la cual puede ser exportada con facilidad para poder reutilizarse en otras partes de la aplicación.<li>External modules: Son, en esencia, los paquetes de terceros distribuidos a través de npm (aunque pueden provenir de otros repositorios). Estos paquetes se instalan como dependencias y, aunque aportan funcionalidad a la aplicación, no deben incluirse en el repositorio ya que no son parte de la misma.</ul><h2 id="instalación"><span class="mr-2">Instalación</span><a href="#instalación" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li>Vite.js<li>CRA create react app</ul><h2 id="vite"><span class="mr-2">Vite</span><a href="#vite" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li><a href="https://vitejs.dev/">Vite web oficial</a>: Vite se define como una herramienta de frontend que te ayudará a crear proyectos (sin atarte a ningún framework concreto) y que su desarrollo y construcción final sea lo más sencilla posible.<li>Está desarrollada por Evan You, el creador de Vue.<li>Actualmente, Vite soporta tanto proyectos vanilla (sin utilizar frameworks), como proyectos utilizando Vue, React, Preact o Lit-element (tanto en versión Javascript, como Typescript). <a href="https://lenguajejs.com/automatizadores/vite/guia-tutorial-inicial-de-vite/">Fuente</a><li><a href="https://github.com/vitejs/awesome-vite#templates">Templates</a><li><a href="https://dev.to/t/vite">Comunidad DEV</a></ul><div class="language-powershell highlighter-rouge"><div class="code-header"> <span data-label-text="Powershell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="n">npm</span><span class="w"> </span><span class="nx">create</span><span class="w"> </span><span class="nx">vite</span><span class="err">@</span><span class="nx">latest</span><span class="w">
+</span></pre></table></code></div></div><h2 id="cra---create-react-app"><span class="mr-2">CRA - create-react-app</span><a href="#cra---create-react-app" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li><a href="https://create-react-app.dev/">create-react-app</a> Afortunadamente, Facebook ha creado la aplicación Create React App, un entorno que viene preconfigurado con todo lo necesario para crear una aplicación React.<li>Creará un servidor de desarrollo en vivo.<li>No es necesario instalar ni configurar herramientas como webpack o Babel. Están preconfigurados y ocultos para que pueda concentrarse en el código.<li>Ventaja: enfocarse en el código, no en las herramientas de compilación.</ul><div class="language-powershell highlighter-rouge"><div class="code-header"> <span data-label-text="Powershell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre><span class="n">npx</span><span class="w"> </span><span class="nx">create-react-app</span><span class="w"> </span><span class="nx">my-app</span><span class="w">
+</span><span class="n">cd</span><span class="w"> </span><span class="nx">my-app</span><span class="w">
+</span><span class="n">npm</span><span class="w"> </span><span class="nx">start</span><span class="w">
+
+</span></pre></table></code></div></div><blockquote class="prompt-tip"><p>npx</p><ul><li><p>Npx es una herramienta de cli que nos permite ejecutar paquetes de npm, los busca en su servidor y lo ejecuta en nuestra máquina.</p><li><p>Si usas npx no tienes que instalar paquetes de forma global.</p><li><p>Busca siempre la última versión.</p></ul></blockquote><blockquote class="prompt-warning"><p>Advertencia:<br /> Si ha instalado previamente <code class="language-plaintext highlighter-rouge">create-react-app globalmente</code> a través de: <code class="language-plaintext highlighter-rouge">npm install -g create-react-app</code>, le recomendamos que desinstale el paquete usando <code class="language-plaintext highlighter-rouge">npm uninstall -g create-react-app</code> o <code class="language-plaintext highlighter-rouge">yarn global remove create-react-app</code> para asegurarse de que <code class="language-plaintext highlighter-rouge">npx</code> siempre usa la última versión.</p></blockquote><h2 id="cra-vs-vite"><span class="mr-2">CRA vs Vite</span><a href="#cra-vs-vite" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li>Vite y CRA no son tan diferentes como podría pensar. Básicamente, hacen más o menos lo mismo, que es servir a un servidor de desarrollo local y agrupar códigos para la producción.<li>La principal diferencia que notará es cómo se sirve el código en el desarrollo y qué módulos son compatibles.<li>Vite no necesita agrupar la aplicación completa o transpilar los módulos y el código antes de iniciar un servidor de desarrollo; la transpilación se realiza bajo demanda, lo que la hace significativamente más rápida que CRA.</ul><h2 id="creación-de-componente-principal"><span class="mr-2">Creación de componente principal</span><a href="#creación-de-componente-principal" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>Los componentes no son mas que funciones que son exportadas</p><div class="language-jsx highlighter-rouge"><div class="code-header"> <span data-label-text="Jsx"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre><span class="kd">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Hola desde React.js<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>Exportaciones por Defecto solo permiten exportar una función del archivo en cuestión.</p><div class="language-jsx highlighter-rouge"><div class="code-header"> <span data-label-text="Jsx"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre><td class="rouge-code"><pre><span class="kd">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Hola desde React.js<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">App</span>
+
+</pre></table></code></div></div><p>Exportaciones nombradas permiten exportar varias funciones de un mismo archivo.</p><div class="language-jsx highlighter-rouge"><div class="code-header"> <span data-label-text="Jsx"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre><span class="k">export</span> <span class="kd">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Hola desde React.js<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">}</span>
+
+</pre></table></code></div></div><p>El Componente App es exportado al archivo <code class="language-plaintext highlighter-rouge">main.jsx</code></p><div class="language-jsx highlighter-rouge"><div class="code-header"> <span data-label-text="Jsx"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre><td class="rouge-code"><pre><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span>
+<span class="k">import</span> <span class="nx">ReactDOM</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-dom/client</span><span class="dl">'</span>
+<span class="k">import</span> <span class="nx">App</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./App.jsx</span><span class="dl">'</span> <span class="c1">//Exportacion defecto</span>
+<span class="c1">//import { App } from './App.jsx' //Exportacion nombrada</span>
+<span class="k">import</span> <span class="dl">'</span><span class="s1">./index.css</span><span class="dl">'</span>
+
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nf">createRoot</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nf">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">root</span><span class="dl">'</span><span class="p">)).</span><span class="nf">render</span><span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">React</span><span class="p">.</span><span class="nc">StrictMode</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nc">App</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;/</span><span class="nc">React</span><span class="p">.</span><span class="nc">StrictMode</span><span class="p">&gt;,</span>
+<span class="p">)</span>
+</pre></table></code></div></div><h2 id="jsx-javascript--xml"><span class="mr-2">JSX: JavaScript + XML</span><a href="#jsx-javascript--xml" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li>Como ha visto, hemos estado usando lo que parece HTML en nuestro código React, pero no es HTML del todo. Esto es JSX , que significa JavaScript XML.<li>El uso de JSX no es obligatorio para escribir React.<li>Debajo del capó, se está ejecutando <code class="language-plaintext highlighter-rouge">createElement</code>, lo que toma la etiqueta, las propiedades y los elementos secundarios del componente y muestra la misma información.<li>JSX está más cerca de JavaScript, no de HTML, por lo que hay algunas diferencias clave a tener en cuenta al escribirlo.<ul><li><code class="language-plaintext highlighter-rouge">className</code> se usa en lugar de <code class="language-plaintext highlighter-rouge">class</code> para agregar clases CSS, ya que <code class="language-plaintext highlighter-rouge">class</code> es una palabra clave reservada en JavaScript.<li>Las propiedades y métodos en JSX son camelCase.<li>Las etiquetas de cierre automático deben terminar en una barra inclinada,Ej. <code class="language-plaintext highlighter-rouge">&lt;img /&gt;</code><li>Su componente tampoco puede devolver varias etiquetas JSX. Tienes que envolverlos en un padre compartido, como un envoltorio <code class="language-plaintext highlighter-rouge">&lt;div&gt;...&lt;/div&gt;</code> vacío o: <code class="language-plaintext highlighter-rouge">&lt;&gt;...&lt;/&gt;</code></ul></ul><p>Las expresiones de JavaScript también se pueden incrustar dentro de JSX usando llaves, incluidas variables, funciones y propiedades.</p><blockquote class="prompt-info"><p>Carpeta public:<br /> La carpeta pública contiene archivos estáticos como index. html, archivos de biblioteca de javascript, imágenes y otros activos, etc. que no desea que webpack procese. Los archivos de esta carpeta se copian y pegan tal como están directamente en la carpeta de compilación.</p></blockquote><div class="language-jsx highlighter-rouge"><div class="code-header"> <span data-label-text="Jsx"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre><td class="rouge-code"><pre><span class="kd">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">titulo</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Mi primer proyecto con React.js</span><span class="dl">"</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">imagen</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">https://picsum.photos/200/300</span><span class="dl">"</span><span class="p">;</span>
+    <span class="k">return </span><span class="p">(</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"container"</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">className</span><span class="p">=</span><span class="s">"text-primary"</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">titulo</span><span class="p">.</span><span class="nx">ToUpperCase</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="p">=</span><span class="si">{</span><span class="nx">imagen</span><span class="si">}</span> <span class="na">alt</span><span class="p">=</span><span class="si">{</span><span class="s2">`imagen-</span><span class="p">${</span><span class="nx">titulo</span><span class="p">}</span><span class="s2">`</span><span class="si">}</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
+</pre></table></code></div></div><div class="language-jsx highlighter-rouge"><div class="code-header"> <span data-label-text="Jsx"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+</pre><td class="rouge-code"><pre><span class="kd">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">titulo</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Mi primer proyecto con React.js</span><span class="dl">"</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">imagen</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">https://picsum.photos/600/400</span><span class="dl">"</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">clases</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">titulo</span><span class="p">:</span> <span class="dl">"</span><span class="s2">text-info text-center</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">subtitulo</span><span class="p">:</span> <span class="dl">"</span><span class="s2">text-center</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">imagenCenter</span><span class="p">:</span> <span class="dl">"</span><span class="s2">rounded mx-auto d-block</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">};</span>
+  <span class="k">return </span><span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"container"</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">clases</span><span class="p">.</span><span class="nx">titulo</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">titulo</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">p</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">clases</span><span class="p">.</span><span class="nx">subtitulo</span><span class="si">}</span><span class="p">&gt;</span>Lorem ipsum dolor sit.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">img</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">clases</span><span class="p">.</span><span class="nx">imagenCenter</span><span class="si">}</span> <span class="na">src</span><span class="p">=</span><span class="s">"./src/assets/react.svg"</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nt">hr</span><span class="p">&gt;&lt;/</span><span class="nt">hr</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">img</span>
+        <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">clases</span><span class="p">.</span><span class="nx">imagenCenter</span><span class="si">}</span>
+        <span class="na">src</span><span class="p">=</span><span class="si">{</span><span class="nx">imagen</span><span class="si">}</span>
+        <span class="na">alt</span><span class="p">=</span><span class="si">{</span><span class="s2">`Imagen de </span><span class="p">${</span><span class="nx">titulo</span><span class="p">}</span><span class="s2">`</span><span class="si">}</span>
+      <span class="p">/&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
+
+</pre></table></code></div></div><h2 id="componentes-1"><span class="mr-2">Componentes</span><a href="#componentes-1" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li>Las aplicaciones React están hechas de componentes .<li>Un componente es una parte de la IU (interfaz de usuario) que tiene su propia lógica y apariencia.<li>Un componente puede ser tan pequeño como un botón o tan grande como una página entera.<li>Los componentes de React son funciones de JavaScript:</ul><div class="language-jsx highlighter-rouge"><div class="code-header"> <span data-label-text="Jsx"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+</pre><td class="rouge-code"><pre><span class="kd">const</span> <span class="nx">MiBoton</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">button</span> <span class="na">className</span><span class="p">=</span><span class="s">"btn btn-light"</span><span class="p">&gt;</span>Boton<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">titulo</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Mi primer proyecto con React.js</span><span class="dl">"</span>
+  <span class="kd">const</span> <span class="nx">imagen</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">https://picsum.photos/600/400</span><span class="dl">"</span>
+  <span class="kd">const</span> <span class="nx">clases</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">titulo</span><span class="p">:</span> <span class="dl">"</span><span class="s2">text-info text-center</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">subtitulo</span><span class="p">:</span> <span class="dl">"</span><span class="s2">text-center</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">imagenCenter</span><span class="p">:</span> <span class="dl">"</span><span class="s2">rounded mx-auto d-block</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">}</span>
+
+  <span class="k">return </span><span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"container"</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">clases</span><span class="p">.</span><span class="nx">titulo</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">titulo</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">p</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">clases</span><span class="p">.</span><span class="nx">subtitulo</span><span class="si">}</span><span class="p">&gt;</span>Lorem ipsum dolor sit.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">img</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">clases</span><span class="p">.</span><span class="nx">imagenCenter</span><span class="si">}</span> <span class="na">src</span><span class="p">=</span><span class="s">"./src/assets/react.svg"</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nt">hr</span><span class="p">&gt;&lt;/</span><span class="nt">hr</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">img</span>
+        <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">clases</span><span class="p">.</span><span class="nx">imagenCenter</span><span class="si">}</span>
+        <span class="na">src</span><span class="p">=</span><span class="si">{</span><span class="nx">imagen</span><span class="si">}</span>
+        <span class="na">alt</span><span class="p">=</span><span class="si">{</span><span class="s2">`Imagen de </span><span class="p">${</span><span class="nx">titulo</span><span class="p">}</span><span class="s2">`</span><span class="si">}</span>
+      <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nt">hr</span><span class="p">&gt;&lt;/</span><span class="nt">hr</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nc">MiBoton</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
+</pre></table></code></div></div><blockquote class="prompt-info"><p>Componentes siempre en Mayúsculas<br /> Fíjate que <code class="language-plaintext highlighter-rouge">&lt;MyButton /&gt;</code> empieza con mayúscula. <strong>Así es como sabes que es un componente React.</strong> Los nombres de los componentes de React siempre deben comenzar con una letra mayúscula, mientras que las etiquetas HTML deben estar en minúsculas.</p></blockquote><h2 id="renderizado-condicional"><span class="mr-2">Renderizado condicional</span><a href="#renderizado-condicional" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li><a href="https://es.reactjs.org/docs/conditional-rendering.html">condicional</a>: En React, puedes crear distintos componentes que encapsulan el comportamiento que necesitas. Entonces, puedes renderizar solamente algunos de ellos, dependiendo del estado de tu aplicación.</ul><div class="language-jsx highlighter-rouge"><div class="code-header"> <span data-label-text="Jsx"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+</pre><td class="rouge-code"><pre><span class="kd">const</span> <span class="nx">MiBoton</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">button</span> <span class="na">className</span><span class="p">=</span><span class="s">"btn btn-light"</span><span class="p">&gt;</span>Boton<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">MensajeOnline</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Bienvenido usuario<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">MensajeOffline</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Usuario desconectado<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">titulo</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Mi primer proyecto con React.js</span><span class="dl">"</span>
+  <span class="kd">const</span> <span class="nx">imagen</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">https://picsum.photos/600/400</span><span class="dl">"</span>
+  <span class="kd">const</span> <span class="nx">clases</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">titulo</span><span class="p">:</span> <span class="dl">"</span><span class="s2">text-info text-center</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">subtitulo</span><span class="p">:</span> <span class="dl">"</span><span class="s2">text-center</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">imagenCenter</span><span class="p">:</span> <span class="dl">"</span><span class="s2">rounded mx-auto d-block</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">}</span>
+  <span class="kd">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="kc">true</span>
+
+  <span class="k">return </span><span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"container"</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">clases</span><span class="p">.</span><span class="nx">titulo</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">titulo</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">p</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">clases</span><span class="p">.</span><span class="nx">subtitulo</span><span class="si">}</span><span class="p">&gt;</span>Lorem ipsum dolor sit.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">img</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">clases</span><span class="p">.</span><span class="nx">imagenCenter</span><span class="si">}</span> <span class="na">src</span><span class="p">=</span><span class="s">"./src/assets/react.svg"</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nt">hr</span><span class="p">&gt;&lt;/</span><span class="nt">hr</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">img</span>
+        <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">clases</span><span class="p">.</span><span class="nx">imagenCenter</span><span class="si">}</span>
+        <span class="na">src</span><span class="p">=</span><span class="si">{</span><span class="nx">imagen</span><span class="si">}</span>
+        <span class="na">alt</span><span class="p">=</span><span class="si">{</span><span class="s2">`Imagen de </span><span class="p">${</span><span class="nx">titulo</span><span class="p">}</span><span class="s2">`</span><span class="si">}</span>
+      <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nt">hr</span><span class="p">&gt;&lt;/</span><span class="nt">hr</span><span class="p">&gt;</span>
+      <span class="si">{</span><span class="nx">user</span> <span class="p">?</span> <span class="p">&lt;</span><span class="nc">MensajeOnline</span> <span class="p">/&gt;</span> <span class="p">:</span> <span class="p">&lt;</span><span class="nc">MensajeOffline</span> <span class="p">/&gt;</span><span class="si">}</span>
+      <span class="p">&lt;</span><span class="nc">MiBoton</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
+</pre></table></code></div></div><h2 id="listas-y-keys"><span class="mr-2">Listas y keys</span><a href="#listas-y-keys" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><div class="language-jsx highlighter-rouge"><div class="code-header"> <span data-label-text="Jsx"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+</pre><td class="rouge-code"><pre><span class="kd">const</span> <span class="nx">MiBoton</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">button</span> <span class="na">className</span><span class="p">=</span><span class="s">"btn btn-light"</span><span class="p">&gt;</span>Boton<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">MensajeOnline</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Bienvenido usuario<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">MensajeOffline</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Usuario desconectado<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">titulo</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Mi primer proyecto con React.js</span><span class="dl">"</span>
+  <span class="kd">const</span> <span class="nx">imagen</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">https://picsum.photos/600/400</span><span class="dl">"</span>
+  <span class="kd">const</span> <span class="nx">clases</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">titulo</span><span class="p">:</span> <span class="dl">"</span><span class="s2">text-info text-center</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">subtitulo</span><span class="p">:</span> <span class="dl">"</span><span class="s2">text-center</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">imagenCenter</span><span class="p">:</span> <span class="dl">"</span><span class="s2">rounded mx-auto d-block</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">}</span>
+  <span class="kd">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="kc">true</span>
+  <span class="kd">const</span> <span class="nx">frutas</span> <span class="o">=</span> <span class="p">[</span><span class="dl">"</span><span class="s2">🍉</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">🍌</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">🍎</span><span class="dl">"</span><span class="p">];</span>
+
+  <span class="k">return </span><span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"container"</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">clases</span><span class="p">.</span><span class="nx">titulo</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">titulo</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">p</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">clases</span><span class="p">.</span><span class="nx">subtitulo</span><span class="si">}</span><span class="p">&gt;</span>Lorem ipsum dolor sit.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">img</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">clases</span><span class="p">.</span><span class="nx">imagenCenter</span><span class="si">}</span> <span class="na">src</span><span class="p">=</span><span class="s">"./src/assets/react.svg"</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nt">hr</span><span class="p">&gt;&lt;/</span><span class="nt">hr</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">img</span>
+        <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">clases</span><span class="p">.</span><span class="nx">imagenCenter</span><span class="si">}</span>
+        <span class="na">src</span><span class="p">=</span><span class="si">{</span><span class="nx">imagen</span><span class="si">}</span>
+        <span class="na">alt</span><span class="p">=</span><span class="si">{</span><span class="s2">`Imagen de </span><span class="p">${</span><span class="nx">titulo</span><span class="p">}</span><span class="s2">`</span><span class="si">}</span>
+      <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nt">hr</span><span class="p">&gt;&lt;/</span><span class="nt">hr</span><span class="p">&gt;</span>
+      <span class="si">{</span><span class="nx">user</span> <span class="p">?</span> <span class="p">&lt;</span><span class="nc">MensajeOnline</span> <span class="p">/&gt;</span> <span class="p">:</span> <span class="p">&lt;</span><span class="nc">MensajeOffline</span> <span class="p">/&gt;</span><span class="si">}</span>
+      <span class="p">&lt;</span><span class="nc">MiBoton</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nt">hr</span><span class="p">&gt;&lt;/</span><span class="nt">hr</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+        <span class="si">{</span><span class="nx">frutas</span><span class="p">.</span><span class="nf">map</span><span class="p">((</span><span class="nx">fruta</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="p">&lt;</span><span class="nt">li</span> <span class="na">key</span><span class="p">=</span><span class="si">{</span><span class="nx">index</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">index</span><span class="si">}</span> - <span class="si">{</span><span class="nx">fruta</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;;</span>
+        <span class="p">})</span><span class="si">}</span>
+      <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
+</pre></table></code></div></div><ul><li>Cuando ejecutes este código, serás advertido que una key debería ser proporcionada para ítems de lista. Una “key” es un atributo especial string que debes incluir al crear listas de elementos.<li><p>Las keys ayudan a React a identificar que ítems han cambiado, son agregados, o son eliminados. Las keys deben ser dadas a los elementos dentro del array para darle a los elementos una identidad estable.</p><li><p>React usa el key prop para crear una relación entre el componente y el elemento DOM.</p><li><p>La biblioteca utiliza esta relación para determinar si el componente debe volver a renderizarse o no.</p><li><p>No se recomienda utilizar el índice de la matriz como key si sabe que la matriz no será estática.</p><li>Si key es un índice, reordenar un elemento en la matriz lo cambia. Entonces React se confundirá y volverá a renderizar el elemento incorrecto.</ul><h2 id="props"><span class="mr-2">props</span><a href="#props" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li>Se utiliza para enviar información al componente anidado.<li>La información que transmites de esta manera se llama props.</ul><div class="language-jsx highlighter-rouge"><div class="code-header"> <span data-label-text="Jsx"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+</pre><td class="rouge-code"><pre><span class="kd">const</span> <span class="nx">MiBoton</span> <span class="o">=</span> <span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+  <span class="k">return </span><span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">handleClick</span><span class="si">}</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">className</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="si">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">text</span><span class="si">}</span>
+    <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+
+<span class="c1">// Con desestructuracion</span>
+<span class="cm">/*const MiBoton = ({text, className, handleClick}) =&gt; {
+  return &lt;button onClick={handleClick} className={className}&gt;{text}&lt;/button&gt;
+}*/</span>
+
+<span class="kd">const</span> <span class="nx">MensajeOnline</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Bienvenido usuario<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;;</span>
+<span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">MensajeOffline</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Usuario desconectado<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;;</span>
+<span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">titulo</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Mi primer proyecto con React.js</span><span class="dl">"</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">imagen</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">https://picsum.photos/600/400</span><span class="dl">"</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">clases</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">titulo</span><span class="p">:</span> <span class="dl">"</span><span class="s2">text-info text-center</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">subtitulo</span><span class="p">:</span> <span class="dl">"</span><span class="s2">text-center</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">imagenCenter</span><span class="p">:</span> <span class="dl">"</span><span class="s2">rounded mx-auto d-block</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">};</span>
+  <span class="kd">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">frutas</span> <span class="o">=</span> <span class="p">[</span><span class="dl">"</span><span class="s2">🍉</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">🍌</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">🍎</span><span class="dl">"</span><span class="p">];</span>
+
+  <span class="kd">const</span> <span class="nx">handleClick</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">clicked</span><span class="dl">"</span><span class="p">);</span>
+  <span class="p">};</span>
+
+  <span class="k">return </span><span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"container"</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">clases</span><span class="p">.</span><span class="nx">titulo</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">titulo</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">p</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">clases</span><span class="p">.</span><span class="nx">subtitulo</span><span class="si">}</span><span class="p">&gt;</span>Lorem ipsum dolor sit.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">img</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">clases</span><span class="p">.</span><span class="nx">imagenCenter</span><span class="si">}</span> <span class="na">src</span><span class="p">=</span><span class="s">"./src/assets/react.svg"</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nt">hr</span><span class="p">&gt;&lt;/</span><span class="nt">hr</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">img</span>
+        <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">clases</span><span class="p">.</span><span class="nx">imagenCenter</span><span class="si">}</span>
+        <span class="na">src</span><span class="p">=</span><span class="si">{</span><span class="nx">imagen</span><span class="si">}</span>
+        <span class="na">alt</span><span class="p">=</span><span class="si">{</span><span class="s2">`Imagen de </span><span class="p">${</span><span class="nx">titulo</span><span class="p">}</span><span class="s2">`</span><span class="si">}</span>
+      <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nt">hr</span><span class="p">&gt;&lt;/</span><span class="nt">hr</span><span class="p">&gt;</span>
+      <span class="si">{</span><span class="nx">user</span> <span class="p">?</span> <span class="p">&lt;</span><span class="nc">MensajeOnline</span> <span class="p">/&gt;</span> <span class="p">:</span> <span class="p">&lt;</span><span class="nc">MensajeOffline</span> <span class="p">/&gt;</span><span class="si">}</span>
+      <span class="p">&lt;</span><span class="nc">MiBoton</span>
+        <span class="na">text</span><span class="p">=</span><span class="s">"Boton 1"</span>
+        <span class="na">className</span><span class="p">=</span><span class="s">"btn btn-light m-3"</span>
+        <span class="na">handleClick</span><span class="p">=</span><span class="si">{</span><span class="nx">handleClick</span><span class="si">}</span>
+      <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nc">MiBoton</span>
+        <span class="na">text</span><span class="p">=</span><span class="s">"Boton 2"</span>
+        <span class="na">className</span><span class="p">=</span><span class="s">"btn btn-warning m-3"</span>
+        <span class="na">handleClick</span><span class="p">=</span><span class="si">{</span><span class="nx">handleClick</span><span class="si">}</span>
+      <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nc">MiBoton</span>
+        <span class="na">text</span><span class="p">=</span><span class="s">"Boton 3"</span>
+        <span class="na">className</span><span class="p">=</span><span class="s">"btn btn-success m-3"</span>
+        <span class="na">handleClick</span><span class="p">=</span><span class="si">{</span><span class="nx">handleClick</span><span class="si">}</span>
+      <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nc">MiBoton</span>
+        <span class="na">text</span><span class="p">=</span><span class="s">"Boton 4"</span>
+        <span class="na">className</span><span class="p">=</span><span class="s">"btn btn-danger m-3"</span>
+        <span class="na">handleClick</span><span class="p">=</span><span class="si">{</span><span class="nx">handleClick</span><span class="si">}</span>
+      <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nt">hr</span><span class="p">&gt;&lt;/</span><span class="nt">hr</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+        <span class="si">{</span><span class="nx">frutas</span><span class="p">.</span><span class="nf">map</span><span class="p">((</span><span class="nx">fruta</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="k">return </span><span class="p">(</span>
+            <span class="p">&lt;</span><span class="nt">li</span> <span class="na">key</span><span class="p">=</span><span class="si">{</span><span class="nx">index</span><span class="si">}</span><span class="p">&gt;</span>
+              <span class="si">{</span><span class="nx">index</span><span class="si">}</span> - <span class="si">{</span><span class="nx">fruta</span><span class="si">}</span>
+            <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+          <span class="p">);</span>
+        <span class="p">})</span><span class="si">}</span>
+      <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
+</pre></table></code></div></div><h2 id="eslint"><span class="mr-2">EsLint</span><a href="#eslint" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li>ESLint es una herramienta de linting para JavaScript. El linting es un proceso mediante el cual se analiza el código fuente de un programa en busca de posibles errores, problemas de estilo o prácticas desaconsejadas.<li><strong>ESLint permite detectar errores comunes en el código, como variables no utilizadas</strong>, funciones no definidas, declaraciones duplicadas, entre otros.</ul><h3 id="eslintrccjs"><span class="mr-2">.eslintrc.cjs <a href="https://bluuweb.dev/05-react/#eslintrc-cjs">#</a></span><a href="#eslintrccjs" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>El archivo .eslintrc.cjs es un archivo de configuración de ESLint en formato CommonJS (CJS).</p><h3 id="env"><span class="mr-2">env <a href="https://bluuweb.dev/05-react/#env">#</a></span><a href="#env" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>La propiedad <strong>node: true</strong> en la sección env de un archivo de configuración de ESLint indica que el código que está siendo analizado por ESLint se ejecutará en un entorno de Node.js. Esto le permite a ESLint reconocer y aplicar las reglas y configuraciones específicas de Node.js durante el proceso de linting.</p><div class="language-javascript highlighter-rouge"><div class="code-header"> <span data-label-text="JavaScript"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="nx">env</span><span class="p">:</span> <span class="p">{</span> <span class="nl">browser</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">es2020</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">node</span><span class="p">:</span> <span class="kc">true</span> <span class="p">},</span>
+</pre></table></code></div></div><h3 id="reactprops-types-off"><span class="mr-2">react/props-types off</span><a href="#reactprops-types-off" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-javascript highlighter-rouge"><div class="code-header"> <span data-label-text="JavaScript"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre><td class="rouge-code"><pre><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="c1">// ...otras configuraciones...</span>
+
+  <span class="na">rules</span><span class="p">:</span> <span class="p">{</span>
+    <span class="c1">// ...otras reglas...</span>
+    <span class="dl">"</span><span class="s2">react/prop-types</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">off</span><span class="dl">"</span><span class="p">,</span> <span class="c1">// Desactivar validación de PropTypes</span>
+  <span class="p">},</span>
+<span class="p">};</span>
+</pre></table></code></div></div><h2 id="proptypes"><span class="mr-2">PropTypes</span><a href="#proptypes" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li>En React, PropTypes es una característica que permite especificar el tipo de las props (propiedades) que se pasan a los componentes.<li>PropTypes proporciona una forma de documentar y validar las props que se esperan en un componente, lo que ayuda a evitar errores y facilita el desarrollo y mantenimiento del código.</ul><p>Tipos comunes de PropTypes:</p><ul><li>number: Valida que la prop sea un número.<li>bool: Valida que la prop sea un valor booleano (true o false).<li>array: Valida que la prop sea un array.<li>object: Valida que la prop sea un objeto.<li>symbol: Valida que la prop sea un símbolo.<li>node: Valida que la prop pueda ser cualquier cosa que se pueda renderizar en React (elemento React, cadena de texto, número, fragmento, etc.).<li>element: Valida que la prop sea un único elemento React (es decir, no un fragmento ni una cadena de texto).<li>instanceOf(Constructor): Valida que la prop sea una instancia de una clase específica.<li>oneOf([val1, val2, …]): Valida que la prop sea uno de los valores proporcionados en un array.<li>oneOfType([type1, type2, …]): Valida que la prop cumpla con al menos uno de los tipos de datos especificados en un array.<li>arrayOf(type): Valida que la prop sea un array que contenga elementos del tipo especificado.<li>objectOf(type): Valida que la prop sea un objeto cuyos valores sean del tipo especificado.</ul><p>Con PropsTypes podemos validar los props que recibe un componente:</p><div class="language-jsx highlighter-rouge"><div class="code-header"> <span data-label-text="Jsx"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre><td class="rouge-code"><pre><span class="k">import</span> <span class="nx">PropTypes</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">prop-types</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">MiBoton</span> <span class="o">=</span> <span class="p">({</span><span class="nx">text</span><span class="p">,</span> <span class="nx">className</span><span class="p">,</span> <span class="nx">handleClick</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="nx">handleClick</span><span class="si">}</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">className</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">text</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">}</span>
+
+<span class="nx">MiBoton</span><span class="p">.</span><span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">text</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span><span class="p">.</span><span class="nx">isRequired</span><span class="p">,</span>
+  <span class="na">className</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span><span class="p">.</span><span class="nx">isRequired</span><span class="p">,</span>
+  <span class="na">handleClick</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">func</span><span class="p">.</span><span class="nx">isRequired</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></table></code></div></div><div class="language-jsx highlighter-rouge"><div class="code-header"> <span data-label-text="Jsx"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+</pre><td class="rouge-code"><pre><span class="k">import</span> <span class="nx">PropTypes</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">prop-types</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">MiBoton</span> <span class="o">=</span> <span class="p">({</span><span class="nx">text</span><span class="p">,</span> <span class="nx">className</span><span class="p">,</span> <span class="nx">handleClick</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="nx">handleClick</span><span class="si">}</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">className</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">text</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">}</span>
+
+<span class="nx">MiBoton</span><span class="p">.</span><span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">text</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span><span class="p">.</span><span class="nx">isRequired</span><span class="p">,</span>
+  <span class="na">className</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span><span class="p">.</span><span class="nx">isRequired</span><span class="p">,</span>
+  <span class="na">handleClick</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">func</span><span class="p">.</span><span class="nx">isRequired</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">MensajeOnline</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Bienvenido usuario<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;;</span>
+<span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">MensajeOffline</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Usuario desconectado<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;;</span>
+<span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">UserMensaje</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">usuario</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">usuario</span> <span class="p">?</span> <span class="p">&lt;</span><span class="nc">MensajeOnline</span> <span class="p">/&gt;</span> <span class="p">:</span> <span class="p">&lt;</span><span class="nc">MensajeOffline</span> <span class="p">/&gt;;</span>
+  <span class="c1">//return &lt;h3&gt; { usuario ? ( "Bienvenido usuario" ) : ( "Usuario desconectado" ) } &lt;/h3&gt;</span>
+<span class="p">};</span>
+
+<span class="nx">UserMensaje</span><span class="p">.</span><span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">usuario</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">bool</span><span class="p">.</span><span class="nx">isRequired</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">titulo</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Mi primer proyecto con React.js</span><span class="dl">"</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">imagen</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">https://picsum.photos/600/400</span><span class="dl">"</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">clases</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">titulo</span><span class="p">:</span> <span class="dl">"</span><span class="s2">text-info text-center</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">subtitulo</span><span class="p">:</span> <span class="dl">"</span><span class="s2">text-center</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">imagenCenter</span><span class="p">:</span> <span class="dl">"</span><span class="s2">rounded mx-auto d-block</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">};</span>
+  <span class="kd">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">frutas</span> <span class="o">=</span> <span class="p">[</span><span class="dl">"</span><span class="s2">🍉</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">🍌</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">🍎</span><span class="dl">"</span><span class="p">];</span>
+
+  <span class="kd">const</span> <span class="nx">handleClick</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">clicked</span><span class="dl">"</span><span class="p">);</span>
+  <span class="p">};</span>
+
+  <span class="k">return </span><span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"container"</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">clases</span><span class="p">.</span><span class="nx">titulo</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">titulo</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">p</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">clases</span><span class="p">.</span><span class="nx">subtitulo</span><span class="si">}</span><span class="p">&gt;</span>Lorem ipsum dolor sit.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">img</span> <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">clases</span><span class="p">.</span><span class="nx">imagenCenter</span><span class="si">}</span> <span class="na">src</span><span class="p">=</span><span class="s">"./src/assets/react.svg"</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nt">hr</span><span class="p">&gt;&lt;/</span><span class="nt">hr</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">img</span>
+        <span class="na">className</span><span class="p">=</span><span class="si">{</span><span class="nx">clases</span><span class="p">.</span><span class="nx">imagenCenter</span><span class="si">}</span>
+        <span class="na">src</span><span class="p">=</span><span class="si">{</span><span class="nx">imagen</span><span class="si">}</span>
+        <span class="na">alt</span><span class="p">=</span><span class="si">{</span><span class="s2">`Imagen de </span><span class="p">${</span><span class="nx">titulo</span><span class="p">}</span><span class="s2">`</span><span class="si">}</span>
+      <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nt">hr</span><span class="p">&gt;&lt;/</span><span class="nt">hr</span><span class="p">&gt;</span>
+      <span class="si">{</span><span class="cm">/* {user ? &lt;MensajeOnline /&gt; : &lt;MensajeOffline /&gt;} */</span><span class="si">}</span>
+      <span class="p">&lt;</span><span class="nc">UserMensaje</span> <span class="na">usuario</span><span class="p">=</span><span class="si">{</span><span class="nx">user</span><span class="si">}</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nc">MiBoton</span>
+        <span class="na">text</span><span class="p">=</span><span class="s">"Boton 1"</span>
+        <span class="na">className</span><span class="p">=</span><span class="s">"btn btn-light m-3"</span>
+        <span class="na">handleClick</span><span class="p">=</span><span class="si">{</span><span class="nx">handleClick</span><span class="si">}</span>
+      <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nc">MiBoton</span>
+        <span class="na">text</span><span class="p">=</span><span class="s">"Boton 2"</span>
+        <span class="na">className</span><span class="p">=</span><span class="s">"btn btn-warning m-3"</span>
+        <span class="na">handleClick</span><span class="p">=</span><span class="si">{</span><span class="nx">handleClick</span><span class="si">}</span>
+      <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nc">MiBoton</span>
+        <span class="na">text</span><span class="p">=</span><span class="s">"Boton 3"</span>
+        <span class="na">className</span><span class="p">=</span><span class="s">"btn btn-success m-3"</span>
+        <span class="na">handleClick</span><span class="p">=</span><span class="si">{</span><span class="nx">handleClick</span><span class="si">}</span>
+      <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nc">MiBoton</span>
+        <span class="na">text</span><span class="p">=</span><span class="s">"Boton 4"</span>
+        <span class="na">className</span><span class="p">=</span><span class="s">"btn btn-danger m-3"</span>
+        <span class="na">handleClick</span><span class="p">=</span><span class="si">{</span><span class="nx">handleClick</span><span class="si">}</span>
+      <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nt">hr</span><span class="p">&gt;&lt;/</span><span class="nt">hr</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+        <span class="si">{</span><span class="nx">frutas</span><span class="p">.</span><span class="nf">map</span><span class="p">((</span><span class="nx">fruta</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="k">return </span><span class="p">(</span>
+            <span class="p">&lt;</span><span class="nt">li</span> <span class="na">key</span><span class="p">=</span><span class="si">{</span><span class="nx">index</span><span class="si">}</span><span class="p">&gt;</span>
+              <span class="si">{</span><span class="nx">index</span><span class="si">}</span> - <span class="si">{</span><span class="nx">fruta</span><span class="si">}</span>
+            <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+          <span class="p">);</span>
+        <span class="p">})</span><span class="si">}</span>
+      <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
+</pre></table></code></div></div></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw mr-1"></i> <a href='/categories/react/'>react</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw mr-1"></i> <a href="/tags/javascript/" class="post-tag no-text-decoration" >javascript</a> <a href="/tags/reactjs/" class="post-tag no-text-decoration" >reactjs</a> <a href="/tags/programacion/" class="post-tag no-text-decoration" >programacion</a></div><div class="post-tail-bottom d-flex justify-content-between align-items-center mt-3 pt-5 pb-2"><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper"> <span class="share-label text-muted mr-1">Share</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=ReactJS%20-%20parte%201%20-%20jrCoding%20Docs&url=https%3A%2F%2Fjrguevara.github.io%2Fposts%2FReactJS-parte-1%2F" data-toggle="tooltip" data-placement="top" title="Twitter" target="_blank" rel="noopener" aria-label="Twitter"> <i class="fa-fw fab fa-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=ReactJS%20-%20parte%201%20-%20jrCoding%20Docs&u=https%3A%2F%2Fjrguevara.github.io%2Fposts%2FReactJS-parte-1%2F" data-toggle="tooltip" data-placement="top" title="Facebook" target="_blank" rel="noopener" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https%3A%2F%2Fjrguevara.github.io%2Fposts%2FReactJS-parte-1%2F&text=ReactJS%20-%20parte%201%20-%20jrCoding%20Docs" data-toggle="tooltip" data-placement="top" title="Telegram" target="_blank" rel="noopener" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <i id="copy-link" class="fa-fw fas fa-link small" data-toggle="tooltip" data-placement="top" title="Copy link" data-title-succeed="Link copied successfully!"> </i> </span></div></div></div></div></div><div id="panel-wrapper" class="col-xl-3 pl-2 text-muted"><div class="access"><div id="access-lastmod" class="post"><div class="panel-heading">Recently Updated</div><ul class="post-content pl-0 pb-1 ml-1 mt-2"><li><a href="/posts/electron-recordatorios-app-parte-05-busqueda-filtros/">Electron - Recordatorios App | Parte 5 - Búsqueda y Filtros</a><li><a href="/posts/electron-recordatorios-app-parte-04-crud-recordatorios/">Electron - Recordatorios App | Parte 4 - CRUD de Recordatorios</a><li><a href="/posts/electron-recordatorios-app-parte-00-introduccion/">Electron - RecordatoriosApp | Parte 0 - Introducción al Tutorial</a><li><a href="/posts/electron-recordatorios-app-parte-01-configuracion-inicial/">Electron - Recordatorios App | Parte 1 - Configuración Inicial del Proyecto</a><li><a href="/posts/electron-recordatorios-app-parte-02-datos-almacenamiento/">Electron - Recordatorios App | Parte 2 - Datos y Almacenamiento</a></ul></div><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/programacion/">programacion</a> <a class="post-tag" href="/tags/javascript/">javascript</a> <a class="post-tag" href="/tags/reactjs/">reactjs</a> <a class="post-tag" href="/tags/nextjs/">nextjs</a> <a class="post-tag" href="/tags/ecommerce/">ecommerce</a> <a class="post-tag" href="/tags/electron/">electron</a> <a class="post-tag" href="/tags/desktop-app/">desktop-app</a> <a class="post-tag" href="/tags/tutorial/">tutorial</a> <a class="post-tag" href="/tags/frontend/">frontend</a> <a class="post-tag" href="/tags/fundamentos/">fundamentos</a></div></div></div><div id="toc-wrapper" class="pl-0 pr-4 mb-5"><div class="panel-heading pl-3 pt-2 mb-2">Contents</div><nav id="toc"></nav></div><script src="https://cdn.jsdelivr.net/npm/tocbot@4.20.1/dist/tocbot.min.js"></script></div></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 pl-3 pr-3 pr-xl-4 mt-5"><div id="related-posts" class="mb-2 mb-sm-4"><h3 class="pt-2 mb-4 ml-1" data-toc-skip>Further Reading</h3><div class="card-deck mb-4"><div class="card"> <a href="/posts/next-s3/"><div class="card-body"> <em class="small" data-ts="1716613200" data-df="DD/MM/YYYY" > 24/05/2024 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>NextJS + S3</h3><div class="text-muted small"><p> IAM Crear un grupo de usuarios en IAM  Crear grupo Adjuntar la politica AmazonS3FullAccess Politica S3 Crear un usuario en IAM Usuario IAM Agregar el usuario al grupo creado a...</p></div></div></a></div><div class="card"> <a href="/posts/NextJS-13-eCommerce-app-parte-1/"><div class="card-body"> <em class="small" data-ts="1695790800" data-df="DD/MM/YYYY" > 26/09/2023 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>NextJS 13 - eCommerce App - parte 1</h3><div class="text-muted small"><p> Configuración inicial https://ui.shadcn.com/ https://ui.shadcn.com/docs/installation/next Crear app de NextJS npx create-next-app@latest my-app --typescript --tailwind --eslint NextJS C...</p></div></div></a></div><div class="card"> <a href="/posts/NextJS-13-eCommerce-app-parte-2/"><div class="card-body"> <em class="small" data-ts="1695877200" data-df="DD/MM/YYYY" > 27/09/2023 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>NextJS 13 - eCommerce App - parte 2</h3><div class="text-muted small"><p> Modo Claro y Oscuro https://ui.shadcn.com/docs/dark-mode/next Instalar npm install next-themes Crear components/providers/theme-provider.tsx 1 2 3 4 5 6 7 8 9 10 &quot;use client&quot; import * as...</p></div></div></a></div></div></div><div class="post-navigation d-flex justify-content-between"> <a href="/posts/docker-parte-1/" class="btn btn-outline-primary" prompt="Older"><p>Docker</p></a> <a href="/posts/extension-vscode/" class="btn btn-outline-primary" prompt="Newer"><p>Extensión para Visual Studio Code</p></a></div></div></div></div><div id="search-result-wrapper" class="d-flex justify-content-center unloaded"><div class="col-12 col-sm-11 post-content"><div id="search-hints"><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/programacion/">programacion</a> <a class="post-tag" href="/tags/javascript/">javascript</a> <a class="post-tag" href="/tags/reactjs/">reactjs</a> <a class="post-tag" href="/tags/nextjs/">nextjs</a> <a class="post-tag" href="/tags/ecommerce/">ecommerce</a> <a class="post-tag" href="/tags/electron/">electron</a> <a class="post-tag" href="/tags/desktop-app/">desktop-app</a> <a class="post-tag" href="/tags/tutorial/">tutorial</a> <a class="post-tag" href="/tags/frontend/">frontend</a> <a class="post-tag" href="/tags/fundamentos/">fundamentos</a></div></div></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><footer><div class="container pl-lg-4 pr-lg-4"><div class="d-flex justify-content-between align-items-center text-muted ml-md-3 mr-md-3"><div class="footer-left"><p class="mb-0"> © 2025 <a href="https://github.com/jr.guevara">Jaime Guevara</a>. <span data-toggle="tooltip" data-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.">Some rights reserved.</span></p></div><div class="footer-right"><p class="mb-0">Powered by <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> with <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a> theme.</p></div></div></div></footer><div id="mask"></div><a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button"> <i class="fas fa-angle-up"></i> </a> <script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js"></script> <script> SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-lg-4 pr-lg-4 pl-xl-0 pr-xl-0"> <a href="{url}">{title}</a><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div><p>{snippet}</p></div>', noResultsText: '<p class="mt-5">Oops! No result founds.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="mr-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); </script> <script src="https://cdn.jsdelivr.net/combine/npm/magnific-popup@1/dist/jquery.magnific-popup.min.js,npm/lazysizes@5.3.2/lazysizes.min.js,npm/clipboard@2/dist/clipboard.min.js"></script> <script src="https://cdn.jsdelivr.net/combine/npm/dayjs@1/dayjs.min.js,npm/dayjs@1/locale/es.min.js,npm/dayjs@1/plugin/relativeTime.min.js,npm/dayjs@1/plugin/localizedFormat.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.bundle.min.js"></script> <script defer src="/unregister.js"></script>

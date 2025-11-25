@@ -1,0 +1,641 @@
+<!DOCTYPE html><html lang="es" data-mode="dark" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="viewport" content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover" ><meta name="generator" content="Jekyll v4.3.2" /><meta property="og:title" content="Electron - parte 1" /><meta property="og:locale" content="es" /><meta name="description" content="Introducción a Electron" /><meta property="og:description" content="Introducción a Electron" /><link rel="canonical" href="https://jrguevara.github.io/posts/electron-parte-1/" /><meta property="og:url" content="https://jrguevara.github.io/posts/electron-parte-1/" /><meta property="og:site_name" content="jrCoding Docs" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2022-11-10T23:00:00-06:00" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="Electron - parte 1" /><meta name="twitter:site" content="@twitter_username" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-10T23:00:00-06:00","datePublished":"2022-11-10T23:00:00-06:00","description":"Introducción a Electron","headline":"Electron - parte 1","mainEntityOfPage":{"@type":"WebPage","@id":"https://jrguevara.github.io/posts/electron-parte-1/"},"url":"https://jrguevara.github.io/posts/electron-parte-1/"}</script><title>Electron - parte 1 | jrCoding Docs</title><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="jrCoding Docs"><meta name="application-name" content="jrCoding Docs"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css"><link rel="stylesheet" href="/assets/css/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.20.1/dist/tocbot.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1/dist/magnific-popup.min.css"> <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script><body data-topbar-visible="true"><div id="sidebar" class="d-flex flex-column align-items-end"><div class="profile-wrapper text-center"><div id="avatar"> <a href="/" class="mx-auto"> <img src="/assets/images/me.png" alt="avatar" onerror="this.style.display='none'"> </a></div><div class="site-title"> <a href="/">jrCoding Docs</a></div><div class="site-subtitle font-italic">A Doc site for my projects</div></div><ul class="w-100"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i> <span>INICIO</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream ml-xl-3 mr-xl-3 unloaded"></i> <span>CATEGORIAS</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tag ml-xl-3 mr-xl-3 unloaded"></i> <span>TAGS</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive ml-xl-3 mr-xl-3 unloaded"></i> <span>ARCHIVOS</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle ml-xl-3 mr-xl-3 unloaded"></i> <span>ABOUT</span> </a></ul><div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center align-items-center"> <a href="https://github.com/jrguevara" aria-label="github" target="_blank" rel="noopener noreferrer"> <i class="fab fa-github"></i> </a> <a href="javascript:location.href = 'mailto:' + ['jr.guevara','outlook.com'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></div><div id="topbar-wrapper"><div id="topbar" class="container d-flex align-items-center justify-content-between h-100 pl-3 pr-3 pl-md-4 pr-md-4"> <span id="breadcrumb"> <span> <a href="/"> Inicio </a> </span> <span>Electron - parte 1</span> </span> <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i><div id="topbar-title"> Post</div><i id="search-trigger" class="fas fa-search fa-fw"></i> <span id="search-wrapper" class="align-items-center"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..."> </span> <span id="search-cancel" >Cancel</span></div></div><div id="main-wrapper" class="d-flex justify-content-center"><div id="main" class="container pl-xl-4 pr-xl-4"><div class="row"><div id="core-wrapper" class="col-12 col-lg-11 col-xl-9 pr-xl-4"><div class="post pl-1 pr-1 pl-md-2 pr-md-2"><h1 data-toc-skip>Electron - parte 1</h1><div class="post-meta text-muted"> <span> Posted <em class="" data-ts="1668142800" data-df="DD/MM/YYYY" data-toggle="tooltip" data-placement="bottom"> 10/11/2022 </em> </span><div class="d-flex justify-content-between"> <span> By <em> <a href="https://github.com/jr.guevara">Jaime Guevara</a> </em> </span><div> <span class="readtime" data-toggle="tooltip" data-placement="bottom" title="1519 words"> <em>8 min</em> read</span></div></div></div><div class="post-content"><h2 id="introducción-a-electron"><span class="mr-2">Introducción a Electron</span><a href="#introducción-a-electron" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>Electron es un marco para crear aplicaciones de escritorio utilizando JavaScript, HTML y CSS. Al incorporar Chromium y Node.js en su binario, Electron le permite mantener una base de código JavaScript y crear aplicaciones multiplataforma que funcionan en Windows, macOS y Linux, sin necesidad de experiencia en desarrollo nativo. <a href="https://www.electronjs.org/">Sitio Oficial</a></p><p><a href="/assets/images/electron.png" class="popup img-link "><img data-src="/assets/images/electron.png" alt="Electron" class="lazyload" data-proofer-ignore></a><em>Electron</em></p><ul><li>Iniciar proyecto con Node.js</ul><p><code class="language-plaintext highlighter-rouge">⁠npm init</code> </p><div class="language-powershell highlighter-rouge"><div class="code-header"> <span data-label-text="Powershell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre><span class="n">package</span><span class="w"> </span><span class="nx">name:</span><span class="w"> </span><span class="nx">app-electron</span><span class="w">
+</span><span class="n">version:</span><span class="w"> </span><span class="p">(</span><span class="mf">1.0</span><span class="o">.</span><span class="nf">0</span><span class="p">)</span><span class="w">
+</span><span class="n">description:</span><span class="w"> </span><span class="nx">app</span><span class="w"> </span><span class="nx">en</span><span class="w"> </span><span class="nx">electron</span><span class="w">
+</span><span class="n">entry</span><span class="w"> </span><span class="nx">point:</span><span class="w"> </span><span class="p">(</span><span class="n">index.js</span><span class="p">)</span><span class="w"> </span><span class="nx">main.js</span><span class="w">
+</span><span class="n">test</span><span class="w"> </span><span class="nx">command:</span><span class="w">
+</span><span class="n">git</span><span class="w"> </span><span class="nx">repository:</span><span class="w">
+</span><span class="n">keywords:</span><span class="w"> </span><span class="nx">electron</span><span class="p">,</span><span class="w"> </span><span class="nx">app</span><span class="p">,</span><span class="w"> </span><span class="nx">UNIVO</span><span class="w">
+</span><span class="n">author:</span><span class="w"> </span><span class="nx">Jaime</span><span class="w"> </span><span class="nx">Guevara</span><span class="w">
+</span><span class="n">license:</span><span class="w"> </span><span class="p">(</span><span class="n">ISC</span><span class="p">)</span><span class="w"> </span><span class="nx">MIT</span><span class="w">
+</span></pre></table></code></div></div><ul><li>Instalar dependencias <code class="language-plaintext highlighter-rouge">npm i electron</code><li>Crear <code class="language-plaintext highlighter-rouge">main.js</code></ul><div class="language-javascript highlighter-rouge"><div class="code-header"> <span data-label-text="JavaScript"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre><span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hola Mundo!</span><span class="dl">"</span><span class="p">)</span>
+
+</pre></table></code></div></div><ul><li>Modificar <code class="language-plaintext highlighter-rouge">package.json</code> </ul><div class="language-json highlighter-rouge"><div class="code-header"> <span data-label-text="JSON"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"app-electron"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"productName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"app-electron"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"app en electron"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"main"</span><span class="p">:</span><span class="w"> </span><span class="s2">"main.js"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"start"</span><span class="p">:</span><span class="w"> </span><span class="s2">"electron ."</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"keywords"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"electron"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"app"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"UNIVO"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jaime Guevara"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"license"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MIT"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></pre></table></code></div></div><ul><li>Ejecutar a aplicación con el comando <code class="language-plaintext highlighter-rouge">npm start</code> se detiene con Ctrl+C</ul><h2 id="electron-boilerplate"><span class="mr-2">Electron Boilerplate</span><a href="#electron-boilerplate" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li>Copiar contenido según se describa en la documentación oficial: <a href="https://www.electronjs.org/docs/latest">https://www.electronjs.org/docs/latest</a><li>Modificar <code class="language-plaintext highlighter-rouge">main.js</code></ul><div class="language-javascript highlighter-rouge"><div class="code-header"> <span data-label-text="JavaScript"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+</pre><td class="rouge-code"><pre><span class="kd">const</span> <span class="p">{</span> <span class="nx">app</span><span class="p">,</span> <span class="nx">BrowserWindow</span> <span class="p">}</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">electron</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">path</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="kd">function</span> <span class="nf">createWindow</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">win</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BrowserWindow</span><span class="p">({</span>
+    <span class="na">width</span><span class="p">:</span> <span class="mi">800</span><span class="p">,</span>
+    <span class="na">height</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+    <span class="na">webPreferences</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">preload</span><span class="p">:</span> <span class="nx">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">preload.js</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">})</span>
+
+  <span class="nx">win</span><span class="p">.</span><span class="nf">loadFile</span><span class="p">(</span><span class="dl">'</span><span class="s1">index.html</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nf">whenReady</span><span class="p">().</span><span class="nf">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nf">createWindow</span><span class="p">()</span>
+
+  <span class="nx">app</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">activate</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if </span><span class="p">(</span><span class="nx">BrowserWindow</span><span class="p">.</span><span class="nf">getAllWindows</span><span class="p">().</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nf">createWindow</span><span class="p">()</span>
+    <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">})</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">window-all-closed</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">if </span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">platform</span> <span class="o">!==</span> <span class="dl">'</span><span class="s1">darwin</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">app</span><span class="p">.</span><span class="nf">quit</span><span class="p">()</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+
+</pre></table></code></div></div><ul><li>Crear <code class="language-plaintext highlighter-rouge">preload.js</code></ul><div class="language-javascript highlighter-rouge"><div class="code-header"> <span data-label-text="JavaScript"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre><td class="rouge-code"><pre><span class="nb">window</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">DOMContentLoaded</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">replaceText</span> <span class="o">=</span> <span class="p">(</span><span class="nx">selector</span><span class="p">,</span> <span class="nx">text</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">element</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">getElementById</span><span class="p">(</span><span class="nx">selector</span><span class="p">)</span>
+        <span class="k">if </span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="nx">element</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="nx">text</span>
+    <span class="p">}</span>
+
+    <span class="k">for </span><span class="p">(</span><span class="kd">const</span> <span class="nx">type</span> <span class="k">of</span> <span class="p">[</span><span class="dl">'</span><span class="s1">chrome</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">node</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">electron</span><span class="dl">'</span><span class="p">])</span> <span class="p">{</span>
+        <span class="nf">replaceText</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">type</span><span class="p">}</span><span class="s2">-version`</span><span class="p">,</span> <span class="nx">process</span><span class="p">.</span><span class="nx">versions</span><span class="p">[</span><span class="nx">type</span><span class="p">])</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+
+</pre></table></code></div></div><ul><li>Crear <code class="language-plaintext highlighter-rouge">index.html</code></ul><div class="language-html highlighter-rouge"><div class="code-header"> <span data-label-text="HTML"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre><td class="rouge-code"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Hello World!<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"Content-Security-Policy"</span> <span class="na">content=</span><span class="s">"script-src 'self' 'unsafe-inline';"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>Hello World!<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;p&gt;</span>
+        We are using Node.js <span class="nt">&lt;span</span> <span class="na">id=</span><span class="s">"node-version"</span><span class="nt">&gt;&lt;/span&gt;</span>,
+        Chromium <span class="nt">&lt;span</span> <span class="na">id=</span><span class="s">"chrome-version"</span><span class="nt">&gt;&lt;/span&gt;</span>,
+        and Electron <span class="nt">&lt;span</span> <span class="na">id=</span><span class="s">"electron-version"</span><span class="nt">&gt;&lt;/span&gt;</span>.
+    <span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+
+<span class="nt">&lt;/html&gt;</span>
+
+</pre></table></code></div></div><ul><li>Personalizar el comportamiento de comprobación de sistema operativo Mac y uso de DevTools modificando el archivo <code class="language-plaintext highlighter-rouge">main.js</code></ul><div class="language-javascript highlighter-rouge"><div class="code-header"> <span data-label-text="JavaScript"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+</pre><td class="rouge-code"><pre><span class="kd">const</span> <span class="p">{</span> <span class="nx">app</span><span class="p">,</span> <span class="nx">BrowserWindow</span> <span class="p">}</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">electron</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">path</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">dev</span><span class="dl">'</span>
+
+<span class="kd">const</span> <span class="nx">isMAc</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">platform</span> <span class="o">!==</span> <span class="dl">'</span><span class="s1">darwin</span><span class="dl">'</span>
+<span class="kd">const</span> <span class="nx">isDev</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">!==</span> <span class="dl">'</span><span class="s1">production</span><span class="dl">'</span>
+
+<span class="kd">function</span> <span class="nf">createWindow</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">win</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BrowserWindow</span><span class="p">({</span>
+    <span class="na">width</span><span class="p">:</span> <span class="nx">isDev</span> <span class="p">?</span> <span class="mi">1200</span> <span class="p">:</span> <span class="mi">800</span><span class="p">,</span>
+    <span class="na">height</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+    <span class="na">webPreferences</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">preload</span><span class="p">:</span> <span class="nx">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">preload.js</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">})</span>
+
+  <span class="c1">//Abre DevTools si esta en env dev</span>
+  <span class="k">if </span><span class="p">(</span><span class="nx">isDev</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">win</span><span class="p">.</span><span class="nx">webContents</span><span class="p">.</span><span class="nf">openDevTools</span><span class="p">()</span>
+  <span class="p">}</span>
+
+  <span class="nx">win</span><span class="p">.</span><span class="nf">loadFile</span><span class="p">(</span><span class="dl">'</span><span class="s1">index.html</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nf">whenReady</span><span class="p">().</span><span class="nf">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nf">createWindow</span><span class="p">()</span>
+
+  <span class="nx">app</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">activate</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if </span><span class="p">(</span><span class="nx">BrowserWindow</span><span class="p">.</span><span class="nf">getAllWindows</span><span class="p">().</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nf">createWindow</span><span class="p">()</span>
+    <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">})</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">window-all-closed</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">isMAc</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">app</span><span class="p">.</span><span class="nf">quit</span><span class="p">()</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+
+</pre></table></code></div></div><ul><li>Establecer hotreload con el comando <code class="language-plaintext highlighter-rouge">npx electronmon .</code> esto instala un nuevo paquete. Se puede cambiar el script en el archivo <code class="language-plaintext highlighter-rouge">package.json</code> </ul><div class="language-json highlighter-rouge"><div class="code-header"> <span data-label-text="JSON"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"app-electron"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"productName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"app-electron"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"app en electron"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"main"</span><span class="p">:</span><span class="w"> </span><span class="s2">"main.js"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"start"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx electronmon ."</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"keywords"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"electron"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"app"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"UNIVO"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jaime Guevara"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"license"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MIT"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"dependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"electron"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^6.1.12"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></pre></table></code></div></div><h2 id="calculadora-en-electron"><span class="mr-2">Calculadora en Electron</span><a href="#calculadora-en-electron" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li>Crear un nuevo boilerplate de electron e instalar las dependencias</ul><div class="language-powershell highlighter-rouge"><div class="code-header"> <span data-label-text="Powershell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre><span class="n">npm</span><span class="w"> </span><span class="nx">init</span><span class="w">
+</span><span class="n">npm</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="nx">npx</span><span class="w"> </span><span class="nx">electronmon</span><span class="w">
+</span><span class="n">npm</span><span class="w"> </span><span class="nx">install</span><span class="w"> </span><span class="nt">--save-dev</span><span class="w"> </span><span class="nx">electron</span><span class="w">
+
+</span></pre></table></code></div></div><ul><li>Modificar <code class="language-plaintext highlighter-rouge">package.json</code> </ul><div class="language-json highlighter-rouge"><div class="code-header"> <span data-label-text="JSON"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calc-electron"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"productName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calc-electron"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calculadora en electron"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"main"</span><span class="p">:</span><span class="w"> </span><span class="s2">"main.js"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"start"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx electronmon ."</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"keywords"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jaime Guevara"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"license"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MIT"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"dependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"electron"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^21.2.3"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"electronmon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^2.0.2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"npx"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^10.2.2"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></pre></table></code></div></div><ul><li>Crear <code class="language-plaintext highlighter-rouge">main.js</code></ul><div class="language-javascript highlighter-rouge"><div class="code-header"> <span data-label-text="JavaScript"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+</pre><td class="rouge-code"><pre><span class="kd">const</span> <span class="p">{</span> <span class="nx">app</span><span class="p">,</span> <span class="nx">BrowserWindow</span> <span class="p">}</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">electron</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">path</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">dev</span><span class="dl">'</span>
+
+<span class="kd">const</span> <span class="nx">isMAc</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">platform</span> <span class="o">!==</span> <span class="dl">'</span><span class="s1">darwin</span><span class="dl">'</span>
+<span class="kd">const</span> <span class="nx">isDev</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">!==</span> <span class="dl">'</span><span class="s1">production</span><span class="dl">'</span>
+
+<span class="kd">function</span> <span class="nf">createMainWindow</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">mainWindow</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BrowserWindow</span><span class="p">({</span>
+    <span class="na">width</span><span class="p">:</span> <span class="nx">isDev</span> <span class="p">?</span> <span class="mi">1200</span> <span class="p">:</span> <span class="mi">350</span><span class="p">,</span>
+    <span class="na">height</span><span class="p">:</span> <span class="mi">800</span>
+  <span class="p">})</span>
+
+  <span class="c1">//Abre DevTools si esta en env dev</span>
+  <span class="k">if </span><span class="p">(</span><span class="nx">isDev</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">mainWindow</span><span class="p">.</span><span class="nx">webContents</span><span class="p">.</span><span class="nf">openDevTools</span><span class="p">()</span>
+  <span class="p">}</span>
+
+  <span class="nx">mainWindow</span><span class="p">.</span><span class="nf">loadFile</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">./renderer/index.html</span><span class="dl">'</span><span class="p">))</span>
+<span class="p">}</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nf">whenReady</span><span class="p">().</span><span class="nf">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nf">createMainWindow</span><span class="p">()</span>
+
+  <span class="nx">app</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">activate</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if </span><span class="p">(</span><span class="nx">BrowserWindow</span><span class="p">.</span><span class="nf">getAllWindows</span><span class="p">().</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nf">createMainWindow</span><span class="p">()</span>
+    <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">})</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">window-all-closed</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">isMAc</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">app</span><span class="p">.</span><span class="nf">quit</span><span class="p">()</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+
+</pre></table></code></div></div><ul><li>Crear carpeta renderer en el proyecto y copiar los archivos de la calculadora creada en JavaScript anteriormente<li>Modificar <code class="language-plaintext highlighter-rouge">renderer/index.html</code></ul><div class="language-html highlighter-rouge"><div class="code-header"> <span data-label-text="HTML"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre><td class="rouge-code"><pre>  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"X-UA-Compatible"</span> <span class="na">content=</span><span class="s">"ie=edge"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Calculadora - Vanilla JS<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"Content-Security-Policy"</span> <span class="na">content=</span><span class="s">"script-src 'self' 'unsafe-inline';"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"assets/css/style.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"icon"</span> <span class="na">type=</span><span class="s">"image/png"</span> <span class="na">sizes=</span><span class="s">"32x32"</span> <span class="na">href=</span><span class="s">"assets/img/favicon-32x32.png"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+
+</pre></table></code></div></div><ul><li>Modificar tamaño de venta y ocultar barra de menu modificando main.js</ul><div class="language-javascript highlighter-rouge"><div class="code-header"> <span data-label-text="JavaScript"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+</pre><td class="rouge-code"><pre><span class="kd">const</span> <span class="p">{</span> <span class="nx">app</span><span class="p">,</span> <span class="nx">BrowserWindow</span> <span class="p">}</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">electron</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">path</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">dev</span><span class="dl">'</span>
+
+<span class="kd">const</span> <span class="nx">isMAc</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">platform</span> <span class="o">!==</span> <span class="dl">'</span><span class="s1">darwin</span><span class="dl">'</span>
+<span class="kd">const</span> <span class="nx">isDev</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">!==</span> <span class="dl">'</span><span class="s1">production</span><span class="dl">'</span>
+
+<span class="kd">function</span> <span class="nf">createMainWindow</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">mainWindow</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BrowserWindow</span><span class="p">({</span>
+    <span class="na">width</span><span class="p">:</span> <span class="nx">isDev</span> <span class="p">?</span> <span class="mi">1200</span> <span class="p">:</span> <span class="mi">350</span><span class="p">,</span>
+    <span class="na">height</span><span class="p">:</span> <span class="nx">isDev</span> <span class="p">?</span> <span class="mi">800</span> <span class="p">:</span> <span class="mi">550</span>
+  <span class="p">})</span>
+
+  <span class="c1">//Abre DevTools si esta en env dev</span>
+  <span class="k">if </span><span class="p">(</span><span class="nx">isDev</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">mainWindow</span><span class="p">.</span><span class="nx">webContents</span><span class="p">.</span><span class="nf">openDevTools</span><span class="p">()</span>
+  <span class="p">}</span>
+
+  <span class="nx">mainWindow</span><span class="p">.</span><span class="nf">loadFile</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">./renderer/index.html</span><span class="dl">'</span><span class="p">))</span>
+  <span class="nx">mainWindow</span><span class="p">.</span><span class="nf">setMenuBarVisibility</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nf">whenReady</span><span class="p">().</span><span class="nf">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nf">createMainWindow</span><span class="p">()</span>
+
+  <span class="nx">app</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">ready</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if </span><span class="p">(</span><span class="nx">BrowserWindow</span><span class="p">.</span><span class="nf">getAllWindows</span><span class="p">().</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nf">createMainWindow</span><span class="p">()</span>
+    <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">})</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">window-all-closed</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">isMAc</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">app</span><span class="p">.</span><span class="nf">quit</span><span class="p">()</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+
+</pre></table></code></div></div><h3 id="empaquetado-con-electron-builder"><span class="mr-2">Empaquetado con Electron Builder</span><a href="#empaquetado-con-electron-builder" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><ul><li>Instalar dependencias</ul><div class="language-powershell highlighter-rouge"><div class="code-header"> <span data-label-text="Powershell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="n">npm</span><span class="w"> </span><span class="nx">install</span><span class="w"> </span><span class="nt">--save-dev</span><span class="w"> </span><span class="nx">electron-builder</span><span class="w">
+</span></pre></table></code></div></div><ul><li>Modificar <code class="language-plaintext highlighter-rouge">package.json</code></ul><div class="language-json highlighter-rouge"><div class="code-header"> <span data-label-text="JSON"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+</pre><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calc-electron"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"productName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calc-electron"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calculadora en electron"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"main"</span><span class="p">:</span><span class="w"> </span><span class="s2">"main.js"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"iniciar"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx electronmon ."</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"package"</span><span class="p">:</span><span class="w"> </span><span class="s2">"electron-builder --win"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"keywords"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jaime Guevara"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"license"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MIT"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"dependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"electronmon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^2.0.2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"npx"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^10.2.2"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"devDependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"electron"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^21.2.3"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"electron-builder"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^23.6.0"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></pre></table></code></div></div><ul><li>Ejecutar comando <code class="language-plaintext highlighter-rouge">npm run package</code></ul><h2 id="empaquetado-con-electron-forge"><span class="mr-2">Empaquetado con Electron Forge</span><a href="#empaquetado-con-electron-forge" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>Electron no tiene ninguna herramienta para empaquetado y distribución incluida en sus módulos principales. Una vez que tenga una aplicación Electron en funcionamiento en modo de desarrollo, debe usar herramientas adicionales para crear una aplicación empaquetada que pueda distribuir a sus usuarios (también conocida como distribuible). Los distribuibles pueden ser instaladores (p. ej., MSI en Windows) o archivos ejecutables portátiles (p. ej., .app en macOS).</p><p> Electron Forge es una herramienta todo en uno que maneja el empaquetado y la distribución de las aplicaciones de Electron. Bajo el capó, combina una gran cantidad de herramientas Electron existentes (por ejemplo, electron-packager, @electron/osx-sign, electron-winstaller, etc.) en una única interfaz para que no tenga que preocuparse por conectarlas todas juntas.</p><h3 id="importación-de-su-proyecto-en-forge"><span class="mr-2">Importación de su proyecto en Forge</span><a href="#importación-de-su-proyecto-en-forge" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><ul><li>Puede instalar la CLI de Electron Forge en las dependencias de desarrollo de su proyecto e importar su proyecto existente con un práctico script de conversión. </ul><div class="language-powershell highlighter-rouge"><div class="code-header"> <span data-label-text="Powershell"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre><span class="n">npm</span><span class="w"> </span><span class="nx">install</span><span class="w"> </span><span class="nt">--save-dev</span><span class="w"> </span><span class="err">@</span><span class="nx">electron-forge/cli</span><span class="w">
+</span><span class="n">npx</span><span class="w"> </span><span class="nx">electron-forge</span><span class="w"> </span><span class="nx">import</span><span class="w">
+
+</span></pre></table></code></div></div><ul><li>Una vez que se realiza el script de conversión, Forge debería haber agregado algunos scripts a su archivo <code class="language-plaintext highlighter-rouge">package.json</code> </ul><div class="language-json highlighter-rouge"><div class="code-header"> <span data-label-text="JSON"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+</pre><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calc-electron"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"productName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calc-electron"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calculadora en electron"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"main"</span><span class="p">:</span><span class="w"> </span><span class="s2">"main.js"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"iniciar"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx electronmon ."</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"start"</span><span class="p">:</span><span class="w"> </span><span class="s2">"electron-forge start"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"package"</span><span class="p">:</span><span class="w"> </span><span class="s2">"electron-forge package"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"make"</span><span class="p">:</span><span class="w"> </span><span class="s2">"electron-forge make"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"keywords"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jaime Guevara"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"license"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MIT"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"dependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"electron-squirrel-startup"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.0.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"electronmon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^2.0.2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"npx"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^10.2.2"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"devDependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"@electron-forge/cli"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^6.0.1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"@electron-forge/maker-deb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^6.0.1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"@electron-forge/maker-rpm"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^6.0.1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"@electron-forge/maker-squirrel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^6.0.1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"@electron-forge/maker-zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^6.0.1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"electron"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^21.2.3"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></pre></table></code></div></div><p>También debe notar que su <code class="language-plaintext highlighter-rouge">paquete.json</code> ahora tiene algunos paquetes más instalados en sus dependencias de desarrollo y contiene un campo config.forge agregado con una variedad de creadores configurados. Los creadores son complementos de Forge que crean distribuibles a partir de su código fuente. Debería ver varios fabricantes en la configuración precargada, uno para cada plataforma de destino.</p><h3 id="creando-un-distribuible"><span class="mr-2">Creando un distribuible</span><a href="#creando-un-distribuible" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><ul><li><p>Para crear un distribuible, use el nuevo script <code class="language-plaintext highlighter-rouge">make</code> de su proyecto, que ejecutando el comando <code class="language-plaintext highlighter-rouge">⁠npm run make</code></p><li><p>Este comando make contiene dos pasos:</p></ul><ol><li>Primero ejecutará el paquete de forja de electrones debajo del capó, que agrupa el código de su aplicación junto con el binario de Electron. El código empaquetado se genera en una carpeta.<li>Luego usará esta carpeta de aplicaciones empaquetadas para crear un distribuible separado para cada fabricante configurado.</ol><p>Después de que se ejecute el script, debería ver una carpeta de salida que contiene tanto el distribuible como una carpeta que contiene el código de la aplicación empaquetada.</p></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw mr-1"></i> <a href='/categories/electron/'>Electron</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw mr-1"></i> <a href="/tags/javascript/" class="post-tag no-text-decoration" >javascript</a> <a href="/tags/electron/" class="post-tag no-text-decoration" >electron</a> <a href="/tags/nodejs/" class="post-tag no-text-decoration" >nodeJS</a> <a href="/tags/programacion/" class="post-tag no-text-decoration" >programacion</a></div><div class="post-tail-bottom d-flex justify-content-between align-items-center mt-3 pt-5 pb-2"><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper"> <span class="share-label text-muted mr-1">Share</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=Electron%20-%20parte%201%20-%20jrCoding%20Docs&url=https%3A%2F%2Fjrguevara.github.io%2Fposts%2Felectron-parte-1%2F" data-toggle="tooltip" data-placement="top" title="Twitter" target="_blank" rel="noopener" aria-label="Twitter"> <i class="fa-fw fab fa-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=Electron%20-%20parte%201%20-%20jrCoding%20Docs&u=https%3A%2F%2Fjrguevara.github.io%2Fposts%2Felectron-parte-1%2F" data-toggle="tooltip" data-placement="top" title="Facebook" target="_blank" rel="noopener" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https%3A%2F%2Fjrguevara.github.io%2Fposts%2Felectron-parte-1%2F&text=Electron%20-%20parte%201%20-%20jrCoding%20Docs" data-toggle="tooltip" data-placement="top" title="Telegram" target="_blank" rel="noopener" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <i id="copy-link" class="fa-fw fas fa-link small" data-toggle="tooltip" data-placement="top" title="Copy link" data-title-succeed="Link copied successfully!"> </i> </span></div></div></div></div></div><div id="panel-wrapper" class="col-xl-3 pl-2 text-muted"><div class="access"><div id="access-lastmod" class="post"><div class="panel-heading">Recently Updated</div><ul class="post-content pl-0 pb-1 ml-1 mt-2"><li><a href="/posts/electron-recordatorios-app-parte-05-busqueda-filtros/">Electron - Recordatorios App | Parte 5 - Búsqueda y Filtros</a><li><a href="/posts/electron-recordatorios-app-parte-04-crud-recordatorios/">Electron - Recordatorios App | Parte 4 - CRUD de Recordatorios</a><li><a href="/posts/electron-recordatorios-app-parte-00-introduccion/">Electron - RecordatoriosApp | Parte 0 - Introducción al Tutorial</a><li><a href="/posts/electron-recordatorios-app-parte-01-configuracion-inicial/">Electron - Recordatorios App | Parte 1 - Configuración Inicial del Proyecto</a><li><a href="/posts/electron-recordatorios-app-parte-02-datos-almacenamiento/">Electron - Recordatorios App | Parte 2 - Datos y Almacenamiento</a></ul></div><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/programacion/">programacion</a> <a class="post-tag" href="/tags/javascript/">javascript</a> <a class="post-tag" href="/tags/reactjs/">reactjs</a> <a class="post-tag" href="/tags/nextjs/">nextjs</a> <a class="post-tag" href="/tags/ecommerce/">ecommerce</a> <a class="post-tag" href="/tags/electron/">electron</a> <a class="post-tag" href="/tags/desktop-app/">desktop-app</a> <a class="post-tag" href="/tags/tutorial/">tutorial</a> <a class="post-tag" href="/tags/frontend/">frontend</a> <a class="post-tag" href="/tags/fundamentos/">fundamentos</a></div></div></div><div id="toc-wrapper" class="pl-0 pr-4 mb-5"><div class="panel-heading pl-3 pt-2 mb-2">Contents</div><nav id="toc"></nav></div><script src="https://cdn.jsdelivr.net/npm/tocbot@4.20.1/dist/tocbot.min.js"></script></div></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 pl-3 pr-3 pr-xl-4 mt-5"><div id="related-posts" class="mb-2 mb-sm-4"><h3 class="pt-2 mb-4 ml-1" data-toc-skip>Further Reading</h3><div class="card-deck mb-4"><div class="card"> <a href="/posts/electron-parte-2/"><div class="card-body"> <em class="small" data-ts="1669957200" data-df="DD/MM/YYYY" > 01/12/2022 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>Electron - parte 2</h3><div class="text-muted small"><p> App redimensionador de imagenes Crear un nuevo boilerplate de electron e instalar las dependencias 1 2 3 4 5 npm init npm install resize-img toastify-js npm install --save-dev npx electron e...</p></div></div></a></div><div class="card"> <a href="/posts/backend-nodejs-parte-1/"><div class="card-body"> <em class="small" data-ts="1660366800" data-df="DD/MM/YYYY" > 12/08/2022 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>BackEnd con NodeJS - parte 1</h3><div class="text-muted small"><p> Stack de tecnologías Node.js Express MongoDB Configuración inicial npm init -y Este comando genera el archivo package.json { &quot;name&quot;: &quot;backend-todo-univo&quot;, &quot;version&quot;: &quot;1.0.0&quot;,...</p></div></div></a></div><div class="card"> <a href="/posts/backend-nodejs-parte-2/"><div class="card-body"> <em class="small" data-ts="1667624400" data-df="DD/MM/YYYY" > 04/11/2022 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>BackEnd con NodeJS - parte 2</h3><div class="text-muted small"><p> Generación y Autorización de JWT Transferir la generación del token a un archivo diferente utils/tokenManager.js  import jwt from &quot;jsonwebtoken&quot; export const generateToken = (uid) =&amp;gt; { ...</p></div></div></a></div></div></div><div class="post-navigation d-flex justify-content-between"> <a href="/posts/backend-nodejs-parte-2/" class="btn btn-outline-primary" prompt="Older"><p>BackEnd con NodeJS - parte 2</p></a> <a href="/posts/backend-nodejs-parte-3/" class="btn btn-outline-primary" prompt="Newer"><p>BackEnd con NodeJS - parte 3</p></a></div></div></div></div><div id="search-result-wrapper" class="d-flex justify-content-center unloaded"><div class="col-12 col-sm-11 post-content"><div id="search-hints"><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/programacion/">programacion</a> <a class="post-tag" href="/tags/javascript/">javascript</a> <a class="post-tag" href="/tags/reactjs/">reactjs</a> <a class="post-tag" href="/tags/nextjs/">nextjs</a> <a class="post-tag" href="/tags/ecommerce/">ecommerce</a> <a class="post-tag" href="/tags/electron/">electron</a> <a class="post-tag" href="/tags/desktop-app/">desktop-app</a> <a class="post-tag" href="/tags/tutorial/">tutorial</a> <a class="post-tag" href="/tags/frontend/">frontend</a> <a class="post-tag" href="/tags/fundamentos/">fundamentos</a></div></div></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><footer><div class="container pl-lg-4 pr-lg-4"><div class="d-flex justify-content-between align-items-center text-muted ml-md-3 mr-md-3"><div class="footer-left"><p class="mb-0"> © 2025 <a href="https://github.com/jr.guevara">Jaime Guevara</a>. <span data-toggle="tooltip" data-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.">Some rights reserved.</span></p></div><div class="footer-right"><p class="mb-0">Powered by <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> with <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a> theme.</p></div></div></div></footer><div id="mask"></div><a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button"> <i class="fas fa-angle-up"></i> </a> <script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js"></script> <script> SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-lg-4 pr-lg-4 pl-xl-0 pr-xl-0"> <a href="{url}">{title}</a><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div><p>{snippet}</p></div>', noResultsText: '<p class="mt-5">Oops! No result founds.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="mr-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); </script> <script src="https://cdn.jsdelivr.net/combine/npm/magnific-popup@1/dist/jquery.magnific-popup.min.js,npm/lazysizes@5.3.2/lazysizes.min.js,npm/clipboard@2/dist/clipboard.min.js"></script> <script src="https://cdn.jsdelivr.net/combine/npm/dayjs@1/dayjs.min.js,npm/dayjs@1/locale/es.min.js,npm/dayjs@1/plugin/relativeTime.min.js,npm/dayjs@1/plugin/localizedFormat.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.bundle.min.js"></script> <script defer src="/unregister.js"></script>
