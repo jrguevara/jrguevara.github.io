@@ -17,77 +17,39 @@ Implementar sistema de búsqueda en tiempo real y filtros por categoría, estado
 Agrega estas funciones en `renderer/js/core.js`:
 
 ```javascript
+
 // ===========================================
-// BÚSQUEDA Y FILTROS
+// FUNCIONES DE BÚSQUEDA Y FILTROS
 // ===========================================
 
-// Manejar búsqueda
-function handleSearch() {
-    const searchTerm = searchInput.value.trim();
-    
-    if (searchTerm) {
-        clearSearchBtn.style.display = 'block';
-    } else {
-        clearSearchBtn.style.display = 'none';
-    }
-    
-    renderReminders();
-}
-
-// Limpiar búsqueda
-function clearSearch() {
-    searchInput.value = '';
-    clearSearchBtn.style.display = 'none';
-    renderReminders();
-}
-
-// Limpiar todos los filtros
-function clearAllFilters() {
-    // Limpiar búsqueda
-    if (searchInput) {
-        searchInput.value = '';
-        if (clearSearchBtn) {
-            clearSearchBtn.style.display = 'none';
-        }
-    }
-    
-    // Restablecer filtros
-    const filterCategory = document.getElementById('filterCategory');
-    const filterStatus = document.getElementById('filterStatus');
-    const sortBy = document.getElementById('sortBy');
-    
-    if (filterCategory) filterCategory.value = '';
-    if (filterStatus) filterStatus.value = '';
-    if (sortBy) sortBy.value = 'newest';
-    
-    renderReminders();
-    showNotification('Filtros limpiados', 'info');
-}
-
-// Obtener recordatorios filtrados (actualizar esta función)
+// Obtener recordatorios filtrados
 function getFilteredReminders() {
-    const categoryFilter = document.getElementById('filterCategory')?.value || '';
-    const statusFilter = document.getElementById('filterStatus')?.value || '';
+    const categoryFilter = document.getElementById('filterCategory')?.value || 'all';
+    const statusFilter = document.getElementById('filterStatus')?.value || 'all';
     const sortBy = document.getElementById('sortBy')?.value || 'newest';
     const searchTerm = searchInput?.value.toLowerCase().trim() || '';
     
     // Aplicar filtros
     let filtered = reminders.filter(reminder => {
         // Filtro por categoría
-        const categoryMatch = !categoryFilter || reminder.category === categoryFilter;
+        const categoryMatch = categoryFilter === 'all' || reminder.category === categoryFilter;
         
         // Filtro por estado
-        let statusMatch = true;
-        if (statusFilter === 'pending') {
-            statusMatch = !reminder.completed;
+        let statusMatch;
+        if (statusFilter === 'all') {
+            statusMatch = true;
         } else if (statusFilter === 'completed') {
-            statusMatch = reminder.completed;
+            statusMatch = reminder.completed === true;
+        } else if (statusFilter === 'pending') {
+            statusMatch = reminder.completed !== true;
+        } else {
+            statusMatch = true;
         }
         
-        // Filtro por búsqueda
+        // Filtro por búsqueda de texto
         const searchMatch = !searchTerm || 
             reminder.title.toLowerCase().includes(searchTerm) ||
-            (reminder.description && reminder.description.toLowerCase().includes(searchTerm)) ||
+            reminder.description.toLowerCase().includes(searchTerm) ||
             reminder.category.toLowerCase().includes(searchTerm);
         
         return categoryMatch && statusMatch && searchMatch;
@@ -97,18 +59,216 @@ function getFilteredReminders() {
     filtered.sort((a, b) => {
         switch(sortBy) {
             case 'oldest':
-                return new Date(a.createdAt) - new Date(b.createdAt);
+                return new Date(a.dueDate || a.createdAt) - new Date(b.dueDate || b.createdAt);
+            case 'alphabetical':
+                return a.title.localeCompare(b.title);
+            case 'category':
+                return a.category.localeCompare(b.category);
             case 'priority':
                 const priorityOrder = { 'alta': 3, 'media': 2, 'baja': 1 };
-                return priorityOrder[b.priority] - priorityOrder[a.priority];
+                return (priorityOrder[b.priority] || 0) - (priorityOrder[a.priority] || 0);
             case 'dueDate':
-                if (!a.dueDate && !b.dueDate) return 0;
-                if (!a.dueDate) return 1;
-                if (!b.dueDate) return -1;
-                return new Date(a.dueDate) - new Date(b.dueDate);
+                const aDate = a.dueDate ? new Date(a.dueDate) : new Date('9999-12-31');
+                const bDate = b.dueDate ? new Date(b.dueDate) : new Date('9999-12-31');
+                return aDate - bDate;
             case 'newest':
             default:
-                return new Date(b.createdAt) - new Date(a.createdAt);
+                return new Date(b.dueDate || b.createdAt) - new Date(a.dueDate || a.createdAt);
+        }
+    });
+    
+    return filtered;
+}
+
+// Variable para el debounce de búsqueda
+let searchTimeout;
+
+// Manejar búsqueda con debounce
+function handleSearch() {
+    // Obtener elemento si no está disponible
+    if (!searchInput) {
+        searchInput = document.getElementById('searchInput');
+    }
+    
+    // Limpiar timeout anterior
+    if (searchTimeout) {
+        clearTimeout(searchTimeout);
+    }
+    
+    const term = searchInput ? searchInput.value.trim() : '';
+    
+    // Si el campo está vacío, ejecutar inmediatamente
+    if (!term) {
+        const clearBtn = clearSearchBtn || document.getElementById('clearSearch');
+        if (clearBtn) clearBtn.style.display = 'none';
+        renderReminders();
+        return;
+    }
+    
+    // Para búsquedas con texto, usar debounce
+    const clearBtn = clearSearchBtn || document.getElementById('clearSearch');
+    if (clearBtn) clearBtn.style.display = 'block';
+    
+    searchTimeout = setTimeout(() => {
+        renderReminders();
+    }, 200);
+}
+
+// Función de búsqueda inmediata (sin debounce)
+function handleSearchImmediate() {
+    // Obtener elemento si no está disponible
+    if (!searchInput) {
+        searchInput = document.getElementById('searchInput');
+    }
+    
+    const term = searchInput ? searchInput.value.trim() : '';
+    
+    const clearBtn = clearSearchBtn || document.getElementById('clearSearch');
+    if (term) {
+        if (clearBtn) clearBtn.style.display = 'block';
+    } else {
+        if (clearBtn) clearBtn.style.display = 'none';
+    }
+    
+    renderReminders();
+}
+
+// Limpiar búsqueda
+function clearSearch() {
+    // Obtener elemento si no está disponible
+    if (!searchInput) {
+        searchInput = document.getElementById('searchInput');
+    }
+    
+    if (searchInput) {
+        searchInput.value = '';
+        const clearBtn = clearSearchBtn || document.getElementById('clearSearch');
+        if (clearBtn) clearBtn.style.display = 'none';
+        renderReminders();
+        showNotification('Búsqueda limpiada', 'info');
+    }
+}
+
+// Limpiar todos los filtros
+function clearAllFilters() {
+    try {
+        // Limpiar búsqueda
+        if (searchInput) {
+            searchInput.value = '';
+            if (clearSearchBtn) clearSearchBtn.style.display = 'none';
+        }
+        
+        // Restablecer filtros
+        const filterCategory = document.getElementById('filterCategory');
+        const filterStatus = document.getElementById('filterStatus');
+        const sortBy = document.getElementById('sortBy');
+        
+        if (filterCategory) {
+            filterCategory.value = 'all';
+        }
+        
+        if (filterStatus) {
+            filterStatus.value = 'all';
+        }
+        
+        if (sortBy) {
+            sortBy.value = 'newest';
+        }
+        
+        renderReminders();
+        showNotification('Filtros limpiados', 'info');
+        
+    } catch (error) {
+        showNotification('Error al limpiar filtros', 'error');
+    }
+}
+
+// ===========================================
+// FUNCIONES DE FILTROS Y RENDERIZADO
+// ===========================================
+
+// Inicializar filtros en estado limpio al cargar la aplicación
+function initializeFilters() {
+    // Verificar que los elementos críticos estén disponibles
+    if (!remindersList || !emptyState) {
+        setTimeout(initializeFilters, 200);
+        return;
+    }
+    
+    // Obtener elementos de filtros
+    const filterCategory = document.getElementById('filterCategory');
+    const filterStatus = document.getElementById('filterStatus');
+    const sortBy = document.getElementById('sortBy');
+    
+    // Limpiar búsqueda si existe
+    if (searchInput) {
+        searchInput.value = '';
+        if (clearSearchBtn) {
+            clearSearchBtn.style.display = 'none';
+        }
+    }
+    
+    // Restablecer filtros a valores por defecto si existen
+    if (filterCategory) filterCategory.value = 'all';
+    if (filterStatus) filterStatus.value = 'all';
+    if (sortBy) sortBy.value = 'newest';
+    
+    // Renderizar recordatorios con filtros limpios
+    renderReminders();
+}
+
+// Obtener recordatorios filtrados
+function getFilteredReminders() {
+    const categoryFilter = document.getElementById('filterCategory')?.value || 'all';
+    const statusFilter = document.getElementById('filterStatus')?.value || 'all';
+    const sortBy = document.getElementById('sortBy')?.value || 'newest';
+    const searchTerm = searchInput?.value.toLowerCase().trim() || '';
+    
+    // Aplicar filtros
+    let filtered = reminders.filter(reminder => {
+        // Filtro por categoría
+        const categoryMatch = categoryFilter === 'all' || reminder.category === categoryFilter;
+        
+        // Filtro por estado
+        let statusMatch;
+        if (statusFilter === 'all') {
+            statusMatch = true;
+        } else if (statusFilter === 'completed') {
+            statusMatch = reminder.completed === true;
+        } else if (statusFilter === 'pending') {
+            statusMatch = reminder.completed !== true;
+        } else {
+            statusMatch = true;
+        }
+        
+        // Filtro por búsqueda de texto
+        const searchMatch = !searchTerm || 
+            reminder.title.toLowerCase().includes(searchTerm) ||
+            reminder.description.toLowerCase().includes(searchTerm) ||
+            reminder.category.toLowerCase().includes(searchTerm);
+        
+        return categoryMatch && statusMatch && searchMatch;
+    });
+    
+    // Aplicar ordenamiento
+    filtered.sort((a, b) => {
+        switch(sortBy) {
+            case 'oldest':
+                return new Date(a.dueDate || a.createdAt) - new Date(b.dueDate || b.createdAt);
+            case 'alphabetical':
+                return a.title.localeCompare(b.title);
+            case 'category':
+                return a.category.localeCompare(b.category);
+            case 'priority':
+                const priorityOrder = { 'alta': 3, 'media': 2, 'baja': 1 };
+                return (priorityOrder[b.priority] || 0) - (priorityOrder[a.priority] || 0);
+            case 'dueDate':
+                const aDate = a.dueDate ? new Date(a.dueDate) : new Date('9999-12-31');
+                const bDate = b.dueDate ? new Date(b.dueDate) : new Date('9999-12-31');
+                return aDate - bDate;
+            case 'newest':
+            default:
+                return new Date(b.dueDate || b.createdAt) - new Date(a.dueDate || a.createdAt);
         }
     });
     
@@ -130,10 +290,50 @@ function setupEventListeners() {
     
     // Búsqueda
     if (searchInput) {
-        searchInput.addEventListener('input', handleSearch);
+        // Evento principal de búsqueda (input para búsqueda en tiempo real)
+        searchInput.addEventListener('input', function(e) {
+            handleSearch();
+        });
+        
+        // Event listener de respaldo
+        searchInput.oninput = function() {
+            handleSearch();
+        };
+        
+        // Evento de keyup adicional
+        searchInput.addEventListener('keyup', function(e) {
+            handleSearch();
+        });
+        
+        // Eventos adicionales para mejor responsividad
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (searchTimeout) clearTimeout(searchTimeout);
+                handleSearchImmediate();
+            }
+            // Búsqueda inmediata al borrar (Backspace/Delete)
+            if (e.key === 'Backspace' || e.key === 'Delete') {
+                setTimeout(() => {
+                    handleSearchImmediate();
+                }, 50);
+            }
+        });
+        
+        // Evento para cuando el campo pierde el foco
+        searchInput.addEventListener('blur', function() {
+            handleSearchImmediate();
+        });
+    } else {
+        console.error('❌ searchInput no encontrado');
     }
     if (clearSearchBtn) {
         clearSearchBtn.addEventListener('click', clearSearch);
+        
+        // Event listener de respaldo
+        clearSearchBtn.onclick = function() {
+            clearSearch();
+        };
     }
     
     // Tema
@@ -148,16 +348,28 @@ function setupEventListeners() {
     const clearFiltersBtn = document.getElementById('clearFilters');
     
     if (filterCategory) {
-        filterCategory.addEventListener('change', renderReminders);
+        filterCategory.addEventListener('change', function(e) {
+            renderReminders();
+        });
     }
     if (filterStatus) {
-        filterStatus.addEventListener('change', renderReminders);
+        filterStatus.addEventListener('change', function(e) {
+            renderReminders();
+        });
     }
     if (sortBy) {
-        sortBy.addEventListener('change', renderReminders);
+        sortBy.addEventListener('change', function(e) {
+            renderReminders();
+        });
     }
     if (clearFiltersBtn) {
         clearFiltersBtn.addEventListener('click', clearAllFilters);
+        
+        // Event listener adicional de respaldo
+        clearFiltersBtn.onclick = function(e) {
+            e.preventDefault();
+            clearAllFilters();
+        };
     }
     
     // Modal
@@ -181,55 +393,229 @@ function setupEventListeners() {
         cancelBtn.addEventListener('click', resetForm);
     }
     
-    // Atajos de teclado
-    document.addEventListener('keydown', handleKeyboardShortcuts);
-}
-
-// Manejar atajos de teclado
-function handleKeyboardShortcuts(e) {
-    // Escape para cancelar
-    if (e.key === 'Escape') {
-        if (deleteModal.classList.contains('show')) {
-            closeDeleteModal();
-        } else if (editingId) {
-            resetForm();
-        }
+    // Tema
+    if (darkModeToggle) {
+        darkModeToggle.addEventListener('click', toggleTheme);
     }
     
-    // Ctrl/Cmd + K para enfocar búsqueda
-    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-        e.preventDefault();
-        searchInput.focus();
-    }
+    // Atajos de teclado
+    document.addEventListener('keydown', handleKeyboardShortcuts);
 }
 ```
 
 ## Paso 3: Actualizar init.js
 
-Modifica el final de `renderer/js/init.js`:
+Actualizar contenido completo de `renderer/js/init.js`:
 
 ```javascript
+// Inicializar elementos del DOM
+function initDOMElements() {
+    // Formulario y controles
+    reminderForm = document.getElementById('reminderForm');
+    submitBtn = document.getElementById('submitBtn');
+    cancelBtn = document.getElementById('cancelBtn');
+
+    // Sidebar
+    sidebar = document.getElementById('sidebar');
+
+    // Lista y estados
+    remindersList = document.getElementById('remindersList');
+    emptyState = document.getElementById('emptyState');
+
+    // Búsqueda
+    searchInput = document.getElementById('searchInput');
+    clearSearchBtn = document.getElementById('clearSearch');
+    
+    // Tema
+    darkModeToggle = document.getElementById('darkModeToggle');
+    
+    // Verificar elementos de filtros
+    const filterCategory = document.getElementById('filterCategory');
+    const filterStatus = document.getElementById('filterStatus'); 
+    const sortBy = document.getElementById('sortBy');
+    const clearFiltersBtn = document.getElementById('clearFilters');
+
+    // Modal
+    deleteModal = document.getElementById('deleteModal');
+    confirmDeleteBtn = document.getElementById('confirmDelete');
+    cancelDeleteBtn = document.getElementById('cancelDelete');
+    modalClose = document.getElementById('modalClose');
+    modalReminderTitle = document.getElementById('modalReminderTitle');
+}
+
 // Inicializar aplicación
 async function initApp() {
-    console.log('Iniciando aplicación...');
-    
+    // Inicializar elementos DOM
     initDOMElements();
+
+    // Cargar preferencias
     await loadPreferences();
+
+    // Aplicar tema
     applyTheme();
+
+    // Cargar recordatorios
     await loadReminders();
+
+    // Configurar event listeners
     setupEventListeners();
-    renderReminders();
     
-    console.log('Aplicación iniciada correctamente');
+    // Inicializar filtros
+    setTimeout(() => {
+        // Configurar event listeners de respaldo
+        const filterCategory = document.getElementById('filterCategory');
+        const filterStatus = document.getElementById('filterStatus');
+        const sortBy = document.getElementById('sortBy');
+        const searchField = document.getElementById('searchInput');
+        
+        if (filterCategory) {
+            filterCategory.onchange = function() {
+                renderReminders();
+            };
+        }
+        if (filterStatus) {
+            filterStatus.onchange = function() {
+                renderReminders();
+            };
+        }
+        if (sortBy) {
+            sortBy.onchange = function() {
+                renderReminders();
+            };
+        }
+        
+        if (searchField) {
+            searchField.oninput = function() {
+                handleSearch();
+            };
+        }
+        
+        renderReminders();
+    }, 200);
+
+    // Renderizar recordatorios iniciales
+    renderReminders();
+
+    // Hacer funciones disponibles globalmente para onclick
+    window.showDeleteModal = showDeleteModal;
+    window.editReminder = editReminder;
+    window.toggleReminder = toggleReminder;
 }
+
+// Aplicar tema
+function applyTheme() {
+    if (currentTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        if (darkModeToggle) {
+            darkModeToggle.querySelector('i').className = 'fas fa-sun';
+        }
+    } else {
+        document.body.classList.remove('dark-mode');
+        if (darkModeToggle) {
+            darkModeToggle.querySelector('i').className = 'fas fa-moon';
+        }
+    }
+}
+
+// Configurar event listeners básicos
+function setupEventListeners() {
+    // Tema
+    if (darkModeToggle) {
+        darkModeToggle.addEventListener('click', toggleTheme);
+    }
+
+    // Modal
+    if (cancelDeleteBtn) {
+        cancelDeleteBtn.addEventListener('click', closeDeleteModal);
+    }
+    if (modalClose) {
+        modalClose.addEventListener('click', closeDeleteModal);
+    }
+
+    // Cancelar edición
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', cancelEdit);
+    }
+}
+
+// Función para cancelar edición
+function cancelEdit() {
+    editingId = null;
+    reminderForm.reset();
+    submitBtn.innerHTML = '<i class="fas fa-plus"></i> Agregar';
+    submitBtn.className = 'btn btn-primary';
+    cancelBtn.classList.remove('show');
+    document.querySelector('.sidebar-header h2').textContent = 'Nuevo Recordatorio';
+}
+
+// Alternar tema
+async function toggleTheme() {
+    currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+    applyTheme();
+    await savePreference(THEME_KEY, currentTheme);
+}
+
+// Cerrar modal
+function closeDeleteModal() {
+    if (deleteModal) {
+        deleteModal.classList.remove('show');
+    }
+    reminderToDelete = null;
+}
+
+// Inicializar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', initApp);
+
 ```
 
 ## Paso 4: Actualizar index.html con los scripts
 
-Reemplaza la sección de scripts al final del `<body>`:
+Reemplaza la secciens siguientes del `<body>`:
 
 ```html
-    <!-- Scripts -->
+            <div class="search-bar">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Buscar recordatorios..." 
+                       oninput="handleSearch();" 
+                       onkeyup="handleSearch();">
+                <button class="btn-icon clear-search" id="clearSearch" style="display: none;" 
+                        onclick="clearSearch();">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Filtros -->
+            <div class="filters">
+                <select id="filterCategory" class="filter-select" onchange="renderReminders();">
+                    <option value="all">Todas las categorías</option>
+                    <option value="personal">Personal</option>
+                    <option value="trabajo">Trabajo</option>
+                    <option value="estudio">Estudio</option>
+                    <option value="salud">Salud</option>
+                    <option value="otro">Otro</option>
+                </select>
+                
+                <select id="filterStatus" class="filter-select" onchange="renderReminders();">
+                    <option value="all">Todos los estados</option>
+                    <option value="pending">Pendientes</option>
+                    <option value="completed">Completados</option>
+                </select>
+                
+                <select id="sortBy" class="filter-select" onchange="renderReminders();">
+                    <option value="newest">Más recientes</option>
+                    <option value="oldest">Más antiguos</option>
+                    <option value="alphabetical">Alfabético</option>
+                    <option value="category">Por categoría</option>
+                    <option value="priority">Por prioridad</option>
+                    <option value="dueDate">Por fecha límite</option>
+                </select>
+                
+                <button type="button" class="btn btn-secondary btn-sm" id="clearFilters" onclick="clearAllFilters();">
+                    <i class="fas fa-filter-circle-xmark"></i> Limpiar filtros
+                </button>
+            </div>
+
+                <!-- Scripts -->
     <script src="../js/variables.js"></script>
     <script src="../js/storage.js"></script>
     <script src="../js/core.js"></script>
@@ -283,9 +669,46 @@ Agrega estos estilos en `styles.css`:
 
 ## Paso 6: Actualizar estilos para estado vacío
 
-Mejora el diseño del estado vacío en `styles.css`:
+Mejora el diseño del estado vacío en `styles.css` y agregar clases de filtros y búsqueda:
 
 ```css
+/* Mejoras para filtros */
+.filter-select {
+    padding: 8px 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 14px;
+    background: white;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.filter-select:hover {
+    border-color: var(--primary-color);
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.btn-sm {
+    padding: 8px 15px;
+    font-size: 14px;
+}
+
+/* Indicador de búsqueda activa */
+.search-bar input:not(:placeholder-shown) {
+    border-color: var(--primary-color);
+}
+
+/* Estado de filtros activos */
+.filters .filter-select:not([value=""]) {
+    border-color: var(--primary-color);
+    background: rgba(102, 126, 234, 0.1);
+}
+
+
 /* Estado vacío mejorado */
 .empty-state {
     text-align: center;
@@ -310,6 +733,7 @@ Mejora el diseño del estado vacío en `styles.css`:
     font-size: 1rem;
     color: var(--text-secondary);
 }
+
 ```
 
 ## Paso 7: Agregar contador de resultados
@@ -317,38 +741,28 @@ Mejora el diseño del estado vacío en `styles.css`:
 Actualiza la función `renderReminders` en `core.js`:
 
 ```javascript
-// Renderizar lista de recordatorios (actualizar)
+// Renderizar lista de recordatorios
 function renderReminders() {
+    if (!remindersList) {
+        return;
+    }
+    
     const filtered = getFilteredReminders();
     
     if (filtered.length === 0) {
         remindersList.style.display = 'none';
-        emptyState.style.display = 'block';
-        
-        // Actualizar mensaje según contexto
-        const hasSearch = searchInput && searchInput.value.trim();
-        const hasFilters = document.getElementById('filterCategory')?.value || 
-                          document.getElementById('filterStatus')?.value;
-        
-        if (hasSearch || hasFilters) {
-            emptyState.querySelector('h3').textContent = 'No se encontraron resultados';
-            emptyState.querySelector('p').textContent = 'Intenta con otros filtros o búsqueda';
-        } else {
-            emptyState.querySelector('h3').textContent = 'No hay recordatorios';
-            emptyState.querySelector('p').textContent = 'Comienza creando tu primer recordatorio';
-        }
-        
+        if (emptyState) emptyState.style.display = 'block';
         return;
     }
     
     remindersList.style.display = 'grid';
-    emptyState.style.display = 'none';
+    if (emptyState) emptyState.style.display = 'none';
     
     remindersList.innerHTML = filtered.map(reminder => createReminderCard(reminder)).join('');
     updateStats();
 }
-```
 
+```
 ## Paso 8: Probar funcionalidad
 
 ```bash
