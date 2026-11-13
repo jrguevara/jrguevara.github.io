@@ -98,6 +98,13 @@ Si tu versión es distinta, no actualices globalmente el equipo para intentar co
 
 ### 1.2. Cómo se comunican las partes
 
+El diagrama muestra el recorrido de las solicitudes y separa los datos de usuarios de las sesiones. Corresponde al entorno local de esta entrega; Render y el paquete de escritorio se abordarán después.
+
+![Arquitectura local de GPB: React, proxy Vite+, API Express y MongoDB]({{ '/assets/images/gpb/guia-01/gpb-arquitectura-guia-1.png' | relative_url }})
+
+[Explorar el diagrama interactivo]({{ '/assets/diagrams/gpb/guia-01/gpb-arquitectura-guia-1.html' | relative_url }}) · [Abrir versión SVG]({{ '/assets/images/gpb/guia-01/gpb-arquitectura-guia-1.svg' | relative_url }})
+
+
 {% raw %}
 ```text
 Navegador: http://localhost:5173
@@ -435,6 +442,15 @@ Helmet configura encabezados de respuesta; express-rate-limit limita conjuntamen
 
 ### 3.5. Crear la aplicación y sus rutas
 
+#### Recorrido del registro
+
+Antes de escribir las rutas, sigue el recorrido de una cuenta nueva: preparar el token CSRF, validar los datos, guardar el hash y abrir una sesión. El registro exitoso también inicia sesión.
+
+![Secuencia de registro de GPB: CSRF, hash de contraseña, usuario y sesión]({{ '/assets/images/gpb/guia-01/gpb-registro-guia-1.png' | relative_url }})
+
+[Explorar el diagrama interactivo]({{ '/assets/diagrams/gpb/guia-01/gpb-registro-guia-1.html' | relative_url }}) · [Abrir versión SVG]({{ '/assets/images/gpb/guia-01/gpb-registro-guia-1.svg' | relative_url }})
+
+
 El archivo siguiente contiene la secuencia completa. Léelo en este orden: constantes y validadores; middleware de sesión/expiración; CSRF; registro/login; identidad/actividad/logout; respuestas de error. Los callbacks asíncronos aprovechan el manejo de errores de Express 5.
 
 ### Archivo `server/src/app.js`
@@ -590,6 +606,14 @@ Las lecturas de identidad no actualizan `lastActivity`. Un sondeo de fondo no de
 `resave: false` evita reescribir una sesión sin cambios; `saveUninitialized: false` evita guardarla hasta que tenga contenido. CSRF crea contenido en la sesión anónima deliberadamente. `rolling: false` evita que cada lectura vuelva a emitir una cookie con siete días completos.
 
 El middleware reduce el tiempo de cookie restante con respecto a `startedAt`. Actualizar actividad no desplaza el inicio absoluto. Las contraseñas no aparecen en las respuestas ni en los mensajes de error.
+
+#### Recorrido del acceso y cierre de sesión
+
+Al ingresar, la API comprueba la contraseña y regenera la sesión. Al reabrir la web consulta la identidad; al salir destruye la sesión. Los sondeos de identidad no prolongan el límite de inactividad. Las secuencias resumen el proxy y las operaciones repetitivas del middleware; no representan tiempos medidos.
+
+![Secuencia de inicio, persistencia y cierre de sesión de GPB]({{ '/assets/images/gpb/guia-01/gpb-acceso-guia-1.png' | relative_url }})
+
+[Explorar el diagrama interactivo]({{ '/assets/diagrams/gpb/guia-01/gpb-acceso-guia-1.html' | relative_url }}) · [Abrir versión SVG]({{ '/assets/images/gpb/guia-01/gpb-acceso-guia-1.svg' | relative_url }})
 
 ### 3.6. Conectar y arrancar el servidor
 
