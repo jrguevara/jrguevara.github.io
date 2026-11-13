@@ -10,15 +10,19 @@ comments: false
 hidden: false
 ---
 
-**Versión final comprobada · 12 de noviembre de 2026.**
+# GPB — Gunpla Personal Builds
 
-**Validación:** instrucciones reproducidas desde la preparación en una carpeta aislada, con comprobaciones locales y Atlas. Consulta el [informe de verificación]({{ '/assets/downloads/gpb/guia-01/etapas/01/VERIFICACION.md' | relative_url }}). La publicación queda a la espera de las indicaciones del docente.
+## Descripción del proyecto
 
-Código de referencia: commit `9900285` de la rama `main`, «Completa la etapa 1: configuración y autenticación». Las pruebas de la implementación se contrastaron con una reproducción independiente de los archivos y comandos de esta guía. Las aclaraciones finales afectan la documentación, sin cambios de código de aplicación. No se ha publicado la guía.
+**GPB — Gunpla Personal Builds** es una aplicación para organizar y llevar un registro personal de una colección de modelos a escala de Gunpla. Permite documentar cada modelo, guardar fotografías y dar seguimiento a su estado: **Sin armar, En progreso o Armado**.
 
-Plataforma de referencia: **macOS con Apple Silicon (arm64)**. Lenguaje: **JavaScript con ES Modules**. Interfaz: **español y modo oscuro**.
+Cada usuario cuenta con una colección privada donde puede registrar el nombre, grado, escala, descripción, notas y etiquetas de sus modelos. También puede agregar una portada, una galería de imágenes y un video de YouTube para complementar la información de cada construcción.
 
-Esta primera entrega construye la base del proyecto y su acceso de usuarios. Al terminar podrás crear una cuenta, iniciar sesión, entrar a una pantalla protegida, conservar la sesión al reabrir el navegador y cerrarla de forma que el servidor deje de aceptarla.
+Al iniciar sesión, un **dashboard con estadísticas y gráficos** presenta un resumen de la colección. La búsqueda por nombre y los filtros por grado, escala y estado facilitan encontrar los modelos registrados.
+
+El proyecto se desarrollará como parte de la materia **Desarrollo de Aplicaciones Multiplataforma**, utilizando el stack **MERN: MongoDB, Express, React y Node.js**. La interfaz tendrá un diseño oscuro construido con **shadcn/ui**, y posteriormente se integrará con **Electron** para crear una versión de escritorio para macOS con Apple Silicon.
+
+A lo largo de **seis guías progresivas**, construiremos la aplicación desde su configuración inicial y autenticación de usuarios hasta la publicación de la versión web y el empaquetado de escritorio. El objetivo es aprender a integrar una interfaz, una API, una base de datos y servicios de almacenamiento de imágenes en un mismo proyecto.
 
 ### Recorrido de la guía
 
@@ -51,8 +55,6 @@ Al finalizar esta entrega tendrás:
 - Inicio de sesión por correo y contraseña, cookie persistente y cierre de sesión con revocación en el servidor.
 - Navegación protegida, mensajes de carga/error y un dashboard inicial.
 - Pruebas reproducibles de validación, sesiones y transporte en navegador/Electron.
-
-**Hasta aquí llega la entrega:** «Mi colección» será una pantalla de continuación; no crearemos todavía modelos de Gunpla, catálogos, imágenes ni gráficos. El dashboard se completará con estadísticas en la guía 4.
 
 ### 1.1. Entorno requerido
 
