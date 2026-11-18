@@ -79,7 +79,7 @@ Separaremos las opciones de referencia de los registros personales. Un Gunpla gu
 
 ![Modelos de la colección]({{ '/assets/images/gpb/guia-02/gpb-datos-guia-2.png' | relative_url }})
 
-[Explorar el modelo interactivo]({{ '/assets/diagrams/gpb/guia-02/gpb-datos-guia-2.html' | relative_url }}) · [Versión SVG]({{ '/assets/images/gpb/guia-02/gpb-datos-guia-2.svg' | relative_url }})
+[Explorar el modelo interactivo]({{ '/assets/diagrams/gpb/guia-02/gpb-datos-guia-2.html?theme=dark' | relative_url }}) · [Versión SVG]({{ '/assets/images/gpb/guia-02/gpb-datos-guia-2.svg' | relative_url }})
 
 Las líneas son referencias de MongoDB, no restricciones de claves foráneas SQL. La existencia de las opciones se comprueba en la API. `owner` es obligatorio e inmutable; lo asigna el servidor. `createdAt` y `updatedAt` se generan mediante timestamps.
 
@@ -259,7 +259,7 @@ Nombre: 1–120 caracteres tras recortar espacios. Descripción y notas: opciona
 
 ![Creación y propiedad de un Gunpla]({{ '/assets/images/gpb/guia-02/gpb-coleccion-guia-2.png' | relative_url }})
 
-[Explorar la secuencia interactiva]({{ '/assets/diagrams/gpb/guia-02/gpb-coleccion-guia-2.html' | relative_url }}) · [Versión SVG]({{ '/assets/images/gpb/guia-02/gpb-coleccion-guia-2.svg' | relative_url }})
+[Explorar la secuencia interactiva]({{ '/assets/diagrams/gpb/guia-02/gpb-coleccion-guia-2.html?theme=dark' | relative_url }}) · [Versión SVG]({{ '/assets/images/gpb/guia-02/gpb-coleccion-guia-2.svg' | relative_url }})
 
 ### `server/src/collection-routes.js`
 

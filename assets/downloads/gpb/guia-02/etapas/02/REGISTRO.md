@@ -57,3 +57,7 @@ Sitio: se prepararon 18 archivos nuevos (entrada, recursos y adjuntos), sin modi
 El primer ensayo en una copia temporal sin .git compiló con avisos de falta de historial; la compilación definitiva se hizo desde el repositorio del sitio. Se desactivó su caché de disco para no modificar archivos generados fuera de la entrega. Revisión del artículo renderizado: dos diagramas interactivos, imágenes cargadas, escritorio y móvil; ancho de encabezados móvil 352 px dentro de viewport 390 px.
 
 Git: commit 86f4719 conserva la implementación inicial; e7ebbb7 añade guía, reproducción, diagramas y corrección editorial. Ambos enviados a origin/main de MERN-electron. El sitio recibió d2cc3cc83b4b4f5a941263633e5b475567179684, enviado a su origin/main. La comprobación de la publicación en línea se registra en PUBLICACION.md. No se crearon etiquetas.
+
+## Corrección visual — modo oscuro
+
+Por indicación del docente, se registró en AGENTS.md y PLANIFICACION.md que los diagramas, imágenes y capturas se entregan en modo oscuro. Se reexportaron los dos PNG y dos SVG de guía 2 mediante los controles nativos: visor oscuro y SVG · Oscuro. Se comprobó data-theme="dark" en ambos SVG y se revisaron ambos PNG. Los enlaces al visor incluyen ?theme=dark. Se actualizan sitio y paquete de traspaso, sin cambios de código de aplicación ni de guia-01.
