@@ -1,6 +1,6 @@
 ---
 title: GPB — Gunpla Personal Builds | Guía 2 - Gestión de la colección
-date: 2026-11-18
+date: 2026-11-12
 categories: [Electron, GPB]
 tags: [javascript, electron, reactjs, nodeJS, mongodb, tutorial]
 published: true
