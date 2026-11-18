@@ -38,6 +38,8 @@ La primera versión del comando de generación de secreto convirtió un escape d
 
 ## Alcance y limpieza
 
-Las pruebas locales usan adaptadores de memoria; las reales utilizan los modelos Mongoose y Atlas, incluida la entrada de API de producción en modo desarrollo. Las cuentas, sesiones y Gunpla temporales fueron eliminados; los catálogos compartidos permanecen como datos de la etapa. Se cerraron procesos y perfiles de pruebas. La copia temporal de reproducción se eliminará al cerrar la entrega, sin tocar las versiones conservadas.
+Las pruebas locales usan adaptadores de memoria; las reales utilizan los modelos Mongoose y Atlas, incluida la entrada de API de producción en modo desarrollo. Las cuentas, sesiones y Gunpla temporales fueron eliminados; los catálogos compartidos permanecen como datos de la etapa. Se cerraron procesos y perfiles de pruebas. La copia temporal de reproducción se eliminó al cerrar sus comprobaciones, incluido su .env independiente, sin tocar las versiones conservadas.
 
 No hay pendientes funcionales de etapa 2. Render/HTTPS y el paquete macOS corresponden a etapas 5/6. La prueba Electron no demuestra todavía una interfaz integrada ni un paquete.
+
+La corrección final de singular/plural se reprodujo también desde el Markdown y se repitieron check/build y los tres recorridos (5,3 s). La comparación final de los 15 bloques y el inventario SHA-256 aprobó.

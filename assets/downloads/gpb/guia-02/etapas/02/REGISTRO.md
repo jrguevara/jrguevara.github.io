@@ -34,7 +34,7 @@ No se instalaron dependencias nuevas: Express 5.3.0, Mongoose 9.12.0, Zod 4.6.7,
 - El primer intento de instalación restringido no pudo resolver el registro y eligió un almacén local. La repetición con acceso autorizado reutilizó el almacén existente; `.pnpm-store/` queda ignorado.
 - Un primer `pnpm test` se ejecutó por error desde la raíz y no pudo abrir un puerto por restricciones. No fue una comprobación de etapa 2. Se repitió desde guia-02 con acceso local autorizado: 12 aprobadas.
 - La primera revisión detectó formato en Collection.jsx e index.css; se corrigió con Vite+ antes de compilar. Dos intentos de escritura con rutas relativas a una carpeta incorrecta no cambiaron los archivos previstos; se corrigió la carpeta y se ejecutaron los comandos finales.
-- Atlas y reproducción de la guía: resultados finales se incorporarán tras completar esas comprobaciones. No se consideran aprobados por las pruebas de memoria.
+- Atlas y reproducción de la guía: aprobados; resultados finales en VERIFICACION.md. Las pruebas de memoria no sustituyeron esa evidencia.
 
 No se registran variables privadas, cookies ni tokens. Para las comprobaciones de esta sesión puede cargarse el archivo privado ya existente mediante Node sin copiarlo a guia-02; el verificador genera un secreto de sesión efímero propio. El estudiante configura su propio `.env`.
 
@@ -45,3 +45,15 @@ Carpeta: `gpb-dev/guia-02/server`. Comando real de esta sesión: `node --env-fil
 Resultado: código 0. Catálogos cargados dos veces con iguales ids y orden, 12 grados y 5 escalas. Registro desde React, persistencia del hash, creación de Gunpla con referencias reales, estado inicial, aislamiento de dos usuarios en listado/consulta/PUT/DELETE, reapertura de navegador y reinicio de API, persistencia del registro y sesión, edición a Armado, eliminación, rechazo de contraseña incorrecta, nuevo acceso y cierre de sesión aprobados. Sólo se limpiaron cuentas/sesiones/registros exclusivos de la prueba; los catálogos compartidos permanecen como datos iniciales de la etapa.
 
 El comando docente equivalente, una vez configurado su propio server/.env, es `pnpm --filter @gpb/server check:collection:atlas` desde guia-02. No sustituye las comprobaciones de Render ni del paquete macOS.
+
+## Cierre de reproducción y material docente
+
+Guía redactada por autorización expresa del docente y reproducida desde guía 1: 15 bloques transcritos, fuentes/lock iguales a guia-02. Se corrigió el comando del secreto para usar String.fromCharCode(10); la corrección de singular/plural en las tarjetas se transcribió también a la copia aislada y se repitieron check/build y los tres recorridos de transporte (3 aprobados, 5,3 s). Las 12 pruebas API y ambos verificadores reales Atlas ya habían pasado con la misma lógica de datos.
+
+Diagramas: ERD de colección y secuencia de creación, con fuentes del commit 86f4719; validación, procedencia y navegador aprobados. Ocho capturas automáticas y revisión visual documentada en DIAGRAMAS.md; PNG/SVG exportados mediante controles nativos.
+
+Sitio: se prepararon 18 archivos nuevos (entrada, recursos y adjuntos), sin modificar guía 1. Metadatos, filtros relative_url y bloques raw siguen el formato existente; los 15 bloques de archivo son idénticos a los de la guía. Ruby 3.2.2 y gems existentes, sin instalaciones ni cambios globales. Desde `/Users/jrguevara/Developer/jrguevara.github.io`: `PATH=/Users/jrguevara/.rubies/ruby-3.2.2/bin:$PATH bundle check` aprobado; `PATH=/Users/jrguevara/.rubies/ruby-3.2.2/bin:$PATH JEKYLL_ENV=production bundle exec jekyll build --disable-disk-cache --destination /private/tmp/gpb-guia02-site-build-final` aprobado; `PATH=/Users/jrguevara/.rubies/ruby-3.2.2/bin:$PATH bundle exec htmlproofer --disable-external --check-html --allow_hash_href /private/tmp/gpb-guia02-site-build-final` aprobó 130 archivos.
+
+El primer ensayo en una copia temporal sin .git compiló con avisos de falta de historial; la compilación definitiva se hizo desde el repositorio del sitio. Se desactivó su caché de disco para no modificar archivos generados fuera de la entrega. Revisión del artículo renderizado: dos diagramas interactivos, imágenes cargadas, escritorio y móvil; ancho de encabezados móvil 352 px dentro de viewport 390 px.
+
+Git: commit 86f4719 conserva la implementación inicial; e7ebbb7 añade guía, reproducción, diagramas y corrección editorial. Ambos enviados a origin/main de MERN-electron. El sitio recibió d2cc3cc83b4b4f5a941263633e5b475567179684, enviado a su origin/main. La comprobación de la publicación en línea se registra en PUBLICACION.md. No se crearon etiquetas.
