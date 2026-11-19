@@ -1875,6 +1875,80 @@ En el código de referencia ambas comprobaciones terminaron correctamente: clien
 
 La compilación no comprueba por sí sola registro, conexión Atlas o sesiones. Esas evidencias se obtienen con el recorrido anterior y las pruebas siguientes.
 
+### 6.5. Capturas de la app, formularios y vistas
+
+Estas capturas muestran la interfaz real de `gpb-dev/guia-01` en modo oscuro, con una cuenta ficticia y la API local de pruebas. El recorrido corresponde a configuración y autenticación: el CRUD de Gunpla comienza en la guía 2. Las comprobaciones con Atlas se documentan por separado. Puedes ampliar cada imagen con su enlace.
+
+**Formulario de inicio de sesión**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-01/app-autenticacion/inicio-sesion.png' | relative_url }}" alt="GPB guía 1 en modo oscuro: formulario de inicio de sesión." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>El acceso solicita correo y contraseña y ofrece un enlace para registrar una cuenta. <a href="{{ '/assets/images/gpb/guia-01/app-autenticacion/inicio-sesion.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+**Formulario de registro**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-01/app-autenticacion/registro.png' | relative_url }}" alt="GPB guía 1 en modo oscuro: formulario de registro." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>El registro solicita un nombre de usuario, correo y contraseña. Esta vista se capturó antes de introducir datos. <a href="{{ '/assets/images/gpb/guia-01/app-autenticacion/registro.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+**Inicio protegido después del registro**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-01/app-autenticacion/inicio-protegido.png' | relative_url }}" alt="GPB guía 1 en modo oscuro: inicio protegido después del registro." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>La cuenta ficticia accede a la bienvenida y a la navegación protegida. Las estadísticas del dashboard se incorporarán en la guía 4. <a href="{{ '/assets/images/gpb/guia-01/app-autenticacion/inicio-protegido.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+**Vista inicial de Mi colección**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-01/app-autenticacion/coleccion-prevista.png' | relative_url }}" alt="GPB guía 1 en modo oscuro: vista inicial de mi colección." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>En la guía 1 esta pantalla anuncia la gestión de Gunpla de la etapa 2. Todavía no contiene formularios ni operaciones CRUD de modelos. <a href="{{ '/assets/images/gpb/guia-01/app-autenticacion/coleccion-prevista.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+**Credenciales incorrectas**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-01/app-autenticacion/acceso-rechazado.png' | relative_url }}" alt="GPB guía 1 en modo oscuro: credenciales incorrectas." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>El servidor rechaza el intento con un mensaje comprensible. La contraseña de prueba se retiró del campo antes de tomar la captura. <a href="{{ '/assets/images/gpb/guia-01/app-autenticacion/acceso-rechazado.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+**Registro duplicado**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-01/app-autenticacion/registro-duplicado.png' | relative_url }}" alt="GPB guía 1 en modo oscuro: registro duplicado." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>El servidor rechaza volver a registrar el usuario o correo existentes. Los datos visibles pertenecen a una cuenta ficticia y el campo de contraseña está vacío. <a href="{{ '/assets/images/gpb/guia-01/app-autenticacion/registro-duplicado.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+**Resultado del cierre de sesión**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-01/app-autenticacion/cierre-sesion.png' | relative_url }}" alt="GPB guía 1 en modo oscuro: resultado del cierre de sesión." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>Después de salir se vuelve al formulario de acceso. En este recorrido también se comprobó que GET /api/auth/me devuelve 401; la imagen muestra la pantalla resultante. <a href="{{ '/assets/images/gpb/guia-01/app-autenticacion/cierre-sesion.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+**Acceso en móvil**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-01/app-autenticacion/inicio-sesion-movil.png' | relative_url }}" alt="GPB guía 1 en modo oscuro: acceso en móvil." loading="lazy" style="display: block; width: 100%; max-width: 390px; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>El formulario se adapta a una columna en una pantalla de 390 px de ancho. <a href="{{ '/assets/images/gpb/guia-01/app-autenticacion/inicio-sesion-movil.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+**Registro en móvil**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-01/app-autenticacion/registro-movil.png' | relative_url }}" alt="GPB guía 1 en modo oscuro: registro en móvil." loading="lazy" style="display: block; width: 100%; max-width: 390px; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>Los campos y las acciones de registro conservan su legibilidad y no producen desbordamiento horizontal. <a href="{{ '/assets/images/gpb/guia-01/app-autenticacion/registro-movil.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+**Pantalla protegida en móvil**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-01/app-autenticacion/inicio-protegido-movil.png' | relative_url }}" alt="GPB guía 1 en modo oscuro: pantalla protegida en móvil." loading="lazy" style="display: block; width: 100%; max-width: 390px; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>La navegación y el cierre de sesión permanecen disponibles en el inicio protegido de esta entrega. <a href="{{ '/assets/images/gpb/guia-01/app-autenticacion/inicio-protegido-movil.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
 ## 7. Incorporar las comprobaciones de la entrega
 
 Este apartado amplía las comprobaciones manuales con archivos de prueba. Usa el mismo código de aplicación; no agregamos funciones de colección ni estadísticas.
