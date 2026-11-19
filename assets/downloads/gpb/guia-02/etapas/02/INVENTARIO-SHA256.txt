@@ -42,5 +42,5 @@ ad6b2005572c199d75b39e2d112ecd0261a892f105257de3ce887fadb2b4885f  gpb-dev/guia-0
 079521f7b7429d50824409ad760f9e5497e314bf95b37c652480f4518c9c4ebb  gpb-dev/guia-02/tests/electron.spec.js
 61cedf6442162331dee532f2f1b9bd2ead3bdba13884af6bb9afce5e0e91f558  gpb-dev/guia-02/tests/local-api.js
 18085bd5388e9ec0432aa4f303fcaa1943d339a9331ff8d9e54199904ce3eb31  gpb-dev/guia-02/tests/web.spec.js
-40d57cd06131296eed77c83bcd4c50a32fabb25879775b3d551bf0f44526ec31  docs/guias/02-GESTION-DE-LA-COLECCION.md
+938a5ddb8b8211392253a92e0525d764d4907e59decac2db7290abbc5dc11c84  docs/guias/02-GESTION-DE-LA-COLECCION.md
 ba3747e06719c44977b8dd4d8c62276b7c348f9c7e9cf93e08d059ae8c3139ce  docs/etapas/02/codigo-etapa-2.zip

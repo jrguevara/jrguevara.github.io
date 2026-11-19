@@ -513,6 +513,66 @@ Reutilizamos Button, Input, Label y Card de la guía 1. Para selecciones y texto
 
 El formulario consulta `/api/catalogs`; las opciones no están duplicadas en React. Los tres estados son parte del dominio y se muestran en español. Un mismo componente recibe datos iniciales al editar y decide entre POST y PUT. Las respuestas de carga se descartan al abandonar la ruta para evitar que una petición anterior sustituya la pantalla actual. Ante un error de consulta se ofrece Reintentar; si faltan catálogos, se desactiva el formulario y se explica cómo cargarlos.
 
+### 4.1. Pantallas de la app y recorrido CRUD
+
+Las capturas muestran la versión de esta etapa en modo oscuro, con una cuenta ficticia y datos de demostración en el entorno local de pruebas. Las imágenes se pueden ampliar.
+
+
+**Colección en tarjetas**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-02/app-crud/coleccion-crud.png' | relative_url }}" alt="GPB guía 2 en modo oscuro: colección en tarjetas." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>Cada tarjeta presenta nombre, grado, escala y estado, con la portada de reemplazo de esta etapa. <a href="{{ '/assets/images/gpb/guia-02/app-crud/coleccion-crud.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+
+**Crear un Gunpla**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-02/app-crud/formulario-crear.png' | relative_url }}" alt="GPB guía 2 en modo oscuro: crear un gunpla." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>El formulario permite seleccionar grado y escala desde la API y registrar nombre, estado, descripción y notas. <a href="{{ '/assets/images/gpb/guia-02/app-crud/formulario-crear.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+
+**Consultar el detalle**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-02/app-crud/detalle-crud.png' | relative_url }}" alt="GPB guía 2 en modo oscuro: consultar el detalle." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>El detalle reúne los datos guardados y las acciones de edición y eliminación. <a href="{{ '/assets/images/gpb/guia-02/app-crud/detalle-crud.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+
+**Editar el registro**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-02/app-crud/formulario-editar.png' | relative_url }}" alt="GPB guía 2 en modo oscuro: editar el registro." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>Se reutiliza el formulario con los valores existentes; en este ejemplo se actualizan estado y notas. <a href="{{ '/assets/images/gpb/guia-02/app-crud/formulario-editar.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+
+**Confirmar la eliminación**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-02/app-crud/confirmar-eliminacion.png' | relative_url }}" alt="GPB guía 2 en modo oscuro: confirmar la eliminación." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>Antes de eliminar se identifica el registro y se permite confirmar o cancelar. <a href="{{ '/assets/images/gpb/guia-02/app-crud/confirmar-eliminacion.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+
+**Comprobar la eliminación**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-02/app-crud/coleccion-eliminada.png' | relative_url }}" alt="GPB guía 2 en modo oscuro: comprobar la eliminación." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>Al confirmar, el registro desaparece de la colección y se muestra el mensaje de éxito. <a href="{{ '/assets/images/gpb/guia-02/app-crud/coleccion-eliminada.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+
+**Vista móvil**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-02/app-crud/coleccion-crud-movil.png' | relative_url }}" alt="GPB guía 2 en modo oscuro: vista móvil." loading="lazy" style="display: block; width: 100%; max-width: 390px; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>Las tarjetas se adaptan a una sola columna y conservan las acciones principales. <a href="{{ '/assets/images/gpb/guia-02/app-crud/coleccion-crud-movil.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
 ### `client/src/collection/Collection.jsx`
 
 Este módulo reúne las pantallas de la entrega. El listado conserva la página en la URL, cada tarjeta abre el detalle y la eliminación requiere una confirmación explícita con opción de cancelar. Crear o actualizar abre el detalle con un mensaje de éxito; eliminar vuelve a la colección. Los errores de escritura conservan los valores del formulario.
