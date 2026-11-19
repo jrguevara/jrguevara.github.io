@@ -721,6 +721,74 @@ finally { await mongoose.disconnect(); }
 
 Las imágenes se administran después de guardar un Gunpla, desde su detalle. Así cada operación tiene un propietario y un identificador ya existentes. El formulario compartido conserva la edición de datos, etiquetas y video. Los estados de carga impiden duplicar acciones y cada eliminación pide confirmación.
 
+### 6.1. Pantallas de la app y recorrido CRUD
+
+Este recorrido muestra la interfaz de esta entrega en modo oscuro. Se utiliza una cuenta ficticia en el entorno local de pruebas y un recurso gráfico de demostración para la portada y la galería. Selecciona una captura para verla a tamaño completo.
+
+
+**Colección en tarjetas**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-03/app-crud/coleccion-crud.png' | relative_url }}" alt="GPB en modo oscuro: colección en tarjetas." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>Los modelos muestran nombre, grado, escala y estado. La portada subida convive con la portada de reemplazo de los registros sin imagen. <a href="{{ '/assets/images/gpb/guia-03/app-crud/coleccion-crud.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+
+**Crear un Gunpla**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-03/app-crud/formulario-crear.png' | relative_url }}" alt="GPB en modo oscuro: crear un gunpla." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>El formulario reúne datos del modelo, opciones de grado y escala consultadas desde la API, estado, etiquetas y enlace opcional de YouTube. Las fotografías se administran después de guardar. <a href="{{ '/assets/images/gpb/guia-03/app-crud/formulario-crear.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+
+**Consultar el detalle**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-03/app-crud/detalle-crud.png' | relative_url }}" alt="GPB en modo oscuro: consultar el detalle." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>Después de crear el registro, el detalle permite consultar sus datos, etiquetas, portada y galería, y acceder a la edición o eliminación. <a href="{{ '/assets/images/gpb/guia-03/app-crud/detalle-crud.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+
+**Administrar portada y galería**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-03/app-crud/gestion-imagenes.png' | relative_url }}" alt="GPB en modo oscuro: administrar portada y galería." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>Desde Fotografías se puede subir o sustituir la portada, agregar imágenes a la galería y solicitar su eliminación con confirmación. <a href="{{ '/assets/images/gpb/guia-03/app-crud/gestion-imagenes.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+
+**Editar el registro**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-03/app-crud/formulario-editar.png' | relative_url }}" alt="GPB en modo oscuro: editar el registro." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>El mismo formulario recupera los valores existentes. En este ejemplo se cambia el estado a Armado y se actualizan las notas y etiquetas. <a href="{{ '/assets/images/gpb/guia-03/app-crud/formulario-editar.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+
+**Confirmar la eliminación**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-03/app-crud/confirmar-eliminacion.png' | relative_url }}" alt="GPB en modo oscuro: confirmar la eliminación." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>La aplicación identifica el Gunpla y permite confirmar o cancelar antes de eliminarlo. <a href="{{ '/assets/images/gpb/guia-03/app-crud/confirmar-eliminacion.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+
+**Comprobar el resultado de eliminar**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-03/app-crud/coleccion-eliminada.png' | relative_url }}" alt="GPB en modo oscuro: comprobar el resultado de eliminar." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>Tras confirmar, se vuelve a la colección, se muestra el mensaje de éxito y el registro deja de aparecer. <a href="{{ '/assets/images/gpb/guia-03/app-crud/coleccion-eliminada.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+
+**Consultar la colección en móvil**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-03/app-crud/coleccion-crud-movil.png' | relative_url }}" alt="GPB en modo oscuro: consultar la colección en móvil." loading="lazy" style="display: block; width: 100%; max-width: 390px; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>Las tarjetas se adaptan a una sola columna y mantienen las acciones de navegación disponibles. <a href="{{ '/assets/images/gpb/guia-03/app-crud/coleccion-crud-movil.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
 ### `client/src/lib/api.js`
 
 FormData no debe recibir Content-Type manual: fetch aporta el boundary. Se conserva el token CSRF y se amplía a 60 s la espera de subida.

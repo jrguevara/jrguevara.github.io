@@ -25,7 +25,7 @@ b86b6f72677bf272509e7ebcc211e49af2e33b488f377440439de6dbd71cdebc  docs/etapas/03
 207048816715b64f61d925223bd8b9bf8412c2f551c75db1b91b97e78a6d9be9  docs/etapas/03/diagramas-publicacion/gpb-sustitucion-guia-3-visor.png
 924e0328a9da17da876d191b50820d6abe0a68ccd980c68c227ac1cd9ed92e4b  docs/etapas/03/diagramas-publicacion/gpb-sustitucion-guia-3.png
 ddc2bae4d097a802b02a096cc5ad870169717a1472248ab68fca66de4c0d2c9e  docs/etapas/03/diagramas-publicacion/gpb-sustitucion-guia-3.svg
-ef0c831aa43a78e207ed97f37b872e7f3193759d18476c11669219001bb99e6d  docs/guias/03-IMAGENES-Y-DETALLE-COMPLETO.md
+4afdcdc9d89c618fa341361e8c6d8f2628b4a932abdcf675e2e674a06f7f2d79  docs/guias/03-IMAGENES-Y-DETALLE-COMPLETO.md
 40ad2d98e8f260b4a3c0400ce91157c4fa2bd95c466ca214a704757bcafa8646  gpb-dev/README.md
 fa039f2e6704a10a764999af5f1e3141ff50dc72ac0497b41fae8b7f791c6728  gpb-dev/guia-03/.gitignore
 5c293036fc0a61ad76e15d85f454c3c7cec157e181e035b69f95058a2c239144  gpb-dev/guia-03/.node-version
