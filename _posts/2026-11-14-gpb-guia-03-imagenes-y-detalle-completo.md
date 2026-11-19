@@ -789,6 +789,66 @@ Este recorrido muestra la interfaz de esta entrega en modo oscuro. Se utiliza un
   <figcaption>Las tarjetas se adaptan a una sola columna y mantienen las acciones de navegación disponibles. <a href="{{ '/assets/images/gpb/guia-03/app-crud/coleccion-crud-movil.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
 </figure>
 
+### 6.2. Acceso, validación y vistas adicionales
+
+Estas ocho capturas amplían el recorrido anterior con pantallas de acceso, estados de la colección y formularios en móvil. Se obtuvieron desde la interfaz real con una cuenta ficticia y la API local de pruebas; las imágenes externas utilizan el recurso gráfico de demostración. No muestran credenciales ni acreditan nuevas pruebas de servicios remotos.
+
+**Registro de la cuenta**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-03/app-vistas/registro.png' | relative_url }}" alt="GPB en modo oscuro: registro de la cuenta." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>El formulario de registro, heredado de la guía 1, solicita usuario, correo y contraseña. La captura se tomó antes de introducir datos. <a href="{{ '/assets/images/gpb/guia-03/app-vistas/registro.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+**Inicio de sesión**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-03/app-vistas/inicio-sesion.png' | relative_url }}" alt="GPB en modo oscuro: inicio de sesión." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>La pantalla de acceso conserva correo y contraseña, junto con la navegación hacia el registro. No muestra datos de una cuenta personal. <a href="{{ '/assets/images/gpb/guia-03/app-vistas/inicio-sesion.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+**Inicio protegido**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-03/app-vistas/inicio-protegido.png' | relative_url }}" alt="GPB en modo oscuro: inicio protegido." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>Después de autenticar aparece el inicio protegido. En esta etapa muestra un saludo y un aviso; el dashboard con estadísticas corresponde a la guía 4. <a href="{{ '/assets/images/gpb/guia-03/app-vistas/inicio-protegido.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+**Colección vacía**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-03/app-vistas/coleccion-vacia.png' | relative_url }}" alt="GPB en modo oscuro: colección vacía." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>Cuando no hay modelos se muestra una acción para agregar el primero, sin tarjetas ni conteos de otros usuarios. <a href="{{ '/assets/images/gpb/guia-03/app-vistas/coleccion-vacia.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+**Validación del formulario**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-03/app-vistas/formulario-validacion.png' | relative_url }}" alt="GPB en modo oscuro: validación del formulario." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>Un enlace HTTPS de un dominio distinto de YouTube produce un error de validación del servidor y conserva el formulario para corregirlo. <a href="{{ '/assets/images/gpb/guia-03/app-vistas/formulario-validacion.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+**Confirmación para eliminar una fotografía**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-03/app-vistas/confirmar-imagen.png' | relative_url }}" alt="GPB en modo oscuro: confirmación para eliminar una fotografía." loading="lazy" style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>La eliminación de una imagen de galería requiere confirmación y permite cancelar sin retirarla. <a href="{{ '/assets/images/gpb/guia-03/app-vistas/confirmar-imagen.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+**Detalle completo en móvil**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-03/app-vistas/detalle-movil.png' | relative_url }}" alt="GPB en modo oscuro: detalle completo en móvil." loading="lazy" style="display: block; width: 100%; max-width: 390px; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>La portada, los datos, las etiquetas y la gestión de la galería se adaptan a una columna. Esta captura no contiene video de terceros. <a href="{{ '/assets/images/gpb/guia-03/app-vistas/detalle-movil.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
+**Formulario de edición en móvil**
+
+<figure style="margin: 1.5rem 0;">
+  <img src="{{ '/assets/images/gpb/guia-03/app-vistas/formulario-editar-movil.png' | relative_url }}" alt="GPB en modo oscuro: formulario de edición en móvil." loading="lazy" style="display: block; width: 100%; max-width: 390px; height: auto; margin: 0 auto; border-radius: 12px;" />
+  <figcaption>Los controles recuperan los valores guardados y se distribuyen verticalmente para editar desde una pantalla estrecha. <a href="{{ '/assets/images/gpb/guia-03/app-vistas/formulario-editar-movil.png' | relative_url }}" target="_blank" rel="noopener">Abrir captura completa</a></figcaption>
+</figure>
+
 ### `client/src/lib/api.js`
 
 FormData no debe recibir Content-Type manual: fetch aporta el boundary. Se conserva el token CSRF y se amplía a 60 s la espera de subida.
