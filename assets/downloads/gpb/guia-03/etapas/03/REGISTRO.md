@@ -75,3 +75,8 @@ Se añadió una prueba significativa de bloqueo vencido: una carga queda pendien
 Se corrigió la codificación UTF-8 del HTML que sustituye al video externo en la prueba de navegador. El recorrido de imágenes pasó en referencia (1/1, 4,0 s) y reproducción (1/1, 3,0 s), y se renovaron las capturas. No cambió la lógica de la aplicación.
 
 Se preparó el borrador del sitio como _drafts, sin fecha editorial y con published:false/hidden:true. Jekyll y HTML-Proofer aprobaron la salida temporal (134 páginas); revisión de 24 bloques, imágenes y enlaces locales en curso de cierre documental en PUBLICACION.md. La publicación de la aplicación en Render sigue fuera de esta etapa.
+
+
+## Publicación editorial autorizada
+
+19/11/2026: publicación de guía 3 autorizada con fecha editorial 14/11/2026. Sitio: commit ad79b7d, Automatic build 44613832685 y Pages 44613932023 aprobados. Página pública HTTP 200, 24 bloques idénticos y 12 recursos verificados. Detalles en PUBLICACION.md y evidencia inicial en COMPROBACION-PUBLICA.json. Se actualizan las descargas con el cierre documental; no se modifica código de aplicación ni se publica en Canvas.
