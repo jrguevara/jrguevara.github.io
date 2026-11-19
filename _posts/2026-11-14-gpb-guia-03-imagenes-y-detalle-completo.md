@@ -14,8 +14,6 @@ hidden: false
 
 En la guía 2 construimos una colección privada. Ahora cada Gunpla tendrá una portada, hasta ocho fotografías adicionales, etiquetas y un video opcional de YouTube. Mantendremos la propiedad, las sesiones, CSRF y las páginas de doce registros.
 
-**Estado:** guía reproducida desde la etapa 2, con comprobaciones locales y servicios reales Atlas/Cloudinary aprobadas. Consulta el [informe de verificación]({{ '/assets/downloads/gpb/guia-03/etapas/03/VERIFICACION.md' | relative_url }}). La publicación de esta guía corresponde al material docente; el despliegue de GPB pertenece a las etapas 5 y 6.
-
 ## Recorrido
 
 1. Crear una versión independiente desde guía 2.
